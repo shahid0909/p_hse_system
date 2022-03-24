@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class l_country extends Model
 {
 
-    protected $table = "l_country";
+    protected $table = "l_countries";
     protected $primaryKey = "id";
 
 }
