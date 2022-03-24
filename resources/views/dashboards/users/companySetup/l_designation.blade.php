@@ -58,85 +58,59 @@
                             </div>
 
                             <div class="card-body">
-                                <form method="POST" enctype="multipart/form-data" id="department"
-
+                                <form name="supplierForm" id="supplierForm" method="post"
                                       @if(isset($data->id))
-                                      action="{{ route('department.update', ['id' => $data->id]) }}">
+                                      action="{{ route('designation.editstore', ['id' => $data->id]) }}">
                                     <input name="_method" type="hidden" value="PUT">
                                     @else
-                                        action="{{ route('department.store')}}">
+                                        action="{{ route('designation.designationstore')}}">
                                     @endif
+
                                     @csrf
                                     <div class="row g-3 mb-3">
                                         <div class="col-sm-12">
                                             <label for="depone" class="form-label"
-                                            >Depertment Name</label
+                                            >Designation Name</label
                                             >
                                             <input type="text"
                                                    class="form-control"
-                                                   name="department_name"
-                                                   id="dept_name"
-                                                   value="{{isset($data->dept_name) ? $data->dept_name:''}}"
+                                                   id="depone"
+                                                   name="ds_name"
+                                                   value="{{isset($data->ds_name)? $data->ds_name: ''}}"
                                             />
                                         </div>
+
                                         <div class="col-sm-12">
-                                            <label for="depone" class="form-label"
-                                            >Depertment Location</label
-                                            >
+                                            <label for="depone" class="form-label">Rank</label>
                                             <input type="text"
                                                    class="form-control"
-                                                   name="dept_loc"
-                                                   id="dept_loc"
-                                                   value="{{isset($data->dept_loc) ? $data->dept_loc:''}}"
+                                                   id="depone"
+                                                   name="ds_rank"
+                                                   value="{{isset($data->ds_rank) ? $data->ds_rank:''}}"
                                             />
                                         </div>
+
                                         <div class="col-sm-12">
-                                            <label for="deptwophone" class="form-label"
-                                            >Phone</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="dept_phone"
-                                                name="dept_phone"
-                                                value="{{isset($data->dept_phone) ? $data->dept_phone:''}}"
-                                            />
+                                            <label for="depone" class="form-label">Status</label>
+                                            <select name="ds_status" id="" class="form-control">
+                                                <option value="#">Select</option>
+                                                @if(isset($data->ds_status) == 1)
+
+                                                    <option value="1" selected>Active</option>
+                                                    <option value="2">InActive</option>
+                                                @elseif(isset($data->ds_status)== 2)
+                                                    {{--                                                    <option value="1" >Active</option>--}}
+                                                    <option value="2" selected>InActive</option>
+                                                @else
+                                                    <option value="1">Active</option>
+                                                    <option value="2">InActive</option>
+                                                @endif
+
+                                            </select>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <label for="fileimg" class="form-label"
-                                            >Depertment Image</label
-                                            >
-                                            <input
-                                                type="File"
-                                                class="form-control"
-                                                id="depertment_image"
-                                                name="depertment_image"
-                                                value="{{isset($data->depertment_image) ? $data->depertment_image:''}}"
-                                            />
-                                        </div>
-
-                                        <div class=" col-sm-12">
-                                            <div class="form-group mt-2">
-                                                <div class="form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                           name="active_yn" id="active_y" value="Y" checked
-
-                                                    >
-                                                    <label class="form-check-label" for="active_y">
-                                                        Active
-                                                    </label>
-                                                </div>
-                                                <div class="form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="active_yn" id="active_n" value="N">
-                                                    <label class="form-check-label" for="active_n">
-                                                        In-Active
-                                                    </label>
-                                                </div>
-
-
-                                            </div></div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">
-                                        Add Contact
+                                        Add Designation
                                     </button>
                                 </form>
                             </div>
@@ -154,13 +128,11 @@
                                 >
                                     <thead>
                                     <tr>
-                                        <th>id</th>
-                                        <th>Department Name</th>
-                                        <th>Location</th>
-                                        <th>status</th>
-                                        <th>Image</th>
-                                        <th>Phone</th>
-                                        <th>Actions</th>
+                                        <th>Sl.</th>
+                                        <th>Designation Name</th>
+                                        <th>Rank</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -196,7 +168,7 @@
                         processing: true,
                         serverSide: true,
                         ajax: {
-                            url: "{{ route('department.datatable') }}",
+                            url: "{{ route('designation.datatable') }}",
                             type: 'GET',
                             'headers': {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -204,10 +176,8 @@
                         },
                         "columns": [
                             {"data": 'DT_RowIndex', "name": 'DT_RowIndex'},
-                            {"data": "depertment_name"},
-                            {"data": "depertment_location"},
-                            {"data": "phone"},
-                            {"data": "depertment_image"},
+                            {"data": "ds_name"},
+                            {"data": "ds_rank"},
                             {"data": "status"},
                             {data: 'action', name: 'action', orderable: false, searchable: false}
                         ],
@@ -222,4 +192,3 @@
             </script>
 
 @endsection
-
