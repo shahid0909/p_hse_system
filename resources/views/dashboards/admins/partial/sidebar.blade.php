@@ -19,6 +19,13 @@
 
             </li>
 
+            <li>
+                <a class="m-link" href="{{ route('safety_committee.index') }}"
+                ><i class="icofont-users fs-5"></i>
+                    <span>Safety Committee</span></a
+                >
+            </li>
+
             <li class="collapsed">
                 <a class="m-link  active"
                     data-bs-toggle="collapse"

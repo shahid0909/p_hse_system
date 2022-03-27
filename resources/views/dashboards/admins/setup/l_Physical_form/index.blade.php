@@ -25,18 +25,18 @@
 @endsection
 @section('content')
     <!-- sidebar -->
-    @include('dashboards.admins.partial.sidebar')
+{{--    @include('dashboards.admins.partial.sidebar')--}}
 
     <!-- main body area -->
-    <div class="main px-lg-4 px-md-4">
+{{--    <div class="main px-lg-4 px-md-4">--}}
         <!-- Body: Header -->
-        @include('dashboards.admins.partial.header')
+{{--        @include('dashboards.admins.partial.header')--}}
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
+{{--        @if ($message = Session::get('success'))--}}
+{{--            <div class="alert alert-success">--}}
+{{--                <p>{{ $message }}</p>--}}
+{{--            </div>--}}
+{{--        @endif--}}
         <div class="container">
             <div class="card ">
                 <h5 class="card-header bg-info-light"><b>Physical Form Entry</b></h5>
@@ -142,7 +142,7 @@
                 </div>
             </div>
         </div>
-    </div>
+{{--    </div>--}}
 
 
 

@@ -25,17 +25,17 @@
 @endsection
 @section('content')
     <!-- sidebar -->
-    @include('dashboards.admins.partial.sidebar')
+{{--    @include('dashboards.admins.partial.sidebar')--}}
 
     <!-- main body area -->
-    <div class="main px-lg-4 px-md-4">
+{{--    <div class="main px-lg-4 px-md-4">--}}
         <!-- Body: Header -->
-        @include('dashboards.admins.partial.header')
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
+{{--        @include('dashboards.admins.partial.header')--}}
+{{--        @if ($message = Session::get('success'))--}}
+{{--            <div class="alert alert-success">--}}
+{{--                <p>{{ $message }}</p>--}}
+{{--            </div>--}}
+{{--        @endif--}}
         <div class="container">
             <div class="card ">
                 <h5 class="card-header bg-info-light"><b>Health Hazard Entry</b></h5>
@@ -149,7 +149,7 @@
                 </div>
             </div>
         </div>
-    </div>
+{{--    </div>--}}
 
 
 
