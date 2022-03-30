@@ -46,123 +46,108 @@
     <!-- Body: Body -->
 @endsection
 @section('content')
-    <!-- sidebar -->
-    @include('dashboards.admins.partial.sidebar')
 
-    <!-- main body area -->
-    <div class="main px-lg-4 px-md-4">
-        <!-- Body: Header -->
-        @include('dashboards.admins.partial.header')
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
+    <div class="container">
+        <div class="card ">
+            <h5 class="card-header bg-info-light"><b>User Registration</b></h5>
+            <div class="card-body">
+
+                <form class="row g-1 p-3 p-md-4" method="POST" action="{{ route('usercreate.store') }}">
+                    @csrf
+                    <div class="col-12">
+                        <div class="mb-2">
+                            <label class="form-label">{{ __('Name') }}</label>
+                            <input type="text"
+                                   class="form-control inpcol @error('name') is-invalid @enderror"
+                                   placeholder="John"
+                                   id="name"
+                                   name="name" value="{{ old('name') }}" required autocomplete="off" autofocus
+                            >
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-2">
+                            <label class="form-label">{{ __('Email Address') }}</label>
+                            <input type="email"
+                                   id="email"
+                                   class="form-control inpcol @error('email') is-invalid @enderror"
+                                   name="email" value="{{ old('email') }}" required autocomplete="off"
+                                   placeholder="name@example.com">
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-2">
+                            <label class="form-label">User Role</label>
+                            <select class="form-control inpcol" name="role" id="role">
+                                <option value="1">Admin</option>
+                                <option value="2">User</option>
+                            </select>
+                            @error('user_role')
+                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-2">
+                            <label class="form-label" for="password">{{ __('Password') }}</label>
+                            <input type="password"
+                                   id="password"
+                                   class="form-control inpcol @error('password') is-invalid @enderror"
+                                   name="password" required autocomplete="off"
+                                   placeholder="8+ characters required">
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-2">
+                            <label class="form-label">{{ __('Confirm Password') }}</label>
+                            <input type="password"
+                                   id="confirm_password"
+                                   class="form-control inpcol"
+                                   name="confirm_password" required autocomplete="off"
+                                   placeholder="8+ characters required">
+                            <i class="icofont-warning warning-info-icon" data-toggle="tooltip" data-placement="top" title="Tooltip on top" style="display: none"></i>
+                            <i class="icofont-tick-mark success-info-icon" style="display: none"></i>
+                        </div>
+                    </div>
+                    {{--                                <div class="col-12">--}}
+                    {{--                                    <div class="form-check">--}}
+                    {{--                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
+                    {{--                                        <label class="form-check-label" for="flexCheckDefault">--}}
+                    {{--                                            I accept the <a href="#" title="Terms and Conditions" class="text-secondary">Terms and Conditions</a>--}}
+                    {{--                                        </label>--}}
+                    {{--                                    </div>--}}
+                    {{--                                </div>--}}
+                    <div style="margin-top: 7px;" id="CheckPasswordMatch"></div>
+                    <div class="col-12 text-center mt-4">
+                        <button type="submit"
+                                class="btn btn-lg btn-block btn-light lift text-uppercase btn-primary">{{ __('Save') }}</button>
+                    </div>
+
+                </form>
             </div>
-        @endif
-        <div class="container">
-            <div class="card ">
-                <h5 class="card-header bg-info-light"><b>User Registration</b></h5>
-                <div class="card-body">
-
-                    <form class="row g-1 p-3 p-md-4" method="POST" action="{{ route('usercreate.store') }}">
-                        @csrf
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <label class="form-label">{{ __('Name') }}</label>
-                                <input type="text"
-                                       class="form-control inpcol @error('name') is-invalid @enderror"
-                                       placeholder="John"
-                                       id="name"
-                                       name="name" value="{{ old('name') }}" required autocomplete="off" autofocus
-                                >
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <label class="form-label">{{ __('Email Address') }}</label>
-                                <input type="email"
-                                       id="email"
-                                       class="form-control inpcol @error('email') is-invalid @enderror"
-                                       name="email" value="{{ old('email') }}" required autocomplete="off"
-                                       placeholder="name@example.com">
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <label class="form-label">User Role</label>
-                                <select class="form-control inpcol" name="role" id="role">
-                                    <option value="1">Admin</option>
-                                    <option value="2">User</option>
-                                </select>
-                                @error('user_role')
-                                <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <label class="form-label" for="password">{{ __('Password') }}</label>
-                                <input type="password"
-                                       id="password"
-                                       class="form-control inpcol @error('password') is-invalid @enderror"
-                                       name="password" required autocomplete="off"
-                                       placeholder="8+ characters required">
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <label class="form-label">{{ __('Confirm Password') }}</label>
-                                <input type="password"
-                                       id="confirm_password"
-                                       class="form-control inpcol"
-                                       name="confirm_password" required autocomplete="off"
-                                       placeholder="8+ characters required">
-                                <i class="icofont-warning warning-info-icon" data-toggle="tooltip" data-placement="top" title="Tooltip on top" style="display: none"></i>
-                                <i class="icofont-tick-mark success-info-icon" style="display: none"></i>
-                            </div>
-                        </div>
-                        {{--                                <div class="col-12">--}}
-                        {{--                                    <div class="form-check">--}}
-                        {{--                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
-                        {{--                                        <label class="form-check-label" for="flexCheckDefault">--}}
-                        {{--                                            I accept the <a href="#" title="Terms and Conditions" class="text-secondary">Terms and Conditions</a>--}}
-                        {{--                                        </label>--}}
-                        {{--                                    </div>--}}
-                        {{--                                </div>--}}
-                        <div style="margin-top: 7px;" id="CheckPasswordMatch"></div>
-                        <div class="col-12 text-center mt-4">
-                            <button type="submit"
-                                    class="btn btn-lg btn-block btn-light lift text-uppercase btn-primary">{{ __('Save') }}</button>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-            <br>
-            <br>
-            <br>
-
         </div>
+        <br>
+        <br>
+        <br>
+
     </div>
-
-
-
 
 @endsection
 @section('script')
