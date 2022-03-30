@@ -24,12 +24,12 @@
 @endsection
 @section('content')
     <!-- sidebar -->
-{{--    @include('dashboards.admins.partial.sidebar')--}}
+    @include('dashboards.admins.partial.sidebar')
 
     <!-- main body area -->
-{{--    <div class="main px-lg-4 px-md-4">--}}
+    <div class="main px-lg-4 px-md-4">
         <!-- Body: Header -->
-{{--        @include('dashboards.admins.partial.header')--}}
+        @include('dashboards.admins.partial.header')
 
         <div class="container">
             <div class="card ">
@@ -148,7 +148,7 @@
                 </div>
             </div>
         </div>
-{{--    </div>--}}
+    </div>
 
 
 

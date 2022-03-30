@@ -7,22 +7,54 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\create_inspection;
 use Illuminate\Support\Facades\DB;
+use App\Models\l_employee;
+use App\Models\l_country;
 
 
 class CreateIspectionController extends Controller
 {
-      public function index()
+
+    private $create_inspection;
+
+
+    public function __construct(create_inspection $create_inspection)
     {
-        $user = Auth::user();
-        $data = null;
-        return view('dashboards.users.workplaceInspection.create_inspection', compact('user','data'));
+        $this->create_inspection = $create_inspection;
 
     }
+
+
+
+    public function index()
+    {
+
+        $user = Auth::user();
+        $emp = l_employee::all();
+        $country = l_country::all();
+
+        $data = '';
+
+        $inspection = DB::table('create_inspections')
+            ->join('l_employees','create_inspections.pic','l_employees.id')
+            ->join('l_country','create_inspections.location','l_country.id')
+
+
+            ->select('create_inspections.*','l_employees.em_name','l_country.country')->get();
+
+
+        return view('dashboards.users.workplaceInspection.create_inspection', compact('user','data','emp','inspection','country'));
+
+    }
+
 
     public function store(Request $request)
 
     {
-      // dd($request);
+
+
+
+        // dd($request);
+
         $this->validate($request, [
             'location' => 'required',
             'pic' => 'required',
@@ -33,10 +65,11 @@ class CreateIspectionController extends Controller
             'targetdate' => 'required',
             'priority' => 'required',
 
+
         ]);
 
         $input = new create_inspection;
-       // dd($input);
+        // dd($input);
 
         $input->location = $request->input('location');
         $input->pic = $request->input('pic');
@@ -48,12 +81,15 @@ class CreateIspectionController extends Controller
         $input->priority = $request->input('priority');
 
 
+
+
         if ($image = $request->file('image')) {
             $destinationPath = 'image/workplace';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
         }
+
 
         if ($input->save()) {
 
@@ -62,15 +98,23 @@ class CreateIspectionController extends Controller
 
     }
 
-     public function datatable()
-     {
+    public function datatable()
+    {
 
-          $list = create_inspection::orderby('id','desc')->get();
+        $inspection = create_inspection::with('country', 'employee')->get();
 
-        return datatables()
-            ->of($list)
-
-             ->addColumn('image', function ($query) {
+        return datatables()->of($inspection)
+//
+            ->addColumn('priority', function($query){
+                if ($query->priority == '0') {
+                    return 'Urgent';
+                }elseif ($query->priority == '1') {
+                    return '1 or 2 Days';
+                }else{
+                    return '1 Week More';
+                }
+            })
+            ->addColumn('image', function ($query) {
                 $url=asset("image/workplace/$query->image");
                 return '<img src='.$url.' border="0" width="40"  class="img-rounded" align="center" />';
             })
@@ -78,18 +122,18 @@ class CreateIspectionController extends Controller
                 return '<a href="' . route('create_ispection.edit', $query['id']) . '" class=""><i class="icofont-edit"></i></a> ||
                 <a href="' . route('create_ispection.destroy', $query['id']) . '" class="" onclick="return confirm(\'Are You Sure You Want To Delete This Item?\')"> <i class="icofont-delete-alt"></i></a>';
             })
-              ->addIndexColumn()
+            ->addIndexColumn()
             ->escapeColumns('image')
             ->make();
 
 
-     }
+    }
 
 
-  public function  edit($id){
+    public function  edit($id){
 
-     $user = Auth::user();
-      $data = create_inspection::where('id', $id)->first();
+        $user = Auth::user();
+        $data = create_inspection::where('id', $id)->first();
 
         return view('dashboards.users.workplaceInspection.create_inspection', compact('data','user'));
     }
@@ -102,11 +146,11 @@ class CreateIspectionController extends Controller
         $input = create_inspection::find($id);
         $input->location = $request->input('location');
         $input->pic = $request->input('pic');
-         $input->unsafe = $request->input('unsafe');
+        $input->unsafe = $request->input('unsafe');
         $input->text = $request->input('text');
-         $input->Justification = $request->input('Justification');
+        $input->Justification = $request->input('Justification');
         $input->admitdate = $request->input('admitdate');
-         $input->targetdate = $request->input('targetdate');
+        $input->targetdate = $request->input('targetdate');
         $input->priority = $request->input('priority');
 
 
@@ -126,8 +170,8 @@ class CreateIspectionController extends Controller
     }
 
 
-     public function destroy(Request $request,$id)
-         {
+    public function destroy(Request $request,$id)
+    {
 
 
         $list = create_inspection::findOrFail($id);
@@ -139,7 +183,7 @@ class CreateIspectionController extends Controller
             $list->delete();
             return redirect()->back()->with('success', 'inspection information successfully deleted.');
         }
-         }
+    }
 
 
 

@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\AdminA\ChemicalController;
 use App\Http\Controllers\Admin\AdminA\ChemicalListingController;
 use App\Http\Controllers\Admin\AdminA\ChemicalRegisterController;
-use App\Http\Controllers\Admin\AdminA\SafetyCommitteeController;
 use App\Http\Controllers\Admin\AdminA\Setup\CasController;
 use App\Http\Controllers\Admin\AdminA\Setup\GhslabelController;
 use App\Http\Controllers\Admin\AdminA\Setup\HazardController;
@@ -197,12 +196,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'preventB
         Route::get('ppe-entry-destroy/{id}', [ppeController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['name' => 'safety_committee', 'as' => 'safety_committee.'], function () {
 
-        Route::get('safety_committee', [SafetyCommitteeController::class, 'index'])->name('index');
-        Route::post('safety_committee/store', [SafetyCommitteeController::class, 'store'])->name('store');
-
-    });
 
 
 });
@@ -265,8 +259,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['isUser', 'auth', 'preventBac
         Route::post('com_profile/store', [CompanyProfileController::class, 'store'])->name('store');
 
     });
-
-
 
     Route::post('get-states-by-country',[CompanyProfileController::class, 'getState']);
 
