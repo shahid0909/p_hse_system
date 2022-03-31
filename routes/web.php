@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminA\ChemicalController;
 use App\Http\Controllers\Admin\AdminA\ChemicalListingController;
 use App\Http\Controllers\Admin\AdminA\ChemicalRegisterController;
+use App\Http\Controllers\Admin\AdminA\SafetyCommitteeController;
 use App\Http\Controllers\Admin\AdminA\Setup\CasController;
 use App\Http\Controllers\Admin\AdminA\Setup\GhslabelController;
 use App\Http\Controllers\Admin\AdminA\Setup\HazardController;
@@ -300,6 +301,16 @@ Route::group(['prefix' => 'user', 'middleware' => ['isUser', 'auth', 'preventBac
         Route::put('list-inspection-update/{id}', [ListInspectionController::class, 'update'])->name('update');
         Route::get('list-inspection-datatable-list', [ListInspectionController::class, 'datatable'])->name('datatable');
         Route::get('list-inspection-destroy/{id}', [ListInspectionController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['name' => 'safety_committee', 'as' => 'safety_committee.'], function () {
+
+        Route::get('safety_committee', [SafetyCommitteeController::class, 'index'])->name('index');
+        Route::get('safety_committee/getData/', [SafetyCommitteeController::class, 'getData'])->name('getData');
+        Route::post('safety_committee/store', [SafetyCommitteeController::class, 'store'])->name('store');
+        Route::post('safety_committee/edit/{id}', [SafetyCommitteeController::class, 'edit'])->name('edit');
+        Route::post('safety_committee/update/{id}', [SafetyCommitteeController::class, 'update'])->name('update');
+
     });
 });
 
