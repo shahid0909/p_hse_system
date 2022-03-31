@@ -29,6 +29,7 @@ use App\Http\Controllers\User\CompanySetup\DesignationController;
 use App\Http\Controllers\User\CompanySetup\EmployeeController;
 use App\Http\Controllers\User\CompanySetup\EmployeeProfileController;
 use App\Http\Controllers\User\safety\SafetyPolicyController;
+use App\Http\Controllers\User\safety\UploadPolicyController;
 use App\Http\Controllers\User\WorkInspection\CreateIspectionController;
 use App\Http\Controllers\User\WorkInspection\ListInspectionController;
 use App\Http\Controllers\User\WorkInspection\RectifiedInspectionController;
@@ -303,6 +304,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['isUser', 'auth', 'preventBac
         Route::get('list-inspection-destroy/{id}', [ListInspectionController::class, 'destroy'])->name('destroy');
     });
 
+
     Route::group(['name' => 'safety_committee', 'as' => 'safety_committee.'], function () {
 
         Route::get('safety_committee', [SafetyCommitteeController::class, 'index'])->name('index');
@@ -310,6 +312,15 @@ Route::group(['prefix' => 'user', 'middleware' => ['isUser', 'auth', 'preventBac
         Route::post('safety_committee/store', [SafetyCommitteeController::class, 'store'])->name('store');
         Route::post('safety_committee/edit/{id}', [SafetyCommitteeController::class, 'edit'])->name('edit');
         Route::post('safety_committee/update/{id}', [SafetyCommitteeController::class, 'update'])->name('update');
+
+    Route::group(['name' => 'upload_policy', 'as' => 'upload_policy.'], function () {
+
+        Route::get('policy', [UploadPolicyController::class, 'index'])->name('index');
+        Route::POST('policy-store', [UploadPolicyController::class, 'store'])->name('store');
+        Route::get('policy-edit/{id}', [UploadPolicyController::class, 'edit'])->name('edit');
+        Route::put('policy-update/{id}', [UploadPolicyController::class, 'update'])->name('update');
+        Route::get('policy-datatable-list', [UploadPolicyController::class, 'datatable'])->name('datatable');
+        Route::get('policy-destroy/{id}', [UploadPolicyController::class, 'destroy'])->name('destroy');
 
     });
 });
