@@ -23,6 +23,7 @@ use App\Http\Controllers\Client\ScheduleDemoController;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\User\accidentInvestigation\AccidentInvestigationController;
 use App\Http\Controllers\User\CompanySetup\CompanyProfileController;
 use App\Http\Controllers\User\CompanySetup\DepartmentController;
 use App\Http\Controllers\User\CompanySetup\DesignationController;
@@ -322,6 +323,15 @@ Route::group(['prefix' => 'user', 'middleware' => ['isUser', 'auth', 'preventBac
         Route::put('policy-update/{id}', [UploadPolicyController::class, 'update'])->name('update');
         Route::get('policy-datatable-list', [UploadPolicyController::class, 'datatable'])->name('datatable');
         Route::get('policy-destroy/{id}', [UploadPolicyController::class, 'destroy'])->name('destroy');
+
+    });
+
+    Route::group(['name' => 'upload_policy', 'as' => 'accident_investigation.'], function () {
+
+        Route::get('accident-investigation', [AccidentInvestigationController::class, 'index'])->name('index');
+        Route::get('why-wizerd/{id}', [AccidentInvestigationController::class, 'whyWizerd'])->name('why_wizerd');
+        Route::get('why-incident-happen', [AccidentInvestigationController::class, 'whyIncidentHappen'])->name('why_incident_happen');
+        Route::post('why-wizerd-store', [AccidentInvestigationController::class, 'store'])->name('store');
 
     });
 });
