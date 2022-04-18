@@ -38,6 +38,12 @@ class AccidentInvestigationController extends Controller
         return view('dashboards.users.accidentInvestigation.why_incident_happen', compact('user'));
     }
 
+    public function identifyInjuredPart()
+    {
+        $user = Auth::user();
+        return view('dashboards.users.accidentInvestigation.identify_injured_part', compact('user'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -158,6 +164,6 @@ class AccidentInvestigationController extends Controller
         $input->similar_incidents = $request->input('similar_incidents');
         $input->save();
 
-        return redirect()->back()->with('success', 'Incident Happen Successfully Inserted!!');
+        return redirect()->route('accident_investigation.identify_injured_part', ['id'=>$request->l_employee_id])->with('success', 'Incident Happen Successfully Inserted!!');
     }
 }
