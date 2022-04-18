@@ -77,7 +77,7 @@ class AccidentInvestigationController extends Controller
         $input->reOccurrence = $request->input('reOccurrence');
         $input->save();
 
-        return redirect()->route('accident_investigation.why_incident_happen')->with('success', 'WHY Analysis Successfully Inserted!!');
+        return redirect()->route('accident_investigation.why_incident_happen', ['id'=>$request->l_employee_id])->with('success', 'WHY Analysis Successfully Inserted!!');
     }
 
     /**
@@ -128,6 +128,7 @@ class AccidentInvestigationController extends Controller
     public function whyIncidentHappenStore(Request $request)
     {
         $input = new WhyIncidentHappen();
+        $input->l_employee_id = $request->input('l_employee_id');
         $input->in_guard = $request->input('in_guard');
         $input->operating_permission = $request->input('operating_permission');
         $input->hazard = $request->input('hazard');
