@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\accidentInvestigation;
 
 use App\Http\Controllers\Controller;
 use App\Models\WhyAnalysis;
+use App\Models\WhyIncidentHappen;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -122,5 +123,40 @@ class AccidentInvestigationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function whyIncidentHappenStore(Request $request)
+    {
+        $input = new WhyIncidentHappen();
+        $input->in_guard = $request->input('in_guard');
+        $input->operating_permission = $request->input('operating_permission');
+        $input->hazard = $request->input('hazard');
+        $input->techniques = $request->input('techniques');
+        $input->device_defective = $request->input('device_defective');
+        $input->swp = $request->input('swp');
+        $input->equipment_defective = $request->input('equipment_defective');
+        $input->device_inoperative = $request->input('device_inoperative');
+        $input->layout_hazardous = $request->input('layout_hazardous');
+        $input->defective_equipment = $request->input('defective_equipment');
+        $input->unsafe_lighting = $request->input('unsafe_lighting');
+        $input->unapproved_way = $request->input('unapproved_way');
+        $input->unsafe_ventilation = $request->input('unsafe_ventilation');
+        $input->lifting_hand = $request->input('lifting_hand');
+        $input->protective_equipment = $request->input('protective_equipment');
+        $input->wrong_posture = $request->input('wrong_posture');
+        $input->appropriate_equipment = $request->input('appropriate_equipment');
+        $input->horseplay = $request->input('horseplay');
+        $input->chemical_handling = $request->input('chemical_handling');
+        $input->insufficient_training = $request->input('insufficient_training');
+        $input->available_equipment = $request->input('available_equipment');
+        $input->others1 = $request->input('others1');
+        $input->others2 = $request->input('others2');
+        $input->unsafe_conditions = $request->input('unsafe_conditions');
+        $input->unsafe_acts = $request->input('unsafe_acts');
+        $input->prior_incident = $request->input('prior_incident');
+        $input->similar_incidents = $request->input('similar_incidents');
+        $input->save();
+
+        return redirect()->back()->with('success', 'Incident Happen Successfully Inserted!!');
     }
 }
