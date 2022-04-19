@@ -285,7 +285,7 @@
                             <td colspan="2">
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <div class="form-group">
-                                        <button type="submit" name="gams_audit" class="btn btn-outline-success" id="gams_audit"> <i class="icofont-save icofont-1x"></i> Save</button>
+                                        <button type="submit" name="wih" class="btn btn-outline-success" id="wih"> <i class="icofont-save icofont-1x"></i> Save</button>
                                     </div>
                                 </div>
                             </td>

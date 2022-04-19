@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\accidentInvestigation;
 
 use App\Http\Controllers\Controller;
+use App\Models\IdentifyInjuredPart;
 use App\Models\WhyAnalysis;
 use App\Models\WhyIncidentHappen;
 use Illuminate\Contracts\View\View;
@@ -165,5 +166,66 @@ class AccidentInvestigationController extends Controller
         $input->save();
 
         return redirect()->route('accident_investigation.identify_injured_part', ['id'=>$request->l_employee_id])->with('success', 'Incident Happen Successfully Inserted!!');
+    }
+
+    public function identifyInjuredPartStore(Request $request)
+    {
+        $input = new IdentifyInjuredPart();
+        $input->l_employee_id = $request->input('l_employee_id');
+        $input->head = $request->input('head');
+        $input->right_toe = $request->input('right_toe');
+        $input->burn = $request->input('burn');
+        $input->sprain = $request->input('sprain');
+        $input->left_toe = $request->input('left_toe');
+        $input->right_eye = $request->input('right_eye');
+        $input->neck = $request->input('neck');
+        $input->bruise = $request->input('bruise');
+        $input->fracture = $request->input('fracture');
+        $input->left_eye = $request->input('left_eye');
+        $input->right_ear = $request->input('right_ear');
+        $input->back = $request->input('back');
+        $input->concussion = $request->input('concussion');
+        $input->foreign_body = $request->input('foreign_body');
+        $input->left_ear = $request->input('left_ear');
+        $input->right_arm = $request->input('right_arm');
+        $input->right_chest = $request->input('right_chest');
+        $input->laceration = $request->input('laceration');
+        $input->amputation = $request->input('amputation');
+        $input->left_arm = $request->input('left_arm');
+        $input->left_chest = $request->input('left_chest');
+        $input->right_hand = $request->input('right_hand');
+        $input->internal = $request->input('internal');
+        $input->crush = $request->input('crush');
+        $input->rash = $request->input('rash');
+        $input->left_hand = $request->input('left_hand');
+        $input->right_hand_finger = $request->input('right_hand_finger');
+        $input->abdomen = $request->input('abdomen');
+        $input->eclectic_shock = $request->input('eclectic_shock');
+        $input->inhalation = $request->input('inhalation');
+        $input->left_hand_finger = $request->input('left_hand_finger');
+        $input->right_leg = $request->input('right_leg');
+        $input->right_groin = $request->input('right_groin');
+        $input->hernia = $request->input('hernia');
+        $input->abrasion = $request->input('abrasion');
+        $input->left_leg = $request->input('left_leg');
+        $input->left_groin = $request->input('left_groin');
+        $input->right_knee = $request->input('right_knee');
+        $input->right_shoulder = $request->input('right_shoulder');
+        $input->tendinitis = $request->input('tendinitis');
+        $input->left_knee = $request->input('left_knee');
+        $input->left_shoulder = $request->input('left_shoulder');
+        $input->right_foot = $request->input('right_foot');
+        $input->left_shoulder = $request->input('left_shoulder');
+        $input->right_foot = $request->input('right_foot');
+        $input->right_ankle = $request->input('right_ankle');
+        $input->strain = $request->input('strain');
+        $input->left_foot = $request->input('left_foot');
+        $input->left_ankle = $request->input('left_ankle');
+        $input->hip = $request->input('hip');
+        $input->others1 = $request->input('others1');
+        $input->others2 = $request->input('others2');
+        $input->save();
+
+        return redirect()->route('accident_investigation.identify_injured_part', ['id'=>$request->l_employee_id])->with('success', 'Injured Body Part Successfully Inserted!!');
     }
 }
