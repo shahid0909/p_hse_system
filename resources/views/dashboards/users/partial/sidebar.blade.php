@@ -128,7 +128,7 @@
                         <a class="ms-link" href="{{route('workinspection.index')}}">Dashboard</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('Accident_investigation.index')}}">Accident analysis</a>
+                        <a class="ms-link" href="{{route('accident_investigation.index')}}">Accident analysis</a>
                     </li>
                     <li>
                         <a class="ms-link" href="{{route('list_inspection.index')}}">list of Accident</a>
@@ -158,9 +158,10 @@
                 <!-- Menu: Sub menu ul -->
                 <ul class="sub-menu collapse" id="categories">
                   <li>
-                    <a class="ms-link" href="{{ route('accident.index') }}"
+                    <a class="ms-link" href="#"
                       >Accident</a
                     >
+{{--                      {{ route('accident.index') }}--}}
                   </li>
 
                 </ul>
@@ -188,12 +189,14 @@
                         <a class="ms-link" href="{{route('safety_committee.index')}}">Safety Committee</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('meeting.index')}}">Meeting Minutes</a>
+                        <a class="ms-link" href="#">Meeting Minutes</a>
+{{--                        {{route('meeting.index')}}--}}
                     </li>
                 </ul>
             </li>
             <li>
-                <a class="m-link active" href="{{route('safe_work_procedure.index')}}"
+{{--                {{route('safe_work_procedure.index')}}--}}
+                <a class="m-link active" href="#"
                 ><i class="icofont-home fs-5"></i> <span>Safe Work Procedure</span></a
                 >
             </li>
