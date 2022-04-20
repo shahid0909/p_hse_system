@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RectifiedInspection extends Model
+class Meeting extends Model
 {
     use HasFactory;
     protected $guarded = [''];
-  
 
-
-   public function findInsp()
+    public function present()
     {
-        return $this->belongsTo(create_inspection::class,'find_inspection', 'id');
+        return $this->belongsTo(l_employee::class, 'p_member');
     }
 }

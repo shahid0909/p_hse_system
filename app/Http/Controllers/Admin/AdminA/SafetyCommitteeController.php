@@ -70,7 +70,7 @@ class SafetyCommitteeController extends Controller
             'chairman'=>$chairman,
             'employee_representative'=>$employee_representative,
             'management_representative'=>$management_representative,
-            ], 200);
+        ], 200);
     }
     public function store(Request $request)
     {
@@ -108,7 +108,7 @@ class SafetyCommitteeController extends Controller
         $request->validate([
             'employee_id' => 'required',
             'designation' => 'required',
-            'photo' => 'required',
+
         ]);
         $update = SafetyCommittee::find($id);
         $currentPhoto = $update->photo;
@@ -122,19 +122,20 @@ class SafetyCommitteeController extends Controller
             if ($file !== $currentPhoto) {
                 $oldPhoto = public_path('uploads/safetyCommittee/').$currentPhoto;
                 if(file_exists($oldPhoto)){
-
                     unlink($oldPhoto); // then delete previous photo
-
                 }
             }
             $file->move('uploads/safetyCommittee/', $filename);
             $update->photo = $filename;
         }else{
-            set($update->photo);
+            unset($update->photo);
         }
         $update->update();
 
 
         return json_encode($update, 200);
+    }
+    public function committeedetails(){
+        
     }
 }

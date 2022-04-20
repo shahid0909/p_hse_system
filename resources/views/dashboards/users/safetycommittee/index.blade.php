@@ -1,24 +1,8 @@
 @extends('layouts.app')
-
 @section('title')
-
 @endsection
-
 @section('style')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.1.1/css/jquery.orgchart.min.css"/>
-    <style type="text/css">
-        .orgchart { background: white; }
-        #chart-container {
-            position: relative;
-            height: 420px;
-            border: 1px solid #aaa;
-            margin: 0.5rem;
-            overflow: auto;
-            text-align: center;
-        }
-    </style>
 @endsection
-
 @section('content')
     <!-- sidebar -->
     @include('dashboards.users.partial.sidebar')
@@ -34,56 +18,54 @@
             </div>
         @endif
         <div class="body d-flex py-3">
+            <a href="{{ route('committee.index') }}">
+                 <button class="bg bg-info">Generate Committe</button>
+                </a>
+           
             <div class="container-xxl">
-                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> <i class="icofont-listine-dots"></i> &nbsp;&nbsp;&nbsp;Safety Committee</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"> <i class="icofont-chart-flow-1"></i> &nbsp;&nbsp;&nbsp;Safety Committee Chart</button>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="card">
-                            <div
-                                class="card-header py-3 no-bg bg-transparent d-flex align-items-center justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Safety Committee List</h3>
-                                <div class="col-auto d-flex w-sm-100">
-                                    <button
-                                        type="button"
-                                        id="modal-btn"
-                                        class="btn btn-primary btn-set-task w-sm-100"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#expadd"
-                                    >
-                                        <i class="icofont-plus-circle me-2 fs-6"></i>Add Safety
-                                        Committee
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body" id="card-content">
-                                <h1 class="mb-4 mt-4 committee-designation"> {{ $chairman[0]->designation }} </h1>
-                                <div id="chairman"></div>
-                                <h1 class="mb-4 mt-4 committee-designation"> {{ $secretary[0]->designation }} </h1>
-                                <div id="secretary"></div>
-                                @php
-                                    $count = $management_representative->count();
-                                    $count_emp_rep = $employee_representative->count();
-                                @endphp
-                                @if($count_emp_rep !== 0)
-                                    <h1 class="mb-4 mt-4 committee-designation"> {{ $employee_representative[0]->designation }} </h1>
-                                @endif
-                                <div id="employee_representative"></div>
-                                @if($count !== 0)
-                                    <h1 class="mb-4 mt-4 committee-designation"> {{ $management_representative[0]->designation }} </h1>
-                                @endif
-                                <div id="management_representative"></div>
-                            </div>
+                <div class="card">
+                    <div
+                        class="card-header py-3 no-bg bg-transparent d-flex align-items-center justify-content-between border-bottom flex-wrap">
+                        <h3 class="fw-bold mb-0">Safety Committee List</h3>
+                        <div class="col-auto d-flex w-sm-100">
+                            <button
+                                type="button"
+                                id="modal-btn"
+                                class="btn btn-primary btn-set-task w-sm-100"
+                                data-bs-toggle="modal"
+                                data-bs-target="#expadd"
+                            >
+                                <i class="icofont-plus-circle me-2 fs-6"></i>Add Safety
+                                Committee
+                            </button>
+
+                    
+                           
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div id="chart-container"></div>
+                    <div class="card-body" id="card-content">
+                        @php
+                            $count = $management_representative->count();
+                            $count_emp_rep = $employee_representative->count();
+                            $count_chairman = $chairman->count();
+                            $count_secretary = $secretary->count();
+                        @endphp
+                        @if($count_chairman !== 0)
+                        <h1 class="mb-4 mt-4 committee-designation"> {{ $chairman[0]->designation }} </h1>
+                        @endif
+                        <div id="chairman"></div>
+                        @if($count_secretary !== 0)
+                        <h1 class="mb-4 mt-4 committee-designation"> {{ $secretary[0]->designation }} </h1>
+                        @endif
+                        <div id="secretary"></div>
+                        @if($count_emp_rep !== 0)
+                          <h1 class="mb-4 mt-4 committee-designation"> {{ $employee_representative[0]->designation }} </h1>
+                        @endif
+                        <div id="employee_representative"></div>
+                        @if($count !== 0)
+                          <h1 class="mb-4 mt-4 committee-designation"> {{ $management_representative[0]->designation }} </h1>
+                        @endif
+                        <div id="management_representative"></div>
                     </div>
                 </div>
                 <!-- Add Committee-->
@@ -242,55 +224,7 @@
 @endsection
 
 @section('script')
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.1.1/js/jquery.orgchart.min.js"></script>--}}
-    <script src="https://dabeng.github.io/OrgChart/js/jquery.orgchart.js"></script>
     <script type="text/javascript">
-        $(function() {
-
-            var datascource = {
-                'name': 'Lao Lao',
-                'title': 'general manager',
-                'children': [
-                    { 'name': 'Bo Miao', 'title': 'department manager' },
-                    { 'name': 'Su Miao', 'title': 'department manager',
-                        'children': [
-                            { 'name': 'Tie Hua', 'title': 'senior engineer' },
-                            { 'name': 'Hei Hei', 'title': 'senior engineer',
-                                'children': [
-                                    { 'name': 'Pang Pang', 'title': 'engineer' },
-                                    { 'name': 'Dan Zai', 'title': 'UE engineer',
-                                        'children': [
-                                            { 'name': 'Er Dan Zai', 'title': 'Intern' }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    { 'name': 'Hong Miao', 'title': 'department manager' },
-                    { 'name': 'Chun Miao', 'title': 'department manager' }
-                ]
-            };
-
-            $('#chart-container').orgchart({
-                'visibleLevel': 2,
-                'pan': true,
-                'data' : datascource,
-                'nodeContent': 'title',
-                'createNode': function($node, data) {
-                    $node.on('click', function(event) {
-                        if (!$(event.target).is('.edge, .toggleBtn')) {
-                            var $this = $(this);
-                            var $chart = $this.closest('.orgchart');
-                            var newX = window.parseInt(($chart.outerWidth(true)/2) - ($this.offset().left - $chart.offset().left) - ($this.outerWidth(true)/2));
-                            var newY = window.parseInt(($chart.outerHeight(true)/2) - ($this.offset().top - $chart.offset().top) - ($this.outerHeight(true)/2));
-                            $chart.css('transform', 'matrix(1, 0, 0, 1, ' + newX + ', ' + newY + ')');
-                        }
-                    });
-                }
-            });
-
-        });
         $("#expadd").on('shown.bs.modal', function () {
             $(this).find('#employees').focus();
         });
