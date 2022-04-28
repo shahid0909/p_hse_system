@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/sdsSearch', [FrontendController::class, 'sdsSearch'])->name('sdsSearch');
 Route::get('/pagination/fetch_data', [FrontendController::class, 'fetch_data'])->name('fetch_data');
-Route::post('/sds-search-result', [FrontendController::class, 'getSearchResult'])->name('sds-search-result');
+Route::get('/sds-search-result', [FrontendController::class, 'getSearchResult'])->name('sds-search-result');
 
 //Route::view('/','web.home.home')->name('web.home');
 //
