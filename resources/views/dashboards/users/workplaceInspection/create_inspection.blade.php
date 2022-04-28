@@ -44,21 +44,29 @@
                                             action="{{ route('create_ispection.store') }}" novalidate>
                                         @endif
                                         @csrf
-{{--@dd($data)--}}
+                                    
                                         <div class="row g-3 col-md-8 align-items-center" style="margin: 0 auto;">
                                             <div class="col-md-12">
                                                 <div class="col-sm-12">
                                                     <label for="item" class="form-label"
-                                                    >Inspection Title</label
+                                                    >Inspection Title
+                                                     <span class="text-danger">*</span>
+                                                    </label
                                                     >
                                                     <input type="text" class="form-control"  id="inspection_title" name="inspection_title"/>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="form-label">Location</label>
+                                                    <label class="form-label">Location
+                                                         <span class="text-danger">*</span>
+                                                    </label>
                                                     <!-- <input type="text" class="form-control" required> -->
                                                     <select  name="location"  id="location"
                                                         class="col-md-12"
+
+                                                        style="padding: 10px; border-radius: 3px; border-color: var(--border-color); ">
+
                                                         style="padding: 10px; border-radius: 3px; border-color: var(--border-color);">
+
 
                                                         <option value="">choose</option>
                                                         @foreach($country as $list)
@@ -70,7 +78,9 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">PIC</label>
+                                                    <label class="form-label">PIC
+                                                         <span class="text-danger">*</span>
+                                                    </label>
                                                     <!-- <input type="text" class="form-control" required> -->
                                                     <select  name="pic" id="pic"class="col-md-12"
                                                         style="padding: 10px; border-radius: 3px; border-color: var(--border-color); ">
@@ -85,7 +95,9 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label">UNSAFE ACT/UNSAFE
-                                                        CONDITION/HAZARDS/ISSUES </label>
+                                                        CONDITION/HAZARDS/ISSUES 
+                                                         <span class="text-danger">*</span>
+                                                    </label>
                                                     <textarea class="form-control"
                                                               name="unsafe"
                                                               rows="5"
@@ -97,7 +109,9 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="text">CORRECTIVE ACTIONS TO BE
-                                                        TAKEN</label>
+                                                        TAKEN
+                                                         <span class="text-danger">*</span>
+                                                    </label>
                                                     <textarea
                                                         class="form-control"
                                                         rows="5"
@@ -109,7 +123,9 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">Justification</label>
+                                                    <label class="form-label">Justification
+                                                         <span class="text-danger">*</span>
+                                                    </label>
                                                     <textarea
                                                         class="form-control"
                                                         name="Justification"
@@ -120,7 +136,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="admitdate" class="form-label">DATE IDENTIFIED </label>
+                                                <label for="admitdate" class="form-label">DATE IDENTIFIED 
+                                                     <span class="text-danger">*</span>
+                                                </label>
                                                 <input
                                                     type="date"
                                                     class="form-control w-100"
@@ -131,7 +149,9 @@
                                                 />
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="targetdate" class="form-label">TARGET DATE</label>
+                                                <label for="targetdate" class="form-label">TARGET DATE
+                                                     <span class="text-danger">*</span>
+                                                </label>
                                                 <input
                                                     type="date"
                                                     class="form-control w-100"
@@ -146,7 +166,9 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label"
-                                                           style="margin-bottom: 20px;">PRIORITY</label>
+                                                           style="margin-bottom: 20px;">PRIORITY
+                                                            <span class="text-danger">*</span>
+                                                       </label>
                                                     <br/>
                                                     <label class="fancy-radio" for="urgent">
                                                         <input type="radio" name="priority" id="urgent"
@@ -181,7 +203,9 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label for="image" class="form-label">
-                                                    Inspection Picture</label
+                                                    Inspection Picture
+                                                     <span class="text-danger">*</span>
+                                                    </label
                                                 >
                                                 <input
                                                     class="form-control"

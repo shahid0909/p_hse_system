@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <form role="form" id="form" action="{{ route('accident_investigation.store') }}" method="post">
+                <form role="form" id="form" action="{{ route('accident_report.store') }}" method="post">
                     @csrf
                     <input type="hidden" name="l_employee_id" id="l_employee_id" value="{{ request('id') }}">
                     <div class="row setup-content mt-4" id="step-1">

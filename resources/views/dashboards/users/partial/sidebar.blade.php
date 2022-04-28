@@ -125,16 +125,19 @@
                 <ul class="sub-menu collapse" id="menu-Accident">
 
                     <li>
-                        <a class="ms-link" href="{{route('workinspection.index')}}">Dashboard</a>
+{{--                        <a class="ms-link" href="{{route('workinspection.index')}}">Dashboard</a>--}}
                     </li>
                     <li>
                         <a class="ms-link" href="{{route('accident_investigation.index')}}">Accident analysis</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('list_inspection.index')}}">list of Accident</a>
+                        <a class="ms-link" href="{{route('accident_investigation.acci_list')}}">list of Accident</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('rectified_inspection.index')}}">Rectified Inspection</a>
+                        <a class="ms-link" href="{{route('accident_report.index')}}">Accident Report</a>
+                    </li>
+                    <li>
+{{--                        <a class="ms-link" href="{{route('rectified_inspection.index')}}">Rectified Inspection</a>--}}
                     </li>
 
 
@@ -142,30 +145,7 @@
             </li>
 
 
-            <li class="collapsed">
-                <a
-                  class="m-link"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#categories"
-                  href="#"
-                >
-                  <i class="icofont-chart-flow fs-5"></i>
-                  <span>Accident Notification</span>
-                  <span
-                    class="arrow icofont-rounded-down ms-auto text-end fs-5"
-                  ></span
-                ></a>
-                <!-- Menu: Sub menu ul -->
-                <ul class="sub-menu collapse" id="categories">
-                  <li>
-                    <a class="ms-link" href="#"
-                      >Accident</a
-                    >
-{{--                      {{ route('accident.index') }}--}}
-                  </li>
 
-                </ul>
-              </li>
 
 
             <li class="collapsed">
@@ -189,16 +169,42 @@
                         <a class="ms-link" href="{{route('safety_committee.index')}}">Safety Committee</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="#">Meeting Minutes</a>
-{{--                        {{route('meeting.index')}}--}}
+                        <a class="ms-link" href="{{route('meeting.index')}}">Meeting Minutes</a>
                     </li>
                 </ul>
             </li>
             <li>
-{{--                {{route('safe_work_procedure.index')}}--}}
-                <a class="m-link active" href="#"
+                <a class="m-link active" href="{{route('safe_work_procedure.index')}}"
                 ><i class="icofont-home fs-5"></i> <span>Safe Work Procedure</span></a
                 >
+            </li>
+
+
+          <li class="collapsed">
+              <a
+                class="m-link active"
+                data-bs-toggle="collapse"
+                data-bs-target="#customers-info"
+                href="#"
+              >
+                <i class="icofont-funky-man fs-5"></i> <span>HIRARC</span>
+                <span
+                  class="arrow icofont-rounded-down ms-auto text-end fs-5"
+                ></span
+              ></a>
+              <!-- Menu: Sub menu ul -->
+              <ul class="sub-menu collapse" id="customers-info">
+                <li>
+                  <a class="ms-link" href="{{route('hirarc.index')}}">Add Hirarc</a>
+                </li>
+
+              </ul>
+               <ul class="sub-menu collapse" id="customers-info">
+                <li>
+                  <a class="ms-link" href="{{route('hirarc.listview')}}">Hirarc List</a>
+                </li>
+
+              </ul>
             </li>
 
 

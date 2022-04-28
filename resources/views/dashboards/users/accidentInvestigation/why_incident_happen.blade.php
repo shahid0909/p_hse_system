@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <form action="{{ route('accident_investigation.why_incident_happen_store') }}" method="post">
+                    <form action="{{ route('accident_report.why_incident_happen_store') }}" method="post">
                         @csrf
                         <input type="hidden" name="l_employee_id" id="l_employee_id" value="{{ request('id') }}">
                         <tr>

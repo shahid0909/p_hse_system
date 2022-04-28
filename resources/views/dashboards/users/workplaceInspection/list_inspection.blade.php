@@ -49,12 +49,19 @@
                                     <th></th>
                                     <th>Sl</th>
                                     <th>LOCATION</th>
+                                    <th>Title</th>
                                     <th>PICTURE</th>
                                     <th>PIC</th>
                                     <th>PRIORITY</th>
-                                    <th>DATE IDENTIFIED</th>
+                                    <!-- <th>DATE IDENTIFIED</th> -->
                                     <th>TARGET DATE</th>
+<<<<<<< HEAD
+
                                     <th>Admit DATE</th>
+
+=======
+                                    <th>Admit DATE</th>
+>>>>>>> b910d5fba5cf248c924b9f1ddde9736ea6ed61ac
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -131,7 +138,11 @@
 
                     {"data": 'DT_RowIndex', "name": 'DT_RowIndex'},
                             {"data": "country.country"},
+
+                            // {"data": "inspection_title"},
+
                             {"data": "inspection_title"},
+
                             {"data": "image"},
                             {"data": "employee.em_name"},
                             {"data": "priority"},
@@ -169,8 +180,13 @@
 
         });
 
+
+
+
     </script>
 
+    </script>
+    
 
 @endsection
 

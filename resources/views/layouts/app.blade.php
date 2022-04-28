@@ -1,6 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
-
 <!-- Mirrored from www.pixelwibes.com/template/ebazar/html/dist/ui-elements/auth-signin.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 04 Jan 2022 09:39:59 GMT -->
 <head>
     <meta charset="utf-8">
@@ -9,9 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') </title>
     <link rel="icon" href="../favicon.ico" type="image/x-icon"> <!-- Favicon-->
-    <link rel="stylesheet" type="text/css" href="{{asset('js/alertifyjs/css/themes/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/plugin/datatables/dataTables.bootstrap5.min.css') }}" />
-{{--    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />--}}
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link
+        rel="stylesheet"
+        href="{{ asset('assets/plugin/datatables/dataTables.bootstrap5.min.css') }}"
+    />
 
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/css/pickers/pickadate/pickadate.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/css/pickers/daterange/daterangepicker.css')}}">
@@ -25,9 +26,11 @@
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{asset('js/alertifyjs/css/alertify.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('js/alertifyjs/css/themes/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
 
     @yield('style')
+    
 </head>
 <body>
 <div id="ebazar-layout" class="theme-blue">

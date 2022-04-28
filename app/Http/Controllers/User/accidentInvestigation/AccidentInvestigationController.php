@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\User\accidentInvestigation;
 
 use App\Http\Controllers\Controller;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\IdentifyInjuredPart;
 use App\Models\WhyAnalysis;
+use App\Models\AcciAnnalysis;
 use App\Models\WhyIncidentHappen;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ use function compact;
 use function dd;
 use function md5;
 use function redirect;
-
+use DB;
 class AccidentInvestigationController extends Controller
 {
     /**
@@ -21,11 +23,14 @@ class AccidentInvestigationController extends Controller
      *
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        return view('dashboards.users.accidentInvestigation.index', compact('user'));
+        $data=AcciAnnalysis::all();
+
+        return view('dashboards.users.accidentInvestigation.index', compact('user','data'));
     }
+
 
     public function whyWizerd()
     {
@@ -84,7 +89,7 @@ class AccidentInvestigationController extends Controller
         $input->reOccurrence = $request->input('reOccurrence');
         $input->save();
 
-        return redirect()->route('accident_investigation.why_incident_happen', ['id'=>$request->l_employee_id])->with('success', 'WHY Analysis Successfully Inserted!!');
+        return redirect()->route('accident_report.why_incident_happen', ['id'=>$request->l_employee_id])->with('success', 'WHY Analysis Successfully Inserted!!');
     }
 
     /**
@@ -134,7 +139,9 @@ class AccidentInvestigationController extends Controller
 
     public function whyIncidentHappenStore(Request $request)
     {
+
         $input = new WhyIncidentHappen();
+        $input->incidence_number=$incidence_number;
         $input->l_employee_id = $request->input('l_employee_id');
         $input->in_guard = $request->input('in_guard');
         $input->operating_permission = $request->input('operating_permission');
@@ -165,7 +172,9 @@ class AccidentInvestigationController extends Controller
         $input->similar_incidents = $request->input('similar_incidents');
         $input->save();
 
-        return redirect()->route('accident_investigation.identify_injured_part', ['id'=>$request->l_employee_id])->with('success', 'Incident Happen Successfully Inserted!!');
+
+
+        return redirect()->route('accident_report.identify_injured_part', ['id'=>$request->l_employee_id])->with('success', 'Incident Happen Successfully Inserted!!');
     }
 
     public function identifyInjuredPartStore(Request $request)
@@ -226,6 +235,17 @@ class AccidentInvestigationController extends Controller
         $input->others2 = $request->input('others2');
         $input->save();
 
-        return redirect()->route('accident_investigation.identify_injured_part', ['id'=>$request->l_employee_id])->with('success', 'Injured Body Part Successfully Inserted!!');
+        return redirect()->route('accident_report.identify_injured_part', ['id'=>$request->l_employee_id])->with('success', 'Injured Body Part Successfully Inserted!!');
     }
+    public function report(Request $request) {
+        $user=Auth::user();
+        $values= DB::table('acci_annalyses')
+        ->leftJoin('l_employees', 'l_employees.id', '=', 'acci_annalyses.em_name')->leftJoin('departments','departments.id','=','acci_annalyses.em_dept')
+       ->get();
+
+        $data=AcciAnnalysis::all();
+
+        return view('dashboards.users.accidentInvestigation.index', compact('values','user','data'));
+    }
+
 }
