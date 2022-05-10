@@ -393,7 +393,7 @@
             let searchQuery = $(this).val();
             // console.log(searchQuery);
             $.ajax({
-                type: 'get',
+                type: 'post',
                 url: '/sds-search-result/',
                 dataType: 'json',
                 data: {
