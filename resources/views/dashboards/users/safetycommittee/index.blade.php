@@ -18,11 +18,27 @@
             </div>
         @endif
         <div class="body d-flex py-3">
-            <a href="{{ route('committee.index') }}">
-                 <button class="bg bg-info">Generate Committe</button>
-                </a>
-           
-            <div class="container-xxl">
+{{--            <a href="{{ route('committee.index') }}">--}}
+{{--                 <button class="bg bg-info">Generate Committe</button>--}}
+{{--                </a>--}}
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="item" class="form-label">Company
+                        <span class="text-danger">*</span>
+                    </label>
+                    <select
+                        name="company_id"
+                        id="company_id" autofocus
+                        class="form-control col-md-12">
+                        <option value="">Select Company</option>
+                        @foreach($companies as $list)
+                            <option value="{{ $list->id }}">{{ $list->company_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="container-xxl" id="contant" style="display: none">
                 <div class="card">
                     <div
                         class="card-header py-3 no-bg bg-transparent d-flex align-items-center justify-content-between border-bottom flex-wrap">
@@ -39,8 +55,8 @@
                                 Committee
                             </button>
 
-                    
-                           
+
+
                         </div>
                     </div>
                     <div class="card-body" id="card-content">
@@ -467,5 +483,8 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        $('#company_id').on('change',function(e) {
+            $('#contant').css('display', 'block');
+        });
     </script>
 @endsection

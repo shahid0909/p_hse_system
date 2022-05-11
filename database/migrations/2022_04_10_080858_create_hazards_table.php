@@ -15,8 +15,11 @@ class CreateHazardsTable extends Migration
     {
         Schema::create('hazards', function (Blueprint $table) {
             $table->id();
-            $table->integer('hirarc_id')->unsigned();
-            $table->foreign('hirarc_id')->references('id')->on('i_hirarcs')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('hirarc_id');
+            $table->foreign('hirarc_id')
+                  ->references('id')
+                  ->on('i_hirarcs')
+                  ->onDelete('cascade')->onUpdate('cascade');
             $table->string('job_activity');
             $table->string('image1');
             $table->longText('sequence_job');
