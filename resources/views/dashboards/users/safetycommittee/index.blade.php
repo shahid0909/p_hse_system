@@ -21,24 +21,24 @@
 {{--            <a href="{{ route('committee.index') }}">--}}
 {{--                 <button class="bg bg-info">Generate Committe</button>--}}
 {{--                </a>--}}
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="item" class="form-label">Company
-                        <span class="text-danger">*</span>
-                    </label>
-                    <select
-                        name="company_id"
-                        id="company_id" autofocus
-                        class="form-control col-md-12">
-                        <option value="">Select Company</option>
-                        @foreach($companies as $list)
-                            <option value="{{ $list->id }}">{{ $list->company_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+{{--            <div class="form-group">--}}
+{{--                <div class="col-sm-6">--}}
+{{--                    <label for="item" class="form-label">Company--}}
+{{--                        <span class="text-danger">*</span>--}}
+{{--                    </label>--}}
+{{--                    <select--}}
+{{--                        name="company_id"--}}
+{{--                        id="company_id" autofocus--}}
+{{--                        class="form-control col-md-12">--}}
+{{--                        <option value="">Select Company</option>--}}
+{{--                        @foreach($companies as $list)--}}
+{{--                            <option value="{{ $list->id }}">{{ $list->company_name }}</option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="container-xxl" id="contant" style="display: none">
+            <div class="container-xxl" id="contant">
                 <div class="card">
                     <div
                         class="card-header py-3 no-bg bg-transparent d-flex align-items-center justify-content-between border-bottom flex-wrap">
@@ -125,7 +125,7 @@
                                                 <select name="designation"
                                                         id="designation" class="form-control col-md-12">
                                                     <option value="">Select Designation</option>
-                                                    <option value="Chairman">Chairman</option>
+                                                    <option id="ch" value="Chairman">Chairman</option>
                                                     <option value="Secretary">Secretary</option>
                                                     <option value="EMPLOYEE REPRESENTATIVE">EMPLOYEE REPRESENTATIVE</option>
                                                     <option value="MANAGEMENT/EMPLOYER REPRESENTATIVE">
@@ -199,7 +199,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <select name="designation"
-                                                        id="designation" class="form-control col-md-12">
+                                                        id="edit_designation" readonly class="form-control col-md-12">
                                                     <option value="">Select Designation</option>
                                                     <option value="Chairman">Chairman</option>
                                                     <option value="Secretary">Secretary</option>
@@ -255,6 +255,15 @@
             $(this).find('#employees').focus();
         });
         $(document).ready(function (e) {
+
+            $.get('/safety_committee/getData', function (data) {
+                // console.log(data.chairman[0].designation);
+                if (data.chairman[0].designation === 'Chairman')
+                {
+                    $('#ch').css('display', 'none');
+                }
+            }, 'json');
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -293,7 +302,7 @@
                 let formData = new FormData(this);
                 $.ajax({
                     type:'POST',
-                    url: "/user/safety_committee/update"+'/'+ id,
+                    url: "/safety_committee/update"+'/'+ id,
                     data: formData,
                     cache:false,
                     contentType: false,
@@ -461,8 +470,12 @@
                 // console.log(id);
                 $('#edit_committee').find('form')[0].reset();
                 $('#edit_committee').find('span.error-text').text('');
-                $.post('/user/safety_committee/edit'+'/'+ id,{ id:id }, function (data) {
+                $.post('/safety_committee/edit'+'/'+ id,{ id:id }, function (data) {
                     console.log(data);
+                    // $('#designation option:not(:selected)').remove();
+                    // $('select[readonly] option:not(:selected)').prop('disabled', true);
+                    $('#edit_designation').css('pointer-events', 'none');
+
                     $('#edit_committee').find('input[name="id"]').val(data.safety_committee.id);
                     $('#edit_committee').find('select[name="employee_id"]').val(data.safety_committee.employee_id);
                     $('#edit_committee').find('select[name="designation"]').val(data.safety_committee.designation);
@@ -483,8 +496,5 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        $('#company_id').on('change',function(e) {
-            $('#contant').css('display', 'block');
-        });
     </script>
 @endsection
