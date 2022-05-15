@@ -168,6 +168,10 @@
                     <li>
                         <a class="ms-link" href="{{route('safety_committee.index')}}">Safety Committee</a>
                     </li>
+
+                    <li>
+                        <a class="ms-link" href="{{route('safety_committee.chart')}}">Safety Committee Chart</a>
+                    </li>
                     <li>
                         <a class="ms-link" href="{{route('meeting.index')}}">Meeting Minutes</a>
                     </li>

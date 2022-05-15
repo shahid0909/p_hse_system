@@ -296,6 +296,7 @@ Route::group(['name' => 'safety_committee', 'as' => 'safety_committee.'], functi
 
     Route::get('safety_committee', [SafetyCommitteeController::class, 'index'])->name('index');
     Route::get('safety_committee/getData/', [SafetyCommitteeController::class, 'getData'])->name('getData');
+    Route::get('safety_committee/chart/', [SafetyCommitteeController::class, 'chart'])->name('chart');
     Route::post('safety_committee/store', [SafetyCommitteeController::class, 'store'])->name('store');
     Route::post('safety_committee/edit/{id}', [SafetyCommitteeController::class, 'edit'])->name('edit');
     Route::post('safety_committee/update/{id}', [SafetyCommitteeController::class, 'update'])->name('update');
