@@ -104,8 +104,11 @@ class SafetyCommitteeController extends Controller
             ->select('sc.*', 'emp.em_name', 'emp.em_ic_passport_no')
             ->where('sc.designation', '=', 'MANAGEMENT/EMPLOYER REPRESENTATIVE')
             ->get();
+        $SCAll = SafetyCommittee::where('designation', 'EMPLOYEE REPRESENTATIVE')
+            ->orWhere('designation', 'MANAGEMENT/EMPLOYER REPRESENTATIVE')
+            ->orWhere('designation', 'Secretary')->get();
         return view('dashboards.users.safetycommittee.chart', compact('user', 'chairman',
-            'secretary', 'employee_representative', 'management_representative'));
+            'secretary', 'employee_representative', 'management_representative', 'SCAll'));
     }
     public function store(Request $request)
     {

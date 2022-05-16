@@ -133,6 +133,13 @@
             font-weight: bolder;
             margin-left: -1rem;
         }
+
+        /*.genealogy-tree*/
+        /*ul ul::after {*/
+        /*    content: 'SECRETARY';*/
+        /*    position: absolute;*/
+        /*    margin-top: -1.2rem;*/
+        /*}*/
     </style>
 @endsection
 
@@ -169,7 +176,7 @@
                         <ul class="active">
                             @foreach($secretary as $list)
                                 <li>
-                                    <a href="javascript:void(0);">
+                                    <a id="sec" href="javascript:void(0);">
                                     <div class="member-view-box">
                                         <div class="member-image">
                                             <img src="{{ asset('uploads/safetyCommittee/'.$list->photo) }}" alt="Member">
@@ -180,37 +187,37 @@
                                     </div>
                                 </a>
                                 <ul >
-                                    @if($list->employee_id === 2)
+{{--                                    @if($list->employee_id === 2)--}}
                                         @foreach($employee_representative as $emRep_list)
-                                        <li>
-                                            <a href="javascript:void(0);">
-                                                <div class="member-view-box">
-                                                    <div class="member-image">
-                                                        <img src="{{ asset('uploads/safetyCommittee/'.$emRep_list->photo) }}" alt="Member">
-                                                        <div class="member-details">
-                                                            <span>{{ $emRep_list->em_name }}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        @endforeach
-                                    @else
-                                        @foreach($management_representative as $manRep_list)
                                             <li>
                                                 <a href="javascript:void(0);">
                                                     <div class="member-view-box">
                                                         <div class="member-image">
-                                                            <img src="{{ asset('uploads/safetyCommittee/'.$manRep_list->photo) }}" alt="Member">
+                                                            <img src="{{ asset('uploads/safetyCommittee/'.$emRep_list->photo) }}" alt="Member">
                                                             <div class="member-details">
-                                                                <span>{{ $manRep_list->em_name }}</span>
+                                                                <span>{{ $emRep_list->em_name }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </a>
                                             </li>
                                         @endforeach
-                                    @endif
+{{--                                    @else--}}
+{{--                                        @foreach($management_representative as $manRep_list)--}}
+{{--                                            <li>--}}
+{{--                                                <a href="javascript:void(0);">--}}
+{{--                                                    <div class="member-view-box">--}}
+{{--                                                        <div class="member-image">--}}
+{{--                                                            <img src="{{ asset('uploads/safetyCommittee/'.$manRep_list->photo) }}" alt="Member">--}}
+{{--                                                            <div class="member-details">--}}
+{{--                                                                <span>{{ $manRep_list->em_name }}</span>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </a>--}}
+{{--                                            </li>--}}
+{{--                                        @endforeach--}}
+{{--                                    @endif--}}
                                 </ul>
                             </li>
                             @endforeach
