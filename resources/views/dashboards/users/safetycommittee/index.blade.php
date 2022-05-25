@@ -126,7 +126,7 @@
                                                         id="designation" class="form-control col-md-12">
                                                     <option value="">Select Designation</option>
                                                     <option id="ch" value="Chairman">Chairman</option>
-                                                    <option value="Secretary">Secretary</option>
+                                                    <option id="sec" value="Secretary">Secretary</option>
                                                     <option value="EMPLOYEE REPRESENTATIVE">EMPLOYEE REPRESENTATIVE</option>
                                                     <option value="MANAGEMENT/EMPLOYER REPRESENTATIVE">
                                                         MANAGEMENT/EMPLOYER REPRESENTATIVE
@@ -257,10 +257,14 @@
         $(document).ready(function (e) {
 
             $.get('/safety_committee/getData', function (data) {
-                // console.log(data.chairman[0].designation);
+                console.log(data);
                 if (data.chairman[0].designation === 'Chairman')
                 {
                     $('#ch').css('display', 'none');
+                }
+                if (data.secretary[0].designation === 'Secretary')
+                {
+                    $('#sec').css('display', 'none');
                 }
             }, 'json');
 
