@@ -18,25 +18,25 @@
             </div>
         @endif
         <div class="body d-flex py-3">
-{{--            <a href="{{ route('committee.index') }}">--}}
-{{--                 <button class="bg bg-info">Generate Committe</button>--}}
-{{--                </a>--}}
-{{--            <div class="form-group">--}}
-{{--                <div class="col-sm-6">--}}
-{{--                    <label for="item" class="form-label">Company--}}
-{{--                        <span class="text-danger">*</span>--}}
-{{--                    </label>--}}
-{{--                    <select--}}
-{{--                        name="company_id"--}}
-{{--                        id="company_id" autofocus--}}
-{{--                        class="form-control col-md-12">--}}
-{{--                        <option value="">Select Company</option>--}}
-{{--                        @foreach($companies as $list)--}}
-{{--                            <option value="{{ $list->id }}">{{ $list->company_name }}</option>--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            {{--            <a href="{{ route('committee.index') }}">--}}
+            {{--                 <button class="bg bg-info">Generate Committe</button>--}}
+            {{--                </a>--}}
+            {{--            <div class="form-group">--}}
+            {{--                <div class="col-sm-6">--}}
+            {{--                    <label for="item" class="form-label">Company--}}
+            {{--                        <span class="text-danger">*</span>--}}
+            {{--                    </label>--}}
+            {{--                    <select--}}
+            {{--                        name="company_id"--}}
+            {{--                        id="company_id" autofocus--}}
+            {{--                        class="form-control col-md-12">--}}
+            {{--                        <option value="">Select Company</option>--}}
+            {{--                        @foreach($companies as $list)--}}
+            {{--                            <option value="{{ $list->id }}">{{ $list->company_name }}</option>--}}
+            {{--                        @endforeach--}}
+            {{--                    </select>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
 
             <div class="container-xxl" id="contant">
                 <div class="card">
@@ -67,19 +67,19 @@
                             $count_secretary = $secretary->count();
                         @endphp
                         @if($count_chairman !== 0)
-                        <h1 class="mb-4 mt-4 committee-designation"> {{ $chairman[0]->designation }} </h1>
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $chairman[0]->designation }} </h1>
                         @endif
                         <div id="chairman"></div>
                         @if($count_secretary !== 0)
-                        <h1 class="mb-4 mt-4 committee-designation"> {{ $secretary[0]->designation }} </h1>
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $secretary[0]->designation }} </h1>
                         @endif
                         <div id="secretary"></div>
                         @if($count_emp_rep !== 0)
-                          <h1 class="mb-4 mt-4 committee-designation"> {{ $employee_representative[0]->designation }} </h1>
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $employee_representative[0]->designation }} </h1>
                         @endif
                         <div id="employee_representative"></div>
                         @if($count !== 0)
-                          <h1 class="mb-4 mt-4 committee-designation"> {{ $management_representative[0]->designation }} </h1>
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $management_representative[0]->designation }} </h1>
                         @endif
                         <div id="management_representative"></div>
                     </div>
