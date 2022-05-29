@@ -9,7 +9,7 @@
         <!-- Menu: main ul -->
         <ul class="menu-list flex-grow-1 mt-3">
             <li>
-                <a class="m-link active" href="{{route('user.dashboard')}}"
+                <a class="m-link {{ (request()->is('user/dashboard')) ? 'active':'' }}" href="{{route('user.dashboard')}}"
                 ><i class="icofont-home fs-5"></i> <span>Dashboard</span></a
                 >
             </li>
@@ -17,7 +17,7 @@
 
 
             <li class="collapsed">
-                <a class="m-link  active"
+                <a class="m-link  {{ (request()->is('department') or request()->is('designation') or request()->is('employee') or request()->is('com_profile')) ? 'active':'' }}"
                    data-bs-toggle="collapse"
                    data-bs-target="#menu-product"
                    href="#">
@@ -30,19 +30,19 @@
                 <!-- Menu: Sub menu ul -->
 
 
-                <ul class="sub-menu collapse" id="menu-product">
+                <ul class="sub-menu collapse {{ (request()->is('department') or request()->is('designation') or request()->is('employee') or request()->is('com_profile')) ? 'show':'' }}" id="menu-product">
 
                     <li>
-                        <a class="ms-link" href="{{route('department.index')}}">Department Setup</a>
+                        <a class="ms-link {{ (request()->is('department')) ? 'active':'' }}" href="{{route('department.index')}}">Department Setup</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('designation.index')}}">Designation Setup</a>
+                        <a class="ms-link {{ (request()->is('designation')) ? 'active':'' }}" href="{{route('designation.index')}}">Designation Setup</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('employee.index')}}">Employee Setup</a>
+                        <a class="ms-link {{ (request()->is('employee')) ? 'active':'' }}" href="{{route('employee.index')}}">Employee Setup</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('com_profile.index')}}">Company Profile</a>
+                        <a class="ms-link {{ (request()->is('com_profile')) ? 'active':'' }}" href="{{route('com_profile.index')}}">Company Profile</a>
                     </li>
 
 
@@ -52,7 +52,7 @@
             </li>
 
             <li class="collapsed">
-                <a class="m-link  active"
+                <a class="m-link  {{ (request()->is('safety/policy') or request()->is('upload-policy')) ? 'active':'' }}"
                    data-bs-toggle="collapse"
                    data-bs-target="#menu-safety"
                    href="#">
@@ -65,12 +65,12 @@
                 <!-- Menu: Sub menu ul -->
 
 
-                <ul class="sub-menu collapse" id="menu-safety">
+                <ul class="sub-menu collapse {{ (request()->is('safety/policy') or request()->is('upload-policy')) ? 'show':'' }}" id="menu-safety">
                     <li>
-                        <a class="ms-link" href="{{ route('safety.index') }}">Safety</a>
+                        <a class="ms-link {{ (request()->is('safety/policy')) ? 'active':'' }}" href="{{ route('safety.index') }}">Safety</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{ route('upload_policy.index') }}">Review/Upload policy</a>
+                        <a class="ms-link {{ (request()->is('upload-policy')) ? 'active':'' }}" href="{{ route('upload_policy.index') }}">Review/Upload policy</a>
                     </li>
                 </ul>
             </li>
@@ -149,7 +149,7 @@
 
 
             <li class="collapsed">
-                <a class="m-link  active"
+                <a class="m-link active"
                    data-bs-toggle="collapse"
                    data-bs-target="#Safety_Committee"
                    href="#">
