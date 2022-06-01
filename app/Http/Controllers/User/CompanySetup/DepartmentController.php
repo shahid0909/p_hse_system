@@ -20,14 +20,13 @@ class DepartmentController extends Controller
         $user = Auth::user();
         $department = Department::all();
         $data = '';
-        return view('dashboards.users.companySetup.l_department', compact('user', 'department','data'));
+        return view('dashboards.users.companySetup.l_department', compact('user', 'department', 'data'));
 
     }
 
     public function store(Request $request)
 
     {
-
         $this->validate($request, [
             'department_name' => 'required',
             'dept_loc' => 'required',
@@ -39,7 +38,7 @@ class DepartmentController extends Controller
         $department = new Department;
         $department->depertment_name = $request->input('department_name');
         $department->depertment_location = $request->input('dept_loc');
-        $department->status ='Y';
+        $department->status = 'Y';
         $department->phone = $request->dept_phone;
 
         if ($depertment_image = $request->file('depertment_image')) {
@@ -48,6 +47,8 @@ class DepartmentController extends Controller
             $depertment_image->move($destinationPath, $profileImage);
             $department['depertment_image'] = "$profileImage";
         }
+        $department->company_id = Auth::user()->company_id;
+        $department->insert_by = Auth::user()->id;
 
         if ($department->save()) {
 
@@ -58,14 +59,18 @@ class DepartmentController extends Controller
 
     public function datatable()
     {
-        $data = Department::orderBy('id', 'DESC')->get();
+        $users = Auth::user();
+
+        $data = Department::where('departments.company_id', '=', $users->company_id)
+            ->orderBy('departments.id','DESC')
+        ->get('departments.*');
 
         return datatables()
             ->of($data)
             ->addIndexColumn()
             ->addColumn('depertment_image', function ($query) {
-                $url=asset("image/Department/$query->depertment_image");
-                return '<img src='.$url.' border="0" width="40"  class="img-rounded" align="center" />';
+                $url = asset("image/Department/$query->depertment_image");
+                return '<img src=' . $url . ' border="0" width="40"  class="img-rounded" align="center" />';
             })
             ->editColumn('action', function ($query) {
                 return '<a href="' . route('department.edit', $query['id']) . '" class=""><i class="icofont-edit"></i></a> || <a href="' . route('department.destroy', $query['id']) . '" class="" onclick="return confirm(\'Are You Sure You Want To Delete This department?\')"> <i class="icofont-delete-alt"></i></a>';
@@ -73,7 +78,6 @@ class DepartmentController extends Controller
             ->escapeColumns('depertment_image')
             ->make();
     }
-
 
 
     public function edit($id)
@@ -88,11 +92,10 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
 
-
         $department = Department::find($id);
         $department->depertment_name = $request->input('department_name');
         $department->depertment_location = $request->input('dept_loc');
-        $department->status ='Y';
+        $department->status = 'Y';
         $department->phone = $request->dept_phone;
 
         if ($depertment_image = $request->file('depertment_image')) {
@@ -100,10 +103,11 @@ class DepartmentController extends Controller
             $profileImage = date('YmdHis') . "." . $depertment_image->getClientOriginalExtension();
             $depertment_image->move($destinationPath, $profileImage);
             $department['depertment_image'] = "$profileImage";
-        }else{
+        } else {
             unset($department['depertment_image']);
         }
-
+        $department->company_id = Auth::user()->company_id;
+        $department->insert_by = Auth::user()->id;
         $department->update();
 
         return redirect()->route('department.index')->with(['success' => 'Form is successfully Updated!']);

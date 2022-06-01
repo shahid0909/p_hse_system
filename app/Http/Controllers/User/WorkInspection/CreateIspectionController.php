@@ -9,6 +9,7 @@ use App\Models\create_inspection;
 use Illuminate\Support\Facades\DB;
 use App\Models\l_employee;
 use App\Models\l_country;
+use App\Models\Department;
 
 
 class CreateIspectionController extends Controller
@@ -32,19 +33,20 @@ class CreateIspectionController extends Controller
 
         $user = Auth::user();
         $emp = l_employee::all();
-        $country = l_country::all();
+        $department = Department::all();
         $data = '';
 
 
-        return view('dashboards.users.workplaceInspection.create_inspection', compact('user','data','emp','country','count'));
+        return view('dashboards.users.workplaceInspection.create_inspection', compact('user','data','emp','department','count'));
 
 
-        return view('dashboards.users.workplaceInspection.create_inspection', compact('user', 'data', 'emp', 'country'));
-
+        
     }
 
     public function store(Request $request)
     {
+
+        // dd($request);
         $this->validate($request, [
             'inspection_title' => 'required',
             'location' => 'required',
@@ -56,10 +58,11 @@ class CreateIspectionController extends Controller
             'targetdate' => 'required',
             'priority' => 'required',
         ]);
+        $user = Auth::user();
 
         $input = new create_inspection;
         // dd($input);
-
+        $input->company_id =$user->company_id;
         $input->inspection_title = $request->input('inspection_title');
         $input->location = $request->input('location');
         $input->pic = $request->input('pic');
@@ -77,7 +80,8 @@ class CreateIspectionController extends Controller
             $input['image'] = "$profileImage";
         }
 
-        if ($input->save()) {
+        if ($input->save())
+         {
 
             return redirect()->back()->with('success', 'Departments information successfully store.');
         }
@@ -117,10 +121,10 @@ class CreateIspectionController extends Controller
     {
         $user = Auth::user();
         $emp = l_employee::all();
-        $country = l_country::all();
+        $department = Department::all();
         $data = create_inspection::where('id', $id)->first();
 
-        return view('dashboards.users.workplaceInspection.create_inspection', compact('data', 'user', 'emp', 'country'));
+        return view('dashboards.users.workplaceInspection.create_inspection', compact('data', 'user', 'emp', 'department'));
     }
 
 

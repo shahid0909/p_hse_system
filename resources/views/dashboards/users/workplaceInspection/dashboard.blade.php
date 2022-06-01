@@ -28,7 +28,7 @@
                     <div class="d-flex align-items-center">
                     <div class="flex-fill ms-3 text-truncate">
                         <div class="h3 mb-0 text-white">Close Inspection</div>
-                        <span class="small text-white">120</span>
+                        <span class="small text-white">{{$count1}}</span>
                     </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 <div class="alert-warning alert mb-0" style="background-color: #3C78D8 !important;">
                     <div class="flex-fill ms-3 text-truncate">
                         <div class="h3 mb-0 text-white">Pending Inspection</div>
-                        <span class="small text-white">120</span>
+                        <span class="small text-white">{{$count2}}</span>
                     </div>
                     </div>
                 </div>
@@ -53,7 +53,9 @@
 
                         <span class="small">{{$priority[0]->urgent}}</span>
 
-                    
+
+                       
+
 
                     </div>
                     </div>
@@ -141,7 +143,7 @@
                  return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
                      '<tr>'+
                      '<td>Full name:</td>'+
-                     '<td>'+d.country.country+'</td>'+
+                     '<td>'+d.country.depertment_name+'</td>'+
                      '</tr>'+
                      '<tr>'+
                      '<td>Extension number:</td>'+
@@ -174,7 +176,7 @@
                  },
 
                  {"data": 'DT_RowIndex', "name": 'DT_RowIndex'},
-                 {"data": "country.country"},
+                 {"data": "country.depertment_name"},
                  {"data": "image"},
                  {"data": "Justification"},
 
@@ -222,87 +224,4 @@
 
 
 
- {{--   <script>
-
-{{--     function format ( d ) {--}}
-{{--            // `d` is the original data object for the row--}}
-{{--            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+--}}
-{{--                '<tr>'+--}}
-{{--                '<td>Full name:</td>'+--}}
-{{--                '<td>'+d.country.country+'</td>'+--}}
-{{--                '</tr>'+--}}
-{{--                '<tr>'+--}}
-{{--                '<td>Extension number:</td>'+--}}
-{{--                '<td>'+d.Justification+'</td>'+--}}
-{{--                '</tr>'+--}}
-{{--                '<tr>'+--}}
-{{--                '<td>Extra info:</td>'+--}}
-{{--                '<td>And any further details here (images etc)...</td>'+--}}
-{{--                '</tr>'+--}}
-{{--                '</table>';--}}
-{{--        }--}}
-
-{{--        // project data table--}}
-{{--        $(document).ready(function() {--}}
-{{--            var table =$('.datatable').DataTable({--}}
-{{--                        processing: true,--}}
-{{--                        serverSide: true,--}}
-{{--                        ajax: {--}}
-{{--                            url: "{{ route('create_ispection.datatable') }}",--}}
-{{--                            type: 'GET',--}}
-{{--                            'headers': {--}}
-{{--                                'X-CSRF-TOKEN': '{{ csrf_token() }}'--}}
-{{--                            }--}}
-{{--                        },--}}
-{{--                        "columns": [--}}
-{{--                            {--}}
-{{--                                "className":      'dt-control',--}}
-{{--                                "orderable":      false,--}}
-{{--                                "data":           null,--}}
-{{--                                "defaultContent": ''--}}
-{{--                            },--}}
-
-{{--                            {"data": 'DT_RowIndex', "name": 'DT_RowIndex'},--}}
-{{--                            {"data": "country.country"},--}}
-{{--                            {"data": "image"},--}}
-{{--                            {"data": "Justification"},--}}
-{{--                            --}}
-{{--                            {"data": "admitdate"},--}}
-{{--                            {"data": "text"},--}}
-{{--                            --}}
-
-{{--                            // {"data": "status"},--}}
-{{--                            {data: 'action', name: 'action', orderable: false, searchable: false}--}}
-{{--                        ],--}}
-{{--                        language: {--}}
-{{--                            paginate: {--}}
-{{--                                next: '<i class="bx bx-chevron-right">',--}}
-{{--                                previous: '<i class="bx bx-chevron-left">'--}}
-{{--                            }--}}
-{{--                        }--}}
-{{--                    });--}}
-
-{{--            $('.datatable tbody').on('click', 'td.dt-control', function () {--}}
-{{--                var tr = $(this).closest('tr');--}}
-{{--                var row = table.row( tr );--}}
-
-{{--                if ( row.child.isShown() ) {--}}
-{{--                    // This row is already open - close it--}}
-{{--                    row.child.hide();--}}
-{{--                    tr.removeClass('shown');--}}
-{{--                }--}}
-{{--                else {--}}
-{{--                    // Open this row--}}
-{{--                    row.child( format(row.data()) ).show();--}}
-{{--                    tr.addClass('shown');--}}
-{{--                }--}}
-{{--            } );--}}
-
-{{--        --}}
-
-{{--         --}}
-{{--        });--}}
-{{--    </script>--}}
-
-
-@endsection
+ 

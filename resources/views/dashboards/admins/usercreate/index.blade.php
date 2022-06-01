@@ -6,7 +6,7 @@
         .inpcol {
 
             outline: 1px solid #5b998d;
-            text-transform:uppercase;
+            /*text-transform:uppercase;*/
         }
 
         .span {
@@ -67,7 +67,7 @@
                         @csrf
                         <div class="col-12">
                             <div class="mb-2">
-                                <label class="form-label">{{ __('Name') }}</label>
+                                <label class="form-label">{{ __('Name') }}<span style="color: #ff0000">*</span></label>
                                 <input type="text"
                                        class="form-control inpcol @error('name') is-invalid @enderror"
                                        placeholder="John"
@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-12">
                             <div class="mb-2">
-                                <label class="form-label">{{ __('Email Address') }}</label>
+                                <label class="form-label">{{ __('Email Address') }}<span style="color: #ff0000">*</span></label>
                                 <input type="email"
                                        id="email"
                                        class="form-control inpcol @error('email') is-invalid @enderror"
@@ -98,7 +98,7 @@
                         </div>
                         <div class="col-12">
                             <div class="mb-2">
-                                <label class="form-label">User Role</label>
+                                <label class="form-label">User Role<span style="color: #ff0000">*</span></label>
                                 <select class="form-control inpcol" name="role" id="role">
                                     <option value="1">Admin</option>
                                     <option value="2">User</option>
@@ -112,7 +112,23 @@
                         </div>
                         <div class="col-12">
                             <div class="mb-2">
-                                <label class="form-label" for="password">{{ __('Password') }}</label>
+                                <label class="form-label">Company<span style="color: #ff0000">*</span></label>
+                                <select class="form-control inpcol" name="company" id="company">
+                                   <option value="">---Choose---</option>
+                                    @foreach($company as $values)
+                                    <option value="{{$values->id}}">{{$values->company_name}} </option>
+                                    @endforeach
+                                </select>
+                                @error('user_role')
+                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-2">
+                                <label class="form-label" for="password">{{ __('Password') }}<span style="color: #ff0000">*</span></label>
                                 <input type="password"
                                        id="password"
                                        class="form-control inpcol @error('password') is-invalid @enderror"
@@ -127,7 +143,7 @@
                         </div>
                         <div class="col-12">
                             <div class="mb-2">
-                                <label class="form-label">{{ __('Confirm Password') }}</label>
+                                <label class="form-label">{{ __('Confirm Password') }}<span style="color: #ff0000">*</span></label>
                                 <input type="password"
                                        id="confirm_password"
                                        class="form-control inpcol"

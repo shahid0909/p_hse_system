@@ -49,11 +49,13 @@
                                             <div class="col-md-12">
                                                 <div class="col-sm-12">
                                                     <label for="item" class="form-label"
-                                                    >Inspection Title
+                                                    >Inspection 
                                                      <span class="text-danger">*</span>
                                                     </label
                                                     >
-                                                    <input type="text" class="form-control"  id="inspection_title" name="inspection_title"/>
+                                                    <input 
+                                                    value="{{isset($data->inspection_title) ? $data->inspection_title:''}}"
+                                                    type="text" class="form-control"  id="inspection_title" name="inspection_title"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-label">Location
@@ -69,8 +71,12 @@
 
 
                                                         <option value="">choose</option>
-                                                        @foreach($country as $list)
-                                                            <option value="{{$list->id}}"{{isset($data->location) && $data->location == $list->id ? 'selected': ''}}>{{$list->country}}</option>
+                                                        @foreach($department as $list)
+
+                                                            <option value="{{$list->id}}"{{isset($data->location) && $data->location == $list->id ? 'selected': ''}}>{{$list->depertment_name}}
+
+
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                     
@@ -217,24 +223,26 @@
 
                                                 />
                                             </div>
+                                            <div class="col-md-12" >
                                             @if(isset($data->id))
                                                 <button type="submit" class="btn btn-primary col-md-5"
-                                                        style="width: 420px;">Update
+                                                        style="width: 364px;">Update
 
                                                 </button>
 
                                             @else
 
                                                 <button type="submit" class="btn btn-primary col-md-5"
-                                                        style="width: 420px;">
+                                                        style="width: 364px;">
                                                     Submit
                                                 </button>
                                             @endif
 
 
                                             <a href="{{route('list_inspection.index')}}"
-                                               class="btn btn-danger col-md-5  "
-                                               style="margin-left: 25px; width: 420px; color: white; "> Back</a>
+                                               class="btn btn-danger  "
+                                               style="margin-left: px; width: 358px; color: white; "> Back</a>
+                                               </div>
                                         </div>
                                     </form>
                                 </div>

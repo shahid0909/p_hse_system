@@ -36,8 +36,16 @@
                             <h3 class="fw-bold mb-0">WorkPlace Inspection List</h3>
                             <div class="col-auto d-flex w-sm-100">
                                 <button type="button" class="btn btn-primary btn-set-task w-sm-100"
-                                        data-bs-toggle="modal" data-bs-target="#expadd"><i
-                                        class="icofont-plus-circle me-2 fs-6"></i>Add Workplace Inspection
+                                        data-bs-toggle="modal" data-bs-target="#expadd">
+                                        
+                                        <a  class="btn btn-primary btn-set-task w-sm-100" href="{{route('create_ispection.index')}}">
+                                            <i class="icofont-plus-circle me-2 fs-6">
+                                            
+                                        </i>
+
+
+                                        Add Workplace Inspection</a>
+                                        
                                 </button>
                             </div>
                         </div>
@@ -49,19 +57,11 @@
                                     <th></th>
                                     <th>Sl</th>
                                     <th>LOCATION</th>
-                                    <th>Title</th>
                                     <th>PICTURE</th>
                                     <th>PIC</th>
                                     <th>PRIORITY</th>
-                                    <!-- <th>DATE IDENTIFIED</th> -->
                                     <th>TARGET DATE</th>
-<<<<<<< HEAD
-
-                                    <th>Admit DATE</th>
-
-=======
-                                    <th>Admit DATE</th>
->>>>>>> b910d5fba5cf248c924b9f1ddde9736ea6ed61ac
+                                    <th>Admit DATE</th>      
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -109,7 +109,7 @@
                         '</tr>' +
                          '<tr>' +
                          '<td>Extension number:</td>' +
-                         '<td>' + d.country.country + '</td>' +
+                         '<td>' + d.country.depertment_name + '</td>' +
                          '</tr>' +
                          '<tr>' +
                          '<td>Extra info:</td>' +
@@ -137,11 +137,11 @@
                     },
 
                     {"data": 'DT_RowIndex', "name": 'DT_RowIndex'},
-                            {"data": "country.country"},
+                            {"data": "country.depertment_name"},
 
                             // {"data": "inspection_title"},
 
-                            {"data": "inspection_title"},
+                            // {"data": "inspection_title"},
 
                             {"data": "image"},
                             {"data": "employee.em_name"},

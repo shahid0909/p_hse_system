@@ -27,9 +27,11 @@ class EmployeeController extends Controller
         $data = DB::select('select e.*, des.ds_name,dep.depertment_name from l_employees e
 LEFT JOIN designations des on (des.id = e.em_designation)
 LEFT join departments dep on (dep.id = e.em_department) ORDER by e.id DESC;');
-        $company = CompanyProfile::all();
+        $company = DB::selectOne("SELECT DISTINCT id, company_name from company_profile
+where id = '$user->company_id'");
 
-        return view('dashboards.users.companySetup.l_employee', compact('user', 'dep', 'des', 'country', 'data','company'));
+
+        return view('dashboards.users.companySetup.l_employee', compact('user', 'dep', 'des', 'country', 'data', 'company'));
 
     }
 
@@ -82,8 +84,8 @@ LEFT join departments dep on (dep.id = e.em_department) ORDER by e.id DESC;');
             ->leftJoin('designations as des', 'des.id', '=', 'e.em_designation')
             ->leftJoin('departments as dep', 'dep.id', '=', 'e.em_department')
             ->leftJoin('l_country as c', 'c.id', '=', 'e.em_country')
-            ->leftJoin('company_profile as cm','cm.id','=','e.company_id' )
-            ->select('e.*', 'des.ds_name', 'dep.depertment_name', 'c.country','cm.company_name')
+            ->leftJoin('company_profile as cm', 'cm.id', '=', 'e.company_id')
+            ->select('e.*', 'des.ds_name', 'dep.depertment_name', 'c.country', 'cm.company_name')
             ->where('e.id', $emp_id)->first();
 
         $emp_id = $datas->id;
@@ -101,15 +103,15 @@ LEFT join departments dep on (dep.id = e.em_department) ORDER by e.id DESC;');
         $em_profile = $datas->em_profile;
         $company_id = $datas->company_id;
         $company_name = $datas->company_name;
-        $em_signature = $datas->em_signature ;
+        $em_signature = $datas->em_signature;
 
-        echo $emp_id . '||' . $em_name . '||' . $des_id . '||' . $des_name . '||' . $dep_id . '||' . $dep_name . '||'. $em_ic_passport_no . '||' . $em_mail . '||' . $em_phone . '||' . $con_id . '||' . $con_name . '||' . $em_j_date . '||' . $em_profile. '||' .$company_id. '||' .$company_name. '||' .$em_signature;
+        echo $emp_id . '||' . $em_name . '||' . $des_id . '||' . $des_name . '||' . $dep_id . '||' . $dep_name . '||' . $em_ic_passport_no . '||' . $em_mail . '||' . $em_phone . '||' . $con_id . '||' . $con_name . '||' . $em_j_date . '||' . $em_profile . '||' . $company_id . '||' . $company_name . '||' . $em_signature;
 
     }
 
     public function empUpdate(Request $request)
     {
-   
+
         $id = $request->emp_id;
 
         $input = l_employee::find($id);
@@ -140,7 +142,7 @@ LEFT join departments dep on (dep.id = e.em_department) ORDER by e.id DESC;');
             $filename = time() . '.' . $extention;
             $file->move('uploads/emp_signature/', $filename);
             $input->em_signature = $filename;
-        } else{
+        } else {
             unset($input->company_id);
         }
         $input->update();

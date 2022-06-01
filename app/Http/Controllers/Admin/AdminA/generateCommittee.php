@@ -24,7 +24,8 @@ class generateCommittee extends Controller
        $committes= SafetyCommittee::all();
         $user = Auth::user();
        $gc= g_committe::all();
-       $companies=CompanyProfile::all();
+       $companies=DB::selectOne("SELECT c.company_name,c.id FROM company_profile c,users u WHERE u.company_id=c.id and  c.id='$user->company_id'");
+    //    $companies=CompanyProfile::all();
         return view('dashboards.users.safetycommittee.committe',compact('user','committes','gc','companies'));
     }
 
@@ -91,11 +92,11 @@ WHERE  s.designation = '$request->designation'");
 
 
     public function generatepdf(Request $request){
-
+  
         $data=[
             'designation_name' => $request->designation_id,
             'employee_id' => $request->employee_id,
-            'company_name' => $request->company_id,
+            'company_name' => $request->company_name,
             'em_name'=>$request->employee_id,
         ];
        

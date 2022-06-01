@@ -13,7 +13,7 @@ class create_inspection extends Model
 
     public function country()
     {
-        return $this->belongsTo(l_country::class,'location', 'id');
+        return $this->belongsTo(Department::class,'location', 'id');
     }
     public function employee()
     {

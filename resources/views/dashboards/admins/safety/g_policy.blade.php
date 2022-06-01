@@ -5,21 +5,18 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet"/>
     <style>
         .inpcol{
-
             outline: 1px solid #5b998d;
         }
-
         .span{
             content: '*';
             color: red;
         }
-
         .toast-top-center {
             top: 2rem;
             left: 0%;
             margin: 0 0 0 0;
         }
-
+/* .select-editable select:focus, .select-editable input:focus {outline:none;} */
     </style>
     <!-- Body: Body -->
 @endsection
@@ -67,10 +64,19 @@
                             <h3><b> SAFETY & HEALTH POLICY</b></h3>
                           </div>
 
-                          <div class="row mb-4">
-                            <div class="col-sm-12">
-
+                          @if ( Session::has('success') )
+                          <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              <span class="sr-only">Close</span>
+                            </button>
+                            <strong style="text-align: center;font-size:20px">{{ Session::get('success') }}</strong>
+                            
+                          </div>
+                          @endif
+                              
                                 <form action="{{ route('safety.store') }}"  method="post" enctype="multipart/form-data">
+                                 
                                     @csrf
                                 <ul class="bg bg-danger">
                                     @foreach ($errors->all() as $error)
@@ -79,28 +85,21 @@
 
                                 </ul>
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                       <label >Title</label>
                                       <textarea name="title" id="" cols="65" rows="">{{ old('title') }}</textarea>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group">
                                         <label >Commitment</label>
                                         <textarea id="summernote" name="commitment" value="{{ old('commitment') }}"></textarea>
                                       </div>
 
-                                    <div class="form-group">
-                                        <label >Tagline</label>
-                                        <select
-                                            name="tagline"
-                                            id="depertment"
-                                            class="col-md-12"
-                                            style=" padding: 10px; border-radius: 3px; border-color: var(--border-color);>
-
-                                        <option value="SAFETY AND HEALTH IS EVERYONE'S BUSINESS">
-                                            SAFETY AND HEALTH IS EVERYONE'S BUSINESS
-                                        </option>
-                                        <option value="Zero injuries does not indicate the presence
+                                      <div class="form-group select-editable form-control" >
+                                        <label for="">---Choose---</label>
+                                        <select onchange="this.nextElementSibling.value=this.value"  name="tagline" class="select2 form-control">
+                                          <option value="">Select The Tagline</option>
+                                          <option value="Zero injuries does not indicate the presence
                                                 of safety.">
                                             Zero injuries does not indicate the presence
                                             of safety.
@@ -117,20 +116,21 @@
                                             <option value="Safety first, to last in life.">
                                                 Safety first, to last in life.
                                             </option>
+
+                                            <option value="SAFETY AND HEALTH IS EVERYONE'S BUSINESS">SAFETY AND HEALTH IS EVERYONE'S BUSINESS</option>
                                         </select>
+                                        <input type="text" name="tagline" value="" class="form-control">
                                       </div>
 
+                                   
+                                    
                                       <div class="form-group">
                                         <label >Company Name</label>
-                                      <select name="company_id" id="" class="form-control">
-                                        <option value="">-select--</option>
-                                       @foreach ($companies as $company)
+                                      <input name="company_name" id="" class="form-control" value="{{ $companies->company_name }}" readonly>
 
-                                       <option value="{{ $company->id }}">{{  $company->company_name }}</option>
-                                         
-                                       @endforeach
-                                         </select>
+                                      
                                       </div>
+                                      <input type="hidden" name="company_id" id="" class="form-control" value="{{ $companies->id }}">
                                       <div class="row">
                                         <div class="col-lg-12">
                                           <h6>Employee</h6>
@@ -152,6 +152,12 @@
                                     <button type="submit" class="btn btn-primary">Create</button>
                                   </form>
                             </div>
+                            <script>
+                              $('#flash-overlay-modal').modal();
+                          </script>
+                          <script>
+                            $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+                            </script>  
                           </div>
                           <!-- Row end  -->
                         
@@ -164,10 +170,10 @@
                   <!-- Row end  -->
                 </div>
               </div>
+              
               <!-- Row end  -->
             </div>
           </div>
-
         @endsection
         @section('script')
             <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script>
@@ -181,7 +187,6 @@
             <script>
                 $(document).ready(function() {
                     $('#summernote').summernote();
-
                     $("#employee_id").on("change", function () {
                       let emp_id = $("#employee_id").val();
                  $.ajax({
@@ -193,8 +198,6 @@
                 }
             });
                     });
-
                 });
-
                 </script>
 @endsection

@@ -31,7 +31,8 @@ class DesignationController extends Controller
         $input->ds_name = $request->input('ds_name');
         $input->ds_rank = $request->input('ds_rank');
         $input->ds_status= 'Y';
-
+        $input->company_id = Auth::user()->company_id;
+        $input->insert_by = Auth::user()->id;
 //dd($input);
         $input->save();
 
@@ -58,6 +59,8 @@ class DesignationController extends Controller
         $input->ds_name = $request->input('ds_name');
         $input->ds_rank = $request->input('ds_rank');
         $input->ds_status= 'Y';
+        $input->company_id = Auth::user()->company_id;
+        $input->insert_by = Auth::user()->id;
         $input -> update();
         return redirect()->route('designation.index')->with(['success'=>'Form is successfully Updated!']);
 
@@ -67,7 +70,13 @@ class DesignationController extends Controller
 
     public function datatable()
     {
-        $data = Designation::orderBy('id','DESC')->get();
+        $users = Auth::user();
+
+        $data = Designation::where('designations.company_id', '=', $users->company_id)
+            ->orderBy('designations.id','DESC')
+            ->get('designations.*');
+
+
         return datatables()
             ->of($data)
             ->addIndexColumn()

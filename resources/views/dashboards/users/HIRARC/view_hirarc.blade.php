@@ -60,6 +60,7 @@
                         </div>
                     </div> <!-- Row end  -->
 
+
                     <div class="row justify-content-center">
                         <div class="col-lg-12 col-md-12">
                             <div class="row justify-content-center">
@@ -68,9 +69,10 @@
                                         <div class="card-header">
                                             <h3 style="text-align: center;">HIRARC - ST Regis</h1>
                                         </div>
+
                                         <div class="card-body">
                                             <div class="mb-3 pb-3 border-bottom">
-                                                Department: {{ $data1->depertment_name}}
+                                                Department: {{$data1->depertment_name}}
                                                 <strong> 
                                              
                                       
@@ -80,94 +82,101 @@
                                             </div>
 
                                             <div class="row mb-4">
-                                                <div class="col-sm-6">
-                                                    <h6 class="mb-3"><strong>Process:</strong> <span>{{ $data1->process}}</span>
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                    <h6 class="mb-3 col-md-3"><strong>Process:</strong> <span>{{ $data1->process}}</span>
                                                     </h6>
-                                                    <p><strong>location:</strong><span>{{$data1->location}}</span></p>
-                                                    <p><strong>Review Date:</strong><span>{{$data1->date}}</span></p>
-                                                    <p><strong>Last Assesment Date</strong><span>{{$data1->assessment_date}}</span></p>
+                                                    <p class="col-md-3"><strong>location:</strong><span>{{$data1->location}}</span></p>
+                                                    <p class="col-md-3"><strong>Review Date:</strong><span>{{$data1->date}}</span></p>
+                                                    <p class="col-md-3"><strong>Last Assesment Date</strong><span>{{$data1->assessment_date}}</span></p>
+                                                    </div>
                                                     
                                                 </div>
                                                 
-                                                <div class="col-sm-6">
-                                                  <h6 class="mb-3"><strong>RM Assessor:</strong> <span>{{$data1->m2}}</span>
-                                                  </h6>
-                                                  <p><strong>RM Team 1  :</strong><span style="text-align: right;">{{$data1->m3}}</span></p>
-                                                  <p><strong>RM Team 2  :</strong><span style="text-align: right;">{{$data1->m4}}</span></p>
-                                                  <p><strong>RM Team 3  :</strong><span style="text-align: right;">{{$data1->m5}}</span></p>
-                                                  <p><strong>RM Team 4  :</strong><span style="text-align: right;">{{$data1->m6}}</span></p>
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                          <h6 class="mb-3 col-md-3"><strong>RM Assessor:</strong> <span>{{$data1->m2}}</span>
+                                                          </h6>
+                                                          <p class="col-md-2"><strong>RM Team 1  :</strong><span style="text-align: right;">{{$data1->m3}}</span></p>
+                                                          <p class="col-md-2"><strong>RM Team 2  :</strong><span style="text-align: right;">{{$data1->m4}}</span></p>
+                                                          <p class="col-md-2"><strong>RM Team 3  :</strong><span style="text-align: right;">{{$data1->m5}}</span></p>
+                                                          <p class="col-md-3"><strong>RM Team 4  :</strong><span style="text-align: right;">{{$data1->m6}}</span></p>
+                                                    </div>
+
                                                 </div>
                                             </div> <!-- Row end  -->
                                             <div class="row">
                                               <h1>Activity List</h1>
                                               <hr>
+                                            
+
                                               <div class="image col-md-3 mt-15" style="margin-top: 5%;">
-                                                  <img src="assets/images/product/product-1.jpg" alt="activity_img" style="width: 100%; height: 180px;border-radius: 15px 15px 0px 0px;">
-                                                  <p style="background: #21bb74; padding: 20px; border-radius: 0px 0px 15px 15px; color: #fff; font-size: 20px; font-weight: bold;">#01 - Activity Name</p>
+                                                  <img src="/image/jobimage/{{$data2->image}}" alt="activity_img" style="width: 100%; height: 180px;border-radius: 15px 15px 0px 0px;" >
+
+                                                  <p style="background: #21bb74; padding: 20px; border-radius: 0px 0px 15px 15px; color: #fff; font-size: 20px; font-weight: bold;">
+                                                     
+
+                                                    {{$data2->job_activity}}
+                                                  
+
+                                                  </p>
                                               </div>
+
                                               <div class="col-md-9">
                                                 <div class="row clearfix g-3">
-                                                  <div class="col-sm-12">
+                                                  <div class="col-sm-12" style="overflow: scroll;">
                                                     <div class="card mb-3">
                                                       <div class="card-body">
                                                         <table
                                                           class="myProjectTable"
-                                                          class="table table-hover align-middle mb-0"
+                                                          class="table table-striped align-middle"
                                                           style="width: 100%"
                                                         >
                                                           <thead>
                                                             <tr>
                                                               <th>SEQUENCE OF THE JOB</th>
-                                                              <th>HAZARD & Category</th>
-                                                              
-                                                             <th>RMN Risk</th>
+                                                              <th>HAZARD and Category:</th>
+                                                              <th>RMN Value & Risk: </th>
                                                             </tr>
                                                           </thead>
+
                                                           <tbody>
                                                        
                                                                 <tr>
                                                                    
+                                                                    @foreach($data as $key=>$value)
+                                                                     
+                                                                     <td>{{$value->sequence_job}}
+                                                                         
+                                                                     </td>
+                                                                     <td>{{$value->hazard}}-{{$value->c_hazard}}<br>
+                                                                         
+                                                                     </td>
+                                                                    @if( $value->rmn >= 14)
+                                                                        <td>
+                                                                          <span style="background-color: red; padding: 5px; border-radius: 5px; color: white; font-weight: bold; height: 10PX; width:35px ; object-fit: cover;">{{$value->rmn}}-
+                                                                            {{"High Rick"}}
+                                                                        
+                                                                            </span>
+                                                                        </td>
+                                                                    @endif
+
+                                                                     @if( $value->rmn >= 4 && $value->rmn <= 14)
+                                                                    <td>
+                                                                      <span style="background-color: orange; padding: 5px ; border-radius: 5px; color: white; font-weight: bold;height: 10PX; width:35px ; object-fit: cover;">{{$value->rmn}}-
+                                                                    {{"Medium Rick"}}
                                                                     
-                                                                   
-                                                                 
-                                                                     <td><strong>{{$data1->job_activity}}</strong></td>
-                                                                     @foreach($data as $key=>$value)
-                                                                     <td>
-                                                                      <a href="employee-detail.html">
-                                                                        <img
-                                                                          class="avatar rounded"
-                                                                          src="assets/images/xs/avatar1.svg"
-                                                                          alt=""
-                                                                        />
-                                                                        <span class="fw-bold ms-1">{{$value->c_hazard}}</span>
-                                                                      </a>
-
+                                                                    </span>
                                                                     </td>
-                                                                  @if( $value->rmn >= 5)
-                                                                <td>
-                                                                  <span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold; height: 10PX; width:35px ; object-fit: cover;">
-                                                                {{"High Rick"}}
-                                                            
-                                                            </span>
-                                                          </td>
-                                                              @endif
+                                                                  
 
-                                                                 @if( $value->rmn == 3)
-                                                                <td>
-                                                                  <span style="background-color: orange; padding: 10px ; border-radius: 5px; color: white; font-weight: bold;height: 10PX; width:35px ; object-fit: cover;">
-                                                                {{"Medium Rick"}}
-                                                            
-                                                            </span>
-                                                          </td>
-                                                              
+                                                                   @endif
 
-                                                               @endif
-
-                                                               @if( $value->rmn < 3) 
+                                                               @if( $value->rmn <= 4) 
                                                                 <td>
                                                                   
                                                       
-                                                                  <span  style="background-color: green; padding: 10px  ; border-radius: 5px ; color: white; font-weight: bold;;">
+                                                                  <span  style="background-color: green; padding: 5px  ; border-radius: 5px ; color: white; font-weight: bold;">{{$value->rmn}}-
                                                                 {{"Low Rick"}}
                                                                  </span>
                                                                </td>
@@ -184,637 +193,7 @@
                                                   </div>
                                                 </div>
                                               </div> 
-                                              <hr> 
-                                              <div class="image col-md-3 mt-15" style="margin-top: 5%;">
-                                                <img src="assets/images/product/product-1.jpg" alt="activity_img" style="width: 100%; height: 180px;border-radius: 15px 15px 0px 0px;">
-                                                <p style="background: #21bb74; padding: 20px; border-radius: 0px 0px 15px 15px; color: #fff; font-size: 20px; font-weight: bold;">#01 - #01 - Activity Name</p>
-                                            </div>
-                                            <div class="col-md-9">
-                                              <div class="row clearfix g-3">
-                                                <div class="col-sm-12">
-                                                  <div class="card mb-3">
-                                                    <div class="card-body">
-                                                      <table
-                                                        class="myProjectTable"
-                                                        class="table table-hover align-middle mb-0"
-                                                        style="width: 100%"
-                                                      >
-                                                        <thead>
-                                                          <tr>
-                                                            <th>SEQUENCE OF THE JOB</th>
-                                                            <th>HAZARD & Category</th>
-                                                            <th>RMN Risk</th>
-                                                            <th>Event and Consequences
-                                                            </th>
-                                                            <th>Existing Risk Control (if any)
-                                                            </th>
-                                                            <th>Likelihood (L)
-                                                            </th>
-                                                            <th>Severity (S)
-                                                            </th>
-                                                            <th>Country</th>
-                                                            <th>Date Of Joining</th>
-                                                            <th>Actions</th>
-                                                          </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                          <tr>
-                                                            <td><strong>#CS-00002</strong></td>
-                                                            <td>
-                                                              <a href="employee-detail.html">
-                                                                <img
-                                                                  class="avatar rounded"
-                                                                  src="assets/images/xs/avatar1.svg"
-                                                                  alt=""
-                                                                />
-                                                                <span class="fw-bold ms-1">Joan Dyer</span>
-                                                              </a>
-                                                            </td>
-                                                                <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold; "></span></td>
-                                                            <td>FOOD</td>
-                                                            <td>880807-56-5116</td>
-                                                            <td>JoanDyer@gmail.com</td>
-                                                            <td>202-555-0983</td>
-                                                            <td>Bangladesh</td>
-                                                            <td>18-02-2022</td>
-                                                            <td>
-                                                              <div
-                                                                class="btn-group"
-                                                                role="group"
-                                                                aria-label="Basic outlined example"
-                                                              >
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary"
-                                                                  data-bs-toggle="modal"
-                                                                  data-bs-target="#expedit"
-                                                                >
-                                                                  <i class="icofont-edit text-success"></i>
-                                                                </button>
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary deleterow"
-                                                                >
-                                                                  <i class="icofont-ui-delete text-danger"></i>
-                                                                </button>
-                                                              </div>
-                                                            </td>
-                                                          </tr>
-                                                          <tr>
-                                                            <td><strong>#CS-00002</strong></td>
-                                                            <td>
-                                                              <a href="employee-detail.html">
-                                                                <img
-                                                                  class="avatar rounded"
-                                                                  src="assets/images/xs/avatar1.svg"
-                                                                  alt=""
-                                                                />
-                                                                <span class="fw-bold ms-1">Joan Dyer</span>
-                                                              </a>
-                                                            </td>
-                                                            <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                            <td>FOOD</td>
-                                                            <td>880807-56-5116</td>
-                                                            <td>JoanDyer@gmail.com</td>
-                                                            <td>202-555-0983</td>
-                                                            <td>Bangladesh</td>
-                                                            <td>18-02-2022</td>
-                                                            <td>
-                                                              <div
-                                                                class="btn-group"
-                                                                role="group"
-                                                                aria-label="Basic outlined example"
-                                                              >
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary"
-                                                                  data-bs-toggle="modal"
-                                                                  data-bs-target="#expedit"
-                                                                >
-                                                                  <i class="icofont-edit text-success"></i>
-                                                                </button>
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary deleterow"
-                                                                >
-                                                                  <i class="icofont-ui-delete text-danger"></i>
-                                                                </button>
-                                                              </div>
-                                                            </td>
-                                                          </tr>
-                                                          <tr>
-                                                            <td><strong>#CS-00002</strong></td>
-                                                            <td>
-                                                              <a href="employee-detail.html">
-                                                                <img
-                                                                  class="avatar rounded"
-                                                                  src="assets/images/xs/avatar1.svg"
-                                                                  alt=""
-                                                                />
-                                                                <span class="fw-bold ms-1">Joan Dyer</span>
-                                                              </a>
-                                                            </td>
-                                                            <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                            <td>FOOD</td>
-                                                            <td>880807-56-5116</td>
-                                                            <td>JoanDyer@gmail.com</td>
-                                                            <td>202-555-0983</td>
-                                                            <td>Bangladesh</td>
-                                                            <td>18-02-2022</td>
-                                                            <td>
-                                                              <div
-                                                                class="btn-group"
-                                                                role="group"
-                                                                aria-label="Basic outlined example"
-                                                              >
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary"
-                                                                  data-bs-toggle="modal"
-                                                                  data-bs-target="#expedit"
-                                                                >
-                                                                  <i class="icofont-edit text-success"></i>
-                                                                </button>
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary deleterow"
-                                                                >
-                                                                  <i class="icofont-ui-delete text-danger"></i>
-                                                                </button>
-                                                              </div>
-                                                            </td>
-                                                          </tr>
-                                                          <tr>
-                                                            <td><strong>#CS-00002</strong></td>
-                                                            <td>
-                                                              <a href="employee-detail.html">
-                                                                <img
-                                                                  class="avatar rounded"
-                                                                  src="assets/images/xs/avatar1.svg"
-                                                                  alt=""
-                                                                />
-                                                                <span class="fw-bold ms-1">Joan Dyer</span>
-                                                              </a>
-                                                            </td>
-                                                            <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                            <td>FOOD</td>
-                                                            <td>880807-56-5116</td>
-                                                            <td>JoanDyer@gmail.com</td>
-                                                            <td>202-555-0983</td>
-                                                            <td>Bangladesh</td>
-                                                            <td>18-02-2022</td>
-                                                            <td>
-                                                              <div
-                                                                class="btn-group"
-                                                                role="group"
-                                                                aria-label="Basic outlined example"
-                                                              >
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary"
-                                                                  data-bs-toggle="modal"
-                                                                  data-bs-target="#expedit"
-                                                                >
-                                                                  <i class="icofont-edit text-success"></i>
-                                                                </button>
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-outline-secondary deleterow"
-                                                                >
-                                                                  <i class="icofont-ui-delete text-danger"></i>
-                                                                </button>
-                                                              </div>
-                                                            </td>
-                                                          </tr>
-                                                        </tbody>
-                                                      </table>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div> 
-                                            <hr>                                           
-
-                                            <div class="image col-md-3 mt-15" style="margin-top: 5%;">
-                                              <img src="assets/images/product/product-1.jpg" alt="activity_img" style="width: 100%; height: 180px;border-radius: 15px 15px 0px 0px;">
-                                              <p style="background: #21bb74; padding: 20px; border-radius: 0px 0px 15px 15px; color: #fff; font-size: 20px; font-weight: bold;">#01 - Activity Name</p>
-                                          </div>
-                                          <div class="col-md-9">
-                                            <div class="row clearfix g-3">
-                                              <div class="col-sm-12">
-                                                <div class="card mb-3">
-                                                  <div class="card-body">
-                                                    <table
-                                                      class="myProjectTable"
-                                                      class="table table-hover align-middle mb-0"
-                                                      style="width: 100%"
-                                                    >
-                                                      <thead>
-                                                        <tr>
-                                                          <th>SEQUENCE OF THE JOB</th>
-                                                          <th>HAZARD & Category</th>
-                                                          <th>RMN Risk</th>
-                                                          <th>Event and Consequences
-                                                          </th>
-                                                          <th>Existing Risk Control (if any)
-                                                          </th>
-                                                          <th>Likelihood (L)
-                                                          </th>
-                                                          <th>Severity (S)
-                                                          </th>
-                                                          <th>Country</th>
-                                                          <th>Date Of Joining</th>
-                                                          <th>Actions</th>
-                                                        </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                        <tr>
-                                                          <td><strong>#CS-00002</strong></td>
-                                                          <td>
-                                                            <a href="employee-detail.html">
-                                                              <img
-                                                                class="avatar rounded"
-                                                                src="assets/images/xs/avatar1.svg"
-                                                                alt=""
-                                                              />
-                                                              <span class="fw-bold ms-1">Joan Dyer</span>
-                                                            </a>
-                                                          </td>
-                                                          <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                          <td>FOOD</td>
-                                                          <td>880807-56-5116</td>
-                                                          <td>JoanDyer@gmail.com</td>
-                                                          <td>202-555-0983</td>
-                                                          <td>Bangladesh</td>
-                                                          <td>18-02-2022</td>
-                                                          <td>
-                                                            <div
-                                                              class="btn-group"
-                                                              role="group"
-                                                              aria-label="Basic outlined example"
-                                                            >
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#expedit"
-                                                              >
-                                                                <i class="icofont-edit text-success"></i>
-                                                              </button>
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary deleterow"
-                                                              >
-                                                                <i class="icofont-ui-delete text-danger"></i>
-                                                              </button>
-                                                            </div>
-                                                          </td>
-                                                        </tr>
-                                                        <tr>
-                                                          <td><strong>#CS-00002</strong></td>
-                                                          <td>
-                                                            <a href="employee-detail.html">
-                                                              <img
-                                                                class="avatar rounded"
-                                                                src="assets/images/xs/avatar1.svg"
-                                                                alt=""
-                                                              />
-                                                              <span class="fw-bold ms-1">Joan Dyer</span>
-                                                            </a>
-                                                          </td>
-                                                          <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                          <td>FOOD</td>
-                                                          <td>880807-56-5116</td>
-                                                          <td>JoanDyer@gmail.com</td>
-                                                          <td>202-555-0983</td>
-                                                          <td>Bangladesh</td>
-                                                          <td>18-02-2022</td>
-                                                          <td>
-                                                            <div
-                                                              class="btn-group"
-                                                              role="group"
-                                                              aria-label="Basic outlined example"
-                                                            >
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#expedit"
-                                                              >
-                                                                <i class="icofont-edit text-success"></i>
-                                                              </button>
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary deleterow"
-                                                              >
-                                                                <i class="icofont-ui-delete text-danger"></i>
-                                                              </button>
-                                                            </div>
-                                                          </td>
-                                                        </tr>
-                                                        <tr>
-                                                          <td><strong>#CS-00002</strong></td>
-                                                          <td>
-                                                            <a href="employee-detail.html">
-                                                              <img
-                                                                class="avatar rounded"
-                                                                src="assets/images/xs/avatar1.svg"
-                                                                alt=""
-                                                              />
-                                                              <span class="fw-bold ms-1">Joan Dyer</span>
-                                                            </a>
-                                                          </td>
-                                                          <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                          <td>FOOD</td>
-                                                          <td>880807-56-5116</td>
-                                                          <td>JoanDyer@gmail.com</td>
-                                                          <td>202-555-0983</td>
-                                                          <td>Bangladesh</td>
-                                                          <td>18-02-2022</td>
-                                                          <td>
-                                                            <div
-                                                              class="btn-group"
-                                                              role="group"
-                                                              aria-label="Basic outlined example"
-                                                            >
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#expedit"
-                                                              >
-                                                                <i class="icofont-edit text-success"></i>
-                                                              </button>
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary deleterow"
-                                                              >
-                                                                <i class="icofont-ui-delete text-danger"></i>
-                                                              </button>
-                                                            </div>
-                                                          </td>
-                                                        </tr>
-                                                        <tr>
-                                                          <td><strong>#CS-00002</strong></td>
-                                                          <td>
-                                                            <a href="employee-detail.html">
-                                                              <img
-                                                                class="avatar rounded"
-                                                                src="assets/images/xs/avatar1.svg"
-                                                                alt=""
-                                                              />
-                                                              <span class="fw-bold ms-1">Joan Dyer</span>
-                                                            </a>
-                                                          </td>
-                                                          <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                          <td>FOOD</td>
-                                                          <td>880807-56-5116</td>
-                                                          <td>JoanDyer@gmail.com</td>
-                                                          <td>202-555-0983</td>
-                                                          <td>Bangladesh</td>
-                                                          <td>18-02-2022</td>
-                                                          <td>
-                                                            <div
-                                                              class="btn-group"
-                                                              role="group"
-                                                              aria-label="Basic outlined example"
-                                                            >
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#expedit"
-                                                              >
-                                                                <i class="icofont-edit text-success"></i>
-                                                              </button>
-                                                              <button
-                                                                type="button"
-                                                                class="btn btn-outline-secondary deleterow"
-                                                              >
-                                                                <i class="icofont-ui-delete text-danger"></i>
-                                                              </button>
-                                                            </div>
-                                                          </td>
-                                                        </tr>
-                                                      </tbody>
-                                                    </table>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div> 
-                                          <hr> 
-                                          <div class="image col-md-3 mt-15" style="margin-top: 5%;">
-                                            <img src="assets/images/product/product-1.jpg" alt="activity_img" style="width: 100%; height: 180px;border-radius: 15px 15px 0px 0px;">
-                                            <p style="background: #21bb74; padding: 20px; border-radius: 0px 0px 15px 15px; color: #fff; font-size: 20px; font-weight: bold;">#01 - Activity Name</p>
-                                        </div>
-                                        <div class="col-md-9">
-                                          <div class="row clearfix g-3">
-                                            <div class="col-sm-12">
-                                              <div class="card mb-3">
-                                                <div class="card-body">
-                                                  <table
-                                                    class="myProjectTable"
-                                                    class="table table-hover align-middle mb-0"
-                                                    style="width: 100%"
-                                                  >
-                                                    <thead>
-                                                      <tr>
-                                                        <th>SEQUENCE OF THE JOB</th>
-                                                        <th>HAZARD & Category</th>
-                                                        <th>RMN Risk</th>
-                                                        <th>Event and Consequences
-                                                        </th>
-                                                        <th>Existing Risk Control (if any)
-                                                        </th>
-                                                        <th>Likelihood (L)
-                                                        </th>
-                                                        <th>Severity (S)
-                                                        </th>
-                                                        <th>Justification of Likelihood
-                                                        </th>
-                                                        <th>Additional Risk Control
-                                                        </th>
-                                                        <th>Actions</th>
-                                                      </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                      <tr>
-                                                        <td><strong>#CS-00002</strong></td>
-                                                        <td>
-                                                          <a href="employee-detail.html">
-                                                            <img
-                                                              class="avatar rounded"
-                                                              src="assets/images/xs/avatar1.svg"
-                                                              alt=""
-                                                            />
-                                                            <span class="fw-bold ms-1">Joan Dyer</span>
-                                                          </a>
-                                                        </td>
-                                                        <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                        <td>FOOD</td>
-                                                        <td>880807-56-5116</td>
-                                                        <td>JoanDyer@gmail.com</td>
-                                                        <td>202-555-0983</td>
-                                                        <td>Bangladesh</td>
-                                                        <td>18-02-2022</td>
-                                                        <td>
-                                                          <div
-                                                            class="btn-group"
-                                                            role="group"
-                                                            aria-label="Basic outlined example"
-                                                          >
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary"
-                                                              data-bs-toggle="modal"
-                                                              data-bs-target="#expedit"
-                                                            >
-                                                              <i class="icofont-edit text-success"></i>
-                                                            </button>
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary deleterow"
-                                                            >
-                                                              <i class="icofont-ui-delete text-danger"></i>
-                                                            </button>
-                                                          </div>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td><strong>#CS-00002</strong></td>
-                                                        <td>
-                                                          <a href="employee-detail.html">
-                                                            <img
-                                                              class="avatar rounded"
-                                                              src="assets/images/xs/avatar1.svg"
-                                                              alt=""
-                                                            />
-                                                            <span class="fw-bold ms-1">Joan Dyer</span>
-                                                          </a>
-                                                        </td>
-                                                        <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                        <td>FOOD</td>
-                                                        <td>880807-56-5116</td>
-                                                        <td>JoanDyer@gmail.com</td>
-                                                        <td>202-555-0983</td>
-                                                        <td>Bangladesh</td>
-                                                        <td>18-02-2022</td>
-                                                        <td>
-                                                          <div
-                                                            class="btn-group"
-                                                            role="group"
-                                                            aria-label="Basic outlined example"
-                                                          >
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary"
-                                                              data-bs-toggle="modal"
-                                                              data-bs-target="#expedit"
-                                                            >
-                                                              <i class="icofont-edit text-success"></i>
-                                                            </button>
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary deleterow"
-                                                            >
-                                                              <i class="icofont-ui-delete text-danger"></i>
-                                                            </button>
-                                                          </div>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td><strong>#CS-00002</strong></td>
-                                                        <td>
-                                                          <a href="employee-detail.html">
-                                                            <img
-                                                              class="avatar rounded"
-                                                              src="assets/images/xs/avatar1.svg"
-                                                              alt=""
-                                                            />
-                                                            <span class="fw-bold ms-1">Joan Dyer</span>
-                                                          </a>
-                                                        </td>
-                                                        <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                        <td>FOOD</td>
-                                                        <td>880807-56-5116</td>
-                                                        <td>JoanDyer@gmail.com</td>
-                                                        <td>202-555-0983</td>
-                                                        <td>Bangladesh</td>
-                                                        <td>18-02-2022</td>
-                                                        <td>
-                                                          <div
-                                                            class="btn-group"
-                                                            role="group"
-                                                            aria-label="Basic outlined example"
-                                                          >
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary"
-                                                              data-bs-toggle="modal"
-                                                              data-bs-target="#expedit"
-                                                            >
-                                                              <i class="icofont-edit text-success"></i>
-                                                            </button>
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary deleterow"
-                                                            >
-                                                              <i class="icofont-ui-delete text-danger"></i>
-                                                            </button>
-                                                          </div>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td><strong>#CS-00002</strong></td>
-                                                        <td>
-                                                          <a href="employee-detail.html">
-                                                            <img
-                                                              class="avatar rounded"
-                                                              src="assets/images/xs/avatar1.svg"
-                                                              alt=""
-                                                            />
-                                                            <span class="fw-bold ms-1">Joan Dyer</span>
-                                                          </a>
-                                                        </td>
-                                                        <td><span style="background-color: red; padding: 10px; border-radius: 5px; color: white; font-weight: bold;;">High Risk - 5</span></td>
-                                                        <td>FOOD</td>
-                                                        <td>880807-56-5116</td>
-                                                        <td>JoanDyer@gmail.com</td>
-                                                        <td>202-555-0983</td>
-                                                        <td>Bangladesh</td>
-                                                        <td>18-02-2022</td>
-                                                        <td>
-                                                          <div
-                                                            class="btn-group"
-                                                            role="group"
-                                                            aria-label="Basic outlined example"
-                                                          >
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary"
-                                                              data-bs-toggle="modal"
-                                                              data-bs-target="#expedit"
-                                                            >
-                                                              <i class="icofont-edit text-success"></i>
-                                                            </button>
-                                                            <button
-                                                              type="button"
-                                                              class="btn btn-outline-secondary deleterow"
-                                                            >
-                                                              <i class="icofont-ui-delete text-danger"></i>
-                                                            </button>
-                                                          </div>
-                                                        </td>
-                                                      </tr>
-                                                    </tbody>
-                                                  </table>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div> 
-                                        <hr> 
+                                             
                                           </div>
                                         </div>
                                     </div>
@@ -847,8 +226,8 @@
         $(".myProjectTable")
           .addClass("nowrap")
           .dataTable({
-            responsive: true,
-            columnDefs: [{ targets: [-1, -3], className: "dt-body-right" }],
+            responsive: false,
+            columnDefs: [{ targets: [-1, -3], className: "dt-body-left" }],
           });
         $(".deleterow").on("click", function () {
           var tablename = $(this).closest("table").DataTable();

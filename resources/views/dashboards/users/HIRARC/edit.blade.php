@@ -31,11 +31,14 @@
         <!-- Body: Header -->
         @include('dashboards.users.partial.header')
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success message">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
+         <div>
+                    @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">X</button>
+                     {{session()->get('success')}}
+                     </div>
+                    @endif
+        </div>
 
 
   <div class="body d-flex py-3">
@@ -69,20 +72,22 @@
                                             <option value="">Select Department</option>
                                              @foreach($department as $list)
 
-                                          <option value="{{$list->id}}">
-                                        
-                                            {{isset($list->id)? $list->depertment_name: ''}}
-
-
-
-
-                                          </option>
+                                          <option value="{{ $list->id }}" {{ ($list->id == $data->depertment_id) ? 'selected': ''}} >{{ $list->depertment_name }}</option>
 
                                           @endforeach
+
+
+                                           <!--  @foreach($data3 as $list)
+                                            @if (old('category') == $list->id)
+                                                <option value="{{ $list->id }}" selected>{{ $list->depertment_name }}</option>
+                                            @else
+                                                <option value="{{ $list->id }}">{{ $list->depertment_name }}</option>
+                                            @endif
+                                            @endforeach -->
                                           </select>
                                       </div>
                                   </div>
-
+                                
 
                                      <div class="col-md-4 mb-6">
                                         <div class="form-group">
@@ -127,7 +132,6 @@
                                     />
                                   </div>
 
-                                    
 
                                  <div class="col-md-4 mb-6">
                                     <label for="assessment_date" class="form-label">Assessment Date/Review Date* </label>
@@ -156,11 +160,7 @@
                                             <option value="">Select Employee Name</option>
                                              @foreach($l_employee as $list)
 
-                                          <option value="{{$list->id}}">
-                                            {{$list->em_name}}
-                                            {{isset($list->id)? $list->rm_assessor: ''}}
-
-                                             </option>
+                                          <option value="{{ $list->id }}" {{ ($list->id == $data->rm_assessor) ? 'selected': ''}} >{{ $list->em_name }}</option>
 
                                           @endforeach
                                           </select>
@@ -173,10 +173,7 @@
                                             <option value="">Select Employee</option>
                                              @foreach($l_employee as $list)
 
-                                          <option value="{{$list->id}}">{{$list->em_name}}
-
-
-                                          </option>
+                                          <option value="{{ $list->id }}" {{ ($list->id == $data->rm_member1) ? 'selected': ''}} >{{ $list->em_name }}</option>
 
                                           @endforeach
                                           </select>
@@ -189,10 +186,7 @@
                                             <option value="">Select Employee</option>
                                              @foreach($l_employee as $list)
 
-                                          <option value="{{$list->id}}">{{$list->em_name}}
-
-
-                                          </option>
+                                          <option value="{{ $list->id }}" {{ ($list->id == $data->rm_member2) ? 'selected': ''}} >{{ $list->em_name }}</option>
 
                                           @endforeach
                                           </select>
@@ -206,10 +200,7 @@
                                             <option value="">Select Employee</option>
                                              @foreach($l_employee as $list)
 
-                                          <option value="{{$list->id}}">{{$list->em_name}}
-
-
-                                          </option>
+                                          <option value="{{ $list->id }}" {{ ($list->id == $data->rm_member3) ? 'selected': ''}} >{{ $list->em_name }}</option>
 
                                           @endforeach
                                           </select>
@@ -223,10 +214,7 @@
                                             <option value="">Select Employee</option>
                                              @foreach($l_employee as $list)
 
-                                          <option value="{{$list->id}}">{{$list->em_name}}
-
-
-                                          </option>
+                                         <option value="{{ $list->id }}" {{ ($list->id == $data->rm_member4) ? 'selected': ''}} >{{ $list->em_name }}</option>
 
                                           @endforeach
                                           </select>
@@ -237,7 +225,7 @@
                                         <h6 class="fw-bold mb-0">Approved by:  </h6>
                                     </div>
 
-                                  <div class="col-md-4 mb-6">
+                                 <!--  <div class="col-md-4 mb-6">
                                             <label for="depone" class="form-label"
                                             >Signature</label
                                             >
@@ -248,9 +236,9 @@
                                                    name="Signature"
                                                    value="{{isset($data->Signature)? $data->Signature: ''}}"
                                             />
-                                        </div>
+                                        </div> -->
 
-                                            <div class="col-md-4 mb-6">
+                                            <div class="col-md-3 mb-6">
                                             <label for="employee_id" class="form-label"
                                             >Name </label
                                             >
@@ -260,17 +248,14 @@
                                             <option value="">Select Employee Name</option>
                                              @foreach($l_employee as $list)
 
-                                          <option value="{{isset($list->id)}}">{{$list->em_name}}
-
-
-                                          </option>
+                                         <option value="{{ $list->id }}" {{ ($list->id == $data->employee_id) ? 'selected': ''}} >{{ $list->em_name }}</option>
 
                                           @endforeach
                                           </select>
 
                                         </div>
 
-                                          <div class="col-md-4 mb-6">
+                                          <div class="col-md-3 mb-6">
                                             <label for="designation_id" class="form-label"
                                             >Designation</label
                                             >
@@ -280,10 +265,7 @@
                                             <option value="">Select Designation</option>
                                              @foreach($Designation as $list)
 
-                                          <option value="{{$list->id}}">{{$list->ds_name}}
-
-
-                                          </option>
+                                          < <option value="{{ $list->id }}" {{ ($list->id == $data->designation_id) ? 'selected': ''}} >{{ $list->ds_name }}</option>
 
                                           @endforeach
                                           </select>
@@ -293,7 +275,7 @@
                                      
                                        
 
-                                    <div class="col-md-6 mb-6">
+                                    <div class="col-md-3 mb-6">
                                     <label for="admitdate" class="form-label">Date</label>
                                     <input
                                       type="date"
@@ -306,7 +288,7 @@
                                     />
                                   </div>   
 
-                                    <div class="col-md-6 mb-6">
+                                    <div class="col-md-3 mb-6">
                                     <label for="admitdate" class="form-label">Reference no</label>
                                     <input
                                       type="text"
@@ -319,18 +301,13 @@
                                     />
                                   </div>       
 
-
-                                   
-
-                                      
-                                      
-                                         
-
-
                                     <div  id="show_item">
                                     <div class="row">
 
-                                    <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                                   
+                                           
+                                     @foreach($data1 as $key => $values)
+                                                <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
                                         <h6 class="fw-bold mb-0">Create Hirarc</h6>
                                     </div>      
 
@@ -343,8 +320,8 @@
                                                    style=" border-color:#c0b1b1;"
                                                    class="form-control"
                                                    id="job_activity"
-                                                   name="job_activity"
-                                                   value="{{isset($data->job_activity)? $data->job_activity: ''}}"
+                                                   name="job_activity[]"
+                                                   value="{{isset($values->job_activity)? $values->job_activity: ''}}"
                                             />
                                         </div>
 
@@ -357,249 +334,23 @@
                                                     style=" border-color:#c0b1b1;"
                                                     type="file"
                                                     id="image1"
-                                                    name="image1"
-                                                    value="{{isset($data->image)? $data->image: ''}}"
+                                                    name="image1[]"
+                                                    value="{{isset($values->image)? $values->image: ''}}"
                                                     multiple
                                                     required
                                                   />
                                                 </div>
-                                               
 
 
-                                                @foreach($data1 as $key => $values)
-
-
-                                           <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0">Create Hazard</h6>
-                                    </div> 
-
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >SEQUENCE OF THE JOB</label
-                                            >
-                                            <input type="text"
-                                                   style=" border-color:#c0b1b1;" 
-                                                   class="form-control"
-                                                   id="sequence_job"
-                                                   name="sequence_job[]"
-                                                   value="{{isset($values->sequence_job)? $values->sequence_job: ''}}"
-                                            />
-                                        </div>
-
-
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >HAZARD</label
-                                            >
-                                            <input type="text"
-                                                   style=" border-color:#c0b1b1;"
-                                                   class="form-control"
-                                                   id="hazard"
-                                                   name="hazard[]"
-                                                   value="{{isset($values->hazard)? $values->hazard: ''}}"
-                                            />
-                                        </div>
-
-                                     <div class="col-md-6 mb-6">
-                                      <div class="form-group">
-                                          <label class="form-label">Category Hazard </label>
-                                          <!-- <input type="text" class="form-control" required> -->
-                                          <select  name="c_hazard[]" id="c_hazard" class="col-md-12" style="padding: 10px; border-radius: 3px; border-color: var(--border-color);border-color:#c0b1b1;">
-                                            <option value="">Select Hazard</option>
-                                            <option value="PHYSICAL">PHYSICAL/HEALTH</option>
-                                            <option value="CHEMICAL">CHEMICAL</option>
-                                            <option value="BIOLOGICAL">BIOLOGICAL</option>
-                                            <option value="">PHYCHOSOCIALe</option>
-                                          </select>
-                                      </div>
-                                  </div>
-
-                                            <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Event and Consequences</label
-                                            >
-                                            <input type="text"
-                                                   style=" border-color:#c0b1b1;"
-                                                   class="form-control"
-                                                   id="event_consequences"
-                                                   name="event_consequences[]"
-                                                   value="{{isset($values->event_consequences)? $values->event_consequences: ''}}"
-                                            />
-                                        </div>
-
-                                    <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0">RISK EVALUATION </h6>
-                                    </div>   
-
-                                 
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Existing Risk Control (if any)</label
-                                            >
-                                            <input type="text"
-                                                   style=" border-color:#c0b1b1;"
-                                                   class="form-control"
-                                                   id="risk_control"
-                                                   name="risk_control[]"
-                                                   value="{{isset($values->risk_control)? $values->risk_control: ''}}"
-                                            />
-                                        </div>
-                                        <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Justification of Likelihood</label
-                                            >
-
-                                            <input type="text"
-                                                   style=" border-color:#c0b1b1;"
-                                                   class="form-control"
-                                                   id="j_likelihood"
-                                                   name="j_likelihood[]"
-                                                   value="{{isset($values->j_likelihood)? $values->j_likelihood: ''}}"
-                                            />
-                                        </div>
-
-                                  
-
-                                            <div class="col-md-4 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Likelihood (L)</label
-                                            >
-
-                                            <input type="text"
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="likelihood_l"
-                                                   name="likelihood_l[]"
-                                                   onkeyup="caltoprice();"
-                                                   value="{{isset($values->likelihood_l)? $values->likelihood_l: ''}}"
-                                            />
-                                        </div>
-
-                                           <div class="col-md-4 mb-6">
-                                            <label for="depone" class="form-label"
-                                            > Severity (S)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="severity_s"
-                                                   name="severity_s[]"
-                                                   onkeyup="caltoprice();"
-                                                   value="{{isset($values->severity_s)? $values->severity_s: ''}}"
-                                            />
-                                        </div>
-                                            <div class="col-md-4 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >RMN</label
-                                            >
-                                            <input type=""
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="rmn" 
-                                                    name="rmn[]" 
-                                                   value="{{isset($values->rmn)? $values->rmn: ''}}"
-                                            />
-                                        </div>
-                                          <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0"> RISK CONTROL</h6>
-                                    </div> 
-
-                                         <div class="col-md-12 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Additional Risk Control</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="additional_risk"
-                                                   name="additional_risk[]"
-                                                   value="{{isset($values->additional_risk)? $values->additional_risk: ''}}"
-                                            />
-                                        </div>
-
-
-                                     <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0">RISK RE-EVALUATION </h6>
-                                    </div>   
-
-                                 
-                                     <div class="col-md-4 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Likelihood (L)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="likelihood_l1"
-                                                   name="likelihood_l1[]"
-                                                   onkeyup="caltoprice1();"
-                                                   value="{{isset($values->likelihood_l1)? $values->likelihood_l1: ''}}"
-                                            />
-                                        </div>
-
-
-                                     <div class="col-md-4 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Severity (S)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="severity_S1"
-                                                   name="severity_S1[]"
-                                                   onkeyup="caltoprice1();"
-                                                   value="{{isset($values->severity_S1)? $values->severity_S1: ''}}"
-                                            />
-                                        </div>
-
-                                             <div class="col-md-4 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >RMN</label
-                                            >
-                                            <input type=""
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="rmn1" 
-                                                   name="rmn1[]" 
-                                                   value="{{isset($values->rmn1)? $values->rmn1: ''}}"
-                                            />
-                                             </div>
-
-                                  
-
-                                            <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Remarks</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   style=" border-color:#c0b1b1;"
-                                                   id="remarks"
-                                                   name="remarks[]"
-                                                   value="{{isset($values->remarks)? $values->remarks: ''}}"
-                                            />
-                                        </div>
-
-                                    <div class="col-md-6 mb-6">
-                                    <label for="admitdate" class="form-label">PIC (Due Date)</label>
-                                    <input
-                                      type="date"
-                                      style=" border-color:#c0b1b1;"
-                                      class="form-control w-100"
-                                      id="pic_date"
-                                      name="pic_date[]"
-                                      value="{{isset($values->pic_date)? $values->pic_date: ''}}"
-                                      required
-                                    />
-                                  </div> 
-                                  @endforeach
+                                           
+                                                @endforeach
                                        
 
 
-                                            <div class="input-group-append">
+                                           <!--  <div class="input-group-append">
                                                     <button type="button" class="btn btn-primary addROw" style="  display: block;
                                                         margin-left: auto;margin-right: 0; margin-top: 10px;">ADD more</button>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                         </div>
@@ -607,9 +358,9 @@
                                     
 
 
-                                     <input type="hidden" name="hirarc_id" value="{{$data->id}}" >
+                                     
                         
-                                  <button type="submit" class="btn btn-primary ">Submit</button>
+                                  <button type="submit" class="btn btn-primary ">update</button>
                               </div>
                           </form>
                       </div>
@@ -652,234 +403,234 @@
             } );
         });
    
-              $(".addROw").click(function () {
-                                            // e.preventDefault();
-                                            $("#show_item").prepend(`
+              // $(".addROw").click(function () {
+              //                               // e.preventDefault();
+              //                               $("#show_item").prepend(`
 
-                                           <div class="row">
+              //                              <div class="row">
 
-                                          <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0">Create Hazard</h6>
-                                    </div> 
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >SEQUENCE OF THE JOB</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="sequence_job"
-                                                   name="sequence_job[]"
-                                                   value="{{isset($data->sequence_job)? $data->sequence_job: ''}}"
-                                            />
-                                        </div>
+              //                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+              //                           <h6 class="fw-bold mb-0">Create Hazard</h6>
+              //                       </div> 
+              //                        <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >SEQUENCE OF THE JOB</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="sequence_job"
+              //                                      name="sequence_job[]"
+              //                                      value="{{isset($data->sequence_job)? $data->sequence_job: ''}}"
+              //                               />
+              //                           </div>
 
 
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >HAZARD</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="hazard"
-                                                   name="hazard[]"
-                                                   value="{{isset($data->hazard)? $data->hazard: ''}}"
-                                            />
-                                        </div>
+              //                        <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >HAZARD</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="hazard"
+              //                                      name="hazard[]"
+              //                                      value="{{isset($data->hazard)? $data->hazard: ''}}"
+              //                               />
+              //                           </div>
 
-                                     <div class="col-md-6 mb-6">
-                                      <div class="form-group">
-                                          <label class="form-label">Category Hazard             </label>
-                                          <!-- <input type="text" class="form-control" required> -->
-                                          <select name="c_hazard[]" id="c_hazard" class="col-md-12" style="padding: 10px; border-radius: 3px; border-color: var(--border-color);">
-                                            <option value="">Select Hazard</option>
-                                            <option value="PHYSICAL/HEALTH">PHYSICAL/HEALTH</option>
-                                            <option value="CHEMICAL">CHEMICAL</option>
-                                            <option value="BIOLOGICAL">BIOLOGICAL</option>
-                                            <option value="">PHYCHOSOCIALe</option>
-                                          </select>
-                                      </div>
-                                  </div>
+              //                        <div class="col-md-6 mb-6">
+              //                         <div class="form-group">
+              //                             <label class="form-label">Category Hazard             </label>
+              //                             <!-- <input type="text" class="form-control" required> -->
+              //                             <select name="c_hazard[]" id="c_hazard" class="col-md-12" style="padding: 10px; border-radius: 3px; border-color: var(--border-color);">
+              //                               <option value="">Select Hazard</option>
+              //                               <option value="PHYSICAL/HEALTH">PHYSICAL/HEALTH</option>
+              //                               <option value="CHEMICAL">CHEMICAL</option>
+              //                               <option value="BIOLOGICAL">BIOLOGICAL</option>
+              //                               <option value="">PHYCHOSOCIALe</option>
+              //                             </select>
+              //                         </div>
+              //                     </div>
 
-                                            <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Event and Consequences</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="event_consequences"
-                                                   name="event_consequences[]"
-                                                   value="{{isset($data->event_consequences)? $data->event_consequences: ''}}"
-                                            />
-                                        </div>
-                                           <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0">RISK EVALUATION </h6>
-                                    </div>   
+              //                               <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Event and Consequences</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="event_consequences"
+              //                                      name="event_consequences[]"
+              //                                      value="{{isset($data->event_consequences)? $data->event_consequences: ''}}"
+              //                               />
+              //                           </div>
+              //                              <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+              //                           <h6 class="fw-bold mb-0">RISK EVALUATION </h6>
+              //                       </div>   
 
                                  
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Existing Risk Control (if any)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="risk_control"
-                                                   name="risk_control[]"
-                                                   value="{{isset($data->risk_control)? $data->risk_control: ''}}"
-                                            />
-                                        </div>
-                                        <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Justification of Likelihood</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="j_likelihood"
-                                                   name="j_likelihood[]"
-                                                   value="{{isset($data->j_likelihood)? $data->j_likelihood: ''}}"
-                                            />
-                                        </div>
+              //                        <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Existing Risk Control (if any)</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="risk_control"
+              //                                      name="risk_control[]"
+              //                                      value="{{isset($data->risk_control)? $data->risk_control: ''}}"
+              //                               />
+              //                           </div>
+              //                           <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Justification of Likelihood</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="j_likelihood"
+              //                                      name="j_likelihood[]"
+              //                                      value="{{isset($data->j_likelihood)? $data->j_likelihood: ''}}"
+              //                               />
+              //                           </div>
 
                                   
 
-                                            <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Likelihood (L)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="likelihood_l"
-                                                   name="likelihood_l[]"
-                                                   onkeyup="caltoprice();"
-                                                   value="{{isset($data->likelihood_l)? $data->likelihood_l: ''}}"
-                                            />
-                                        </div>
+              //                               <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Likelihood (L)</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="likelihood_l"
+              //                                      name="likelihood_l[]"
+              //                                      onkeyup="caltoprice();"
+              //                                      value="{{isset($data->likelihood_l)? $data->likelihood_l: ''}}"
+              //                               />
+              //                           </div>
 
-                                           <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            > Severity (S)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="severity_s"
-                                                   name="severity_s[]"
-                                                   onkeyup="caltoprice();"
-                                                   value="{{isset($data->severity_s)? $data->severity_s: ''}}"
-                                            />
-                                        </div>
-                                            <div class="col-md-12 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >RMN</label
-                                            >
-                                            <input type=""
-                                                   class="form-control"
-                                                   id="rmn"
-                                                   name="rmn[]"
-                                                   onkeyup="caltoprice();"
-                                                   value="{{isset($data->rmn)? $data->rmn: ''}}"
-                                            />
-                                        </div>
-                                          <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0"> RISK CONTROL</h6>
-                                    </div> 
+              //                              <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               > Severity (S)</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="severity_s"
+              //                                      name="severity_s[]"
+              //                                      onkeyup="caltoprice();"
+              //                                      value="{{isset($data->severity_s)? $data->severity_s: ''}}"
+              //                               />
+              //                           </div>
+              //                               <div class="col-md-12 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >RMN</label
+              //                               >
+              //                               <input type=""
+              //                                      class="form-control"
+              //                                      id="rmn"
+              //                                      name="rmn[]"
+              //                                      onkeyup="caltoprice();"
+              //                                      value="{{isset($data->rmn)? $data->rmn: ''}}"
+              //                               />
+              //                           </div>
+              //                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+              //                           <h6 class="fw-bold mb-0"> RISK CONTROL</h6>
+              //                       </div> 
 
-                                         <div class="col-md-12 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Additional Risk Control</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="additional_risk"
-                                                   name="additional_risk[]"
-                                                   value="{{isset($data->additional_risk)? $data->additional_risk: ''}}"
-                                            />
-                                        </div>
+              //                            <div class="col-md-12 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Additional Risk Control</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="additional_risk"
+              //                                      name="additional_risk[]"
+              //                                      value="{{isset($data->additional_risk)? $data->additional_risk: ''}}"
+              //                               />
+              //                           </div>
 
 
-                                     <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0">RISK RE-EVALUATION </h6>
-                                    </div>   
+              //                        <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+              //                           <h6 class="fw-bold mb-0">RISK RE-EVALUATION </h6>
+              //                       </div>   
 
                                  
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Likelihood (L)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="likelihood_l1"
-                                                   name="likelihood_l1[]"
-                                                   onkeyup="caltoprice1();"
-                                                   value="{{isset($data->likelihood_l1)? $data->likelihood_l1: ''}}"
-                                            />
-                                        </div>
+              //                        <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Likelihood (L)</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="likelihood_l1"
+              //                                      name="likelihood_l1[]"
+              //                                      onkeyup="caltoprice1();"
+              //                                      value="{{isset($data->likelihood_l1)? $data->likelihood_l1: ''}}"
+              //                               />
+              //                           </div>
 
 
-                                     <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Severity (S)</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="severity_S1"
-                                                   name="severity_S1[]"
-                                                   onkeyup="caltoprice1();"
-                                                   value="{{isset($data->severity_S1)? $data->severity_S1: ''}}"
-                                            />
-                                        </div>
+              //                        <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Severity (S)</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="severity_S1"
+              //                                      name="severity_S1[]"
+              //                                      onkeyup="caltoprice1();"
+              //                                      value="{{isset($data->severity_S1)? $data->severity_S1: ''}}"
+              //                               />
+              //                           </div>
 
                                   
 
-                                            <div class="col-md-6 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >Remarks</label
-                                            >
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="remarks"
-                                                   name="remarks[]"
-                                                   value="{{isset($data->remarks)? $data->remarks: ''}}"
-                                            />
-                                        </div>
+              //                               <div class="col-md-6 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >Remarks</label
+              //                               >
+              //                               <input type="text"
+              //                                      class="form-control"
+              //                                      id="remarks"
+              //                                      name="remarks[]"
+              //                                      value="{{isset($data->remarks)? $data->remarks: ''}}"
+              //                               />
+              //                           </div>
 
-                                    <div class="col-md-6 mb-6">
-                                    <label for="admitdate" class="form-label">PIC (Due Date)</label>
-                                    <input
-                                      type="date"
-                                      class="form-control w-100"
-                                      id="pic_date"
-                                      name="pic_date[]"
-                                      value="{{isset($data->pic_date)? $data->pic_date: ''}}"
-                                      required
-                                    />
-                                  </div> 
-                                            <div class="col-md-12 mb-6">
-                                            <label for="depone" class="form-label"
-                                            >RMN</label
-                                            >
-                                            <input type=""
-                                                   class="form-control"
-                                                   id="rmn1"
-                                                   name="rmn1[]"
-                                                   value="{{isset($data->rmn1)? $data->rmn1: ''}}"
-                                            />
-                                        </div>
+              //                       <div class="col-md-6 mb-6">
+              //                       <label for="admitdate" class="form-label">PIC (Due Date)</label>
+              //                       <input
+              //                         type="date"
+              //                         class="form-control w-100"
+              //                         id="pic_date"
+              //                         name="pic_date[]"
+              //                         value="{{isset($data->pic_date)? $data->pic_date: ''}}"
+              //                         required
+              //                       />
+              //                     </div> 
+              //                               <div class="col-md-12 mb-6">
+              //                               <label for="depone" class="form-label"
+              //                               >RMN</label
+              //                               >
+              //                               <input type=""
+              //                                      class="form-control"
+              //                                      id="rmn1"
+              //                                      name="rmn1[]"
+              //                                      value="{{isset($data->rmn1)? $data->rmn1: ''}}"
+              //                               />
+              //                           </div>
 
 
-                                           <div class="input-group-append">
-                                                    <button type="button" class="btn btn-danger rmvROw" style="  display: block;
-                                                        margin-left: auto;margin-right: 0;">Remove</button>
-                                        </div>
+              //                              <div class="input-group-append">
+              //                                       <button type="button" class="btn btn-danger rmvROw" style="  display: block;
+              //                                           margin-left: auto;margin-right: 0;">Remove</button>
+              //                           </div>
                                             
-                                        </div>
-                                                </div>`
+              //                           </div>
+              //                                   </div>`
 
-                                                );
-                                            $(document).on('click', '.rmvROw', function (e) {
-                                                e.preventDefault();
-                                                let row_item = $(this).parent().parent();
-                                                $(row_item).remove();
-                                            });
-                                        });
+              //                                   );
+              //                               $(document).on('click', '.rmvROw', function (e) {
+              //                                   e.preventDefault();
+              //                                   let row_item = $(this).parent().parent();
+              //                                   $(row_item).remove();
+              //                               });
+              //                           });
 
 
 

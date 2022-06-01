@@ -198,13 +198,10 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label>Company Name</label>
-                                                <select class="form-control" name="company_name" id="company_name">
-                                                    <option value="">---Select---</option>
-                                                    @foreach($company as $list)
-                                                    <option value="{{$list->id}}">{{$list->company_name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" readonly class="form-control" name="" id="" value="{{$company->company_name}}">
+
                                             </div>
+                                            <input type="hidden" class="form-control" name="company_name" id="company_name"value="{{$company->id}}">
                                             <div class="col-sm-12">
                                                 <label for="taxtno" class="form-label"
                                                 >Employees Photo
@@ -334,12 +331,10 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label>Company Name</label>
-                                                <select class="form-control" name="company_name" id="company_name">
-                                                    <option value="">---Select---</option>
-                                                    @foreach($company as $list)
-                                                        <option value="{{$list->id}}">{{$list->company_name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" readonly class="form-control" name="" id="" value="{{$company->company_name}}">
+
+                                            </div>
+                                            <input type="hidden" class="form-control" name="company_name" id="company_name"value="{{$company->id}}">
                                             </div>
                                             <div class="col-sm-12">
                                                 <label for="item" class="form-label"

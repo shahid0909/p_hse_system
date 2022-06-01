@@ -15,7 +15,7 @@ class CreatePolicyUploadTable extends Migration
     {
         Schema::create('policy_upload', function (Blueprint $table) {
             $table->id();
-            $table->string('policy_name');
+            $table->integer('company_id');
             $table->string('policy_file');
             $table->integer('insert_by');
             $table->timestamps();

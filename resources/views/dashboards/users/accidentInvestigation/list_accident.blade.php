@@ -49,7 +49,7 @@
                                     <th>Designation</th>
                                     <th>Incident location</th>
                                     <th>Type of accitent</th>
-                                    <th>Time of accitentE</th>
+                                    <th>Time of accidente</th>
                                     <th>Repost to DOSH</th>
                                     <th>Action</th>
                                 </tr>
@@ -64,12 +64,27 @@
                                     @if($v_data->t_of_accident==1)
                                     <td>Near miss</td>
                                     @elseif($v_data->t_of_accident==2)
-                                    <td>Demo</td>
+                                    <td>First Aid Injury</td>
+                                    @elseif($v_data->t_of_accident==3)
+                                    <td>Injury(4 days MC)</td>
+                                    @elseif($v_data->t_of_accident==4)
+                                    <td>Serious Bodily Injury</td>
+                                    @elseif($v_data->t_of_accident==5)
+                                    <td>Fatal Injury</td>
+                                    @elseif($v_data->t_of_accident==6)
+                                    <td>Occupational Diseases</td>
+                                    @elseif($v_data->t_of_accident==7)
+                                    <td>Occupational Poisoning</td>
+                                    @elseif($v_data->t_of_accident==8)
+                                    <td>Dangerus Occurrence</td>
                                     @endif
-                                    
                                     <td>{{ $v_data->tim_of_incident }}</td>
-                                    <td>{{ $v_data->typ_of_notif }}</td>
-                                
+                                    @if($v_data->rpt_to_dosh==1)
+                                    <td>Yes</td>
+                                    @elseif($v_data->rpt_to_dosh==2)
+                                    <td>No</td>
+                                    @endif
+                                    <td><button style="background: lightgreen; color:rgb(126, 124, 124)">View Details</button></td>
                                 </tbody>
                                 @endforeach
                             </table>

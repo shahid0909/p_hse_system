@@ -44,11 +44,11 @@
 
 
                              @csrf
-
+                              
                                 <div class="row g-3 col-md-8 align-items-center" style="margin: 0 auto;">
                                   <div class="col-md-12">
                                       <div class="form-group">
-                                          <label class="form-label">Find Inspection</label>
+                                          <label class="form-label"> Find Inspection</label>
                                           <!-- <input type="text" class="form-control" required> -->
                                           <select 
                                           name="find_inspection" 
@@ -59,10 +59,7 @@
                                            <option value="" >choose</option>
                                             @foreach($cri as $list)
 
-                                          <option value="{{isset($list->id)}}">{{$list->inspection_title}}
-
-
-                                          </option>
+                                          <option value="{{$list->id}}" {{isset($data->find_inspection) && $data->find_inspection == $list->id ? 'selected' : '' }}>{{$list->inspection_title}}</option>
 
                                           @endforeach
                                           </select>
@@ -119,10 +116,9 @@
                                     <tr>
                                         <th></th>
                                         <th>Sl</th>
-                                        <th>Find_inspection</th>
+                                        <th>Inspection</th>
                                         <th>Image</th>
                                         <th>date_rectified</th>
-                                        
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -155,11 +151,12 @@
 
 
     <!-- Jquery Page Js -->
-    <script src="../js/template.js"></script>
+    <script src="{{asset('assets/js/template.js')}}"></script>
 
          <script>
 
-             function format ( d ) {
+             function format ( d )
+              {
             // `d` is the original data object for the row
             return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
                 '<tr>'+
@@ -185,6 +182,7 @@
                     }, 500);
 
                      var table = $('.datatable').DataTable({
+
                         processing: true,
                         serverSide: true,
                         ajax: {
@@ -207,7 +205,7 @@
 
                             {"data": "date_rectified"},
                             
-                                                        // {"data": "status"},
+                            
                             {data: 'action', name: 'action', orderable: false, searchable: false}
                         ],
                         language: {

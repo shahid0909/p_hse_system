@@ -8,15 +8,14 @@
         </a>
         <!-- Menu: main ul -->
         <ul class="menu-list flex-grow-1 mt-3">
-            <li>
+             <li>
                 <a class="m-link {{ (request()->is('user/dashboard')) ? 'active':'' }}" href="{{route('user.dashboard')}}"
                 ><i class="icofont-home fs-5"></i> <span>Dashboard</span></a
                 >
             </li>
 
 
-
-            <li class="collapsed">
+             <li class="collapsed">
                 <a class="m-link  {{ (request()->is('department') or request()->is('designation') or request()->is('employee') or request()->is('com_profile')) ? 'active':'' }}"
                    data-bs-toggle="collapse"
                    data-bs-target="#menu-product"
@@ -51,105 +50,17 @@
 
             </li>
 
-            <li class="collapsed">
-                <a class="m-link  {{ (request()->is('safety/policy') or request()->is('upload-policy')) ? 'active':'' }}"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#menu-safety"
-                   href="#">
-                    <i class="icofont-users-alt-2 fs-5"></i>
-                    <span>Safety Policy</span>
-                    <span
-                        class="arrow icofont-rounded-down ms-auto text-end fs-5"
-                    ></span
-                    ></a>
-                <!-- Menu: Sub menu ul -->
 
 
-                <ul class="sub-menu collapse {{ (request()->is('safety/policy') or request()->is('upload-policy')) ? 'show':'' }}" id="menu-safety">
-                    <li>
-                        <a class="ms-link {{ (request()->is('safety/policy')) ? 'active':'' }}" href="{{ route('safety.index') }}">Safety</a>
-                    </li>
-                    <li>
-                        <a class="ms-link {{ (request()->is('upload-policy')) ? 'active':'' }}" href="{{ route('upload_policy.index') }}">Review/Upload policy</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="collapsed">
-                <a class="m-link  active"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#menu-Workplace"
-                   href="#">
-                    <i class="icofont-users-alt-2 fs-5"></i>
-                    <span>Workplace Inspection</span>
-
-                    <span
-                        class="arrow icofont-rounded-down ms-auto text-end fs-5"
-                    ></span
-                    ></a>
-                <!-- Menu: Sub menu ul -->
-
-
-                <ul class="sub-menu collapse" id="menu-Workplace">
-
-                    <li>
-                        <a class="ms-link" href="{{route('workinspection.index')}}">Dashboard</a>
-                    </li>
-                    <li>
-                        <a class="ms-link" href="{{route('create_ispection.index')}}">Creat Inspection</a>
-                    </li>
-                    <li>
-                        <a class="ms-link" href="{{route('list_inspection.index')}}">list of Inspection</a>
-                    </li>
-                    <li>
-                        <a class="ms-link" href="{{route('rectified_inspection.index')}}">Rectified Inspection</a>
-                    </li>
-
-
-                </ul>
-            </li>
-            <li class="collapsed">
-                <a class="m-link  active"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#menu-Accident"
-                   href="#">
-                    <i class="icofont-users-alt-2 fs-5"></i>
-                    <span>Accident investigation</span>
-
-                    <span
-                        class="arrow icofont-rounded-down ms-auto text-end fs-5"
-                    ></span
-                    ></a>
-                <!-- Menu: Sub menu ul -->
-
-
-                <ul class="sub-menu collapse" id="menu-Accident">
-
-                    <li>
-{{--                        <a class="ms-link" href="{{route('workinspection.index')}}">Dashboard</a>--}}
-                    </li>
-                    <li>
-                        <a class="ms-link" href="{{route('accident_investigation.index')}}">Accident analysis</a>
-                    </li>
-                    <li>
-                        <a class="ms-link" href="{{route('accident_investigation.acci_list')}}">list of Accident</a>
-                    </li>
-                    <li>
-                        <a class="ms-link" href="{{route('accident_report.index')}}">Accident Report</a>
-                    </li>
-                    <li>
-{{--                        <a class="ms-link" href="{{route('rectified_inspection.index')}}">Rectified Inspection</a>--}}
-                    </li>
-
-
-                </ul>
+	<li>
+                <a class="m-link {{ (request()->is('safety/policy') or request()->is('upload-policy')) ? 'active':'' }}"
+" href="{{route('safety.policy-view')}}"
+                ><i class="icofont-home fs-5"></i> <span>Safety Policy</span></a
+                >
             </li>
 
-
-
-
-
-            <li class="collapsed">
-                <a class="m-link active"
+<li class="collapsed">
+                <a class="m-link   {{ (request()->is('safety_committee') or request()->is('safety_committee/chart') or request()->is('list-inspection') or request()->is('rectified-inspection')) ? 'active':'' }} "
                    data-bs-toggle="collapse"
                    data-bs-target="#Safety_Committee"
                    href="#">
@@ -163,30 +74,102 @@
                 <!-- Menu: Sub menu ul -->
 
 
-                <ul class="sub-menu collapse" id="Safety_Committee">
+                <ul class="sub-menu collapse {{ (request()->is('safety_committee') or request()->is('safety_committee/chart') or request()->is('list-inspection') or request()->is('rectified-inspection')) ? 'show':'' }} " id="Safety_Committee">
 
                     <li>
-                        <a class="ms-link" href="{{route('safety_committee.index')}}">Safety Committee</a>
-                    </li>
-
-                    <li>
-                        <a class="ms-link" href="{{route('safety_committee.chart')}}">Safety Committee Chart</a>
+                        <a class="ms-link {{ (request()->is('safety_committee')) ? 'active':'' }}" href="{{route('safety_committee.index')}}">Safety Committee</a>
                     </li>
                     <li>
-                        <a class="ms-link" href="{{route('meeting.index')}}">Meeting Minutes</a>
+                        <a class="ms-link {{ (request()->is('safety_committee/chart')) ? 'active':'' }}" href="{{route('safety_committee.chart')}}">Safety Committee Chart</a>
+                    </li>
+                    <li>
+                        <a class="ms-link {{ (request()->is('view-meeting')) ? 'active':'' }}" href="{{route('meeting.index')}}">Meeting Minutes</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a class="m-link active" href="{{route('safe_work_procedure.index')}}"
+                <a class="m-link {{ (request()->is('safe-work-procedure')) ? 'active':'' }} " href="{{route('safe_work_procedure.index')}}"
                 ><i class="icofont-home fs-5"></i> <span>Safe Work Procedure</span></a
                 >
             </li>
 
+        
+            <li class="collapsed">
+                <a class="m-link {{ (request()->is('workpalce_inspection') or request()->is('create_ispection') or request()->is('list-inspection') or request()->is('rectified-inspection')) ? 'active':'' }} "
+                   data-bs-toggle="collapse"
+                   data-bs-target="#menu-Workplace"
+                   href="#">
+                    <i class="icofont-users-alt-2 fs-5"></i>
+                    <span>Workplace Inspection</span>
+
+                    <span
+                        class="arrow icofont-rounded-down ms-auto text-end fs-5"
+                    ></span
+                    ></a>
+                <!-- Menu: Sub menu ul -->
+
+
+                <ul class="sub-menu collapse {{ (request()->is('workpalce_inspection') or request()->is('create_ispection') or request()->is('list-inspection') or request()->is('rectified-inspection')) ? 'show':'' }} " id="menu-Workplace">
+
+
+   		 <li>
+                        <a class="ms-link {{ (request()->is('workpalce_inspection')) ? 'active':'' }}" href="{{route('workinspection.index')}}">Dashboard</a>
+                    </li>
+
+
+                    <li>
+                        <a class="ms-link {{ (request()->is('create_ispection')) ? 'active':'' }} " href="{{route('create_ispection.index')}}">Creat Inspection</a>
+                    </li>
+                    <li>
+                        <a class="ms-link {{ (request()->is('list-inspection')) ? 'active':'' }}" href="{{route('list_inspection.index')}}">list of Inspection</a>
+                    </li>
+                    <li>
+                        <a class="ms-link {{ (request()->is('rectified-inspection')) ? 'active':'' }}" href="{{route('rectified_inspection.index')}}">Rectified Inspection</a>
+                    </li>
+
+
+                </ul>
+            </li>
+            <li class="collapsed">
+                <a class="m-link  {{ (request()->is('accident-investigation') or request()->is('list-accident') or request()->is('accident-report')) ? 'active':'' }} "
+                   data-bs-toggle="collapse"
+                   data-bs-target="#menu-Accident"
+                   href="#">
+                    <i class="icofont-users-alt-2 fs-5"></i>
+                    <span>Accident investigation</span>
+
+                    <span
+                        class="arrow icofont-rounded-down ms-auto text-end fs-5"
+                    ></span
+                    ></a>
+                <!-- Menu: Sub menu ul -->
+
+
+                <ul class="sub-menu collapse {{ (request()->is('accident-investigation') or request()->is('list-accident') or request()->is('accident-report')) ? 'show':'' }} " id="menu-Accident">
+
+                    <li>
+                        <a class="ms-link {{ (request()->is('accident-investigation')) ? 'active':'' }} " href="{{route('accident_investigation.index')}}">Accident analysis</a>
+                    </li>
+                    <li>
+                        <a class="ms-link {{ (request()->is('list-accident')) ? 'active':'' }} " href="{{route('accident_investigation.acci_list')}}">list of Accident</a>
+                    </li>
+                    <li>
+                        <a class="ms-link {{ (request()->is('accident-report')) ? 'active':'' }} " href="{{route('accident_report.index')}}">Accident Report</a>
+                    </li>
+
+
+
+                </ul>
+            </li>
+
+
+
+            
+
 
           <li class="collapsed">
               <a
-                class="m-link active"
+                class="m-link {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'active':'' }}"
                 data-bs-toggle="collapse"
                 data-bs-target="#customers-info"
                 href="#"
@@ -197,18 +180,22 @@
                 ></span
               ></a>
               <!-- Menu: Sub menu ul -->
-              <ul class="sub-menu collapse" id="customers-info">
+              <ul class="sub-menu collapse {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'show':'' }} " id="customers-info">
                 <li>
-                  <a class="ms-link" href="{{route('hirarc.index')}}">Add Hirarc</a>
+                  <a class="ms-link {{ (request()->is('hirarc')) ? 'active':'' }}" href="{{route('hirarc.index')}}">Add Hirarc</a>
+                </li>
+
+                   <li>
+                  <a class="ms-link {{ (request()->is('hirarc-data-list-view')) ? 'active':'' }}" href="{{route('hirarc.listview')}}">Hirarc List</a>
+                </li>
+
+                 <li>
+                  <a class="ms-link {{ (request()->is('h_hazard')) ? 'active':'' }}" href="{{route('h_hazard.index')}}">Hazard</a>
                 </li>
 
               </ul>
-               <ul class="sub-menu collapse" id="customers-info">
-                <li>
-                  <a class="ms-link" href="{{route('hirarc.listview')}}">Hirarc List</a>
-                </li>
+          
 
-              </ul>
             </li>
 
 

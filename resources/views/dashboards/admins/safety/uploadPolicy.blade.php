@@ -43,7 +43,7 @@
                         <div
                             class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
                         >
-                            <h3 class="fw-bold py-3 mb-0">Review/Upload Policy</h3>
+                            <h3 class="fw-bold py-3 mb-0">Upload Policy</h3>
                         </div>
                     </div>
                 </div>
@@ -69,13 +69,14 @@
 
                                     @csrf
                                     <div class="row g-3 mb-3">
+                                      
                                         <div class="col-sm-12">
-                                            <label for="depone" class="form-label">Policy Name</label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="policy_name"
-                                                   name="policyName" autocomplete="off"
-                                                   value="{{isset($data->policy_name)?$data->policy_name :''}}"/>
+                                        <label >Company Name</label>
+                                            <input name="company_name" id="" class="form-control" value="{{ $companies->company_name }}" readonly>
+      
+                                            
+                                            </div>
+                                            <input type="hidden" name="company_id" id="" class="form-control" value="{{ $companies->id }}">
                                         </div>
                                         <div class="col-sm-12">
                                             <label for="depone" class="form-label">Policy</label>
@@ -85,6 +86,7 @@
                                                    name="policyFile"
                                                    accept="application/pdf">
                                         </div>
+                                    
 
                                         <div>
                                             {{isset($data->policy_file)?$data->policy_file :''}}</div>
@@ -105,7 +107,7 @@
                     </div>
 
 
-                    <div class="col-lg-8">
+                    {{-- <div class="col-lg-8">
                         <div class="card mb-3">
                             <div class="card-body">
                                 <table
@@ -116,7 +118,7 @@
                                     <thead>
                                     <tr>
                                         <th>Sl.</th>
-                                        <th>policy Name</th>
+                                 
                                         <th>policy File</th>
                                         <th>Action</th>
                                     </tr>
@@ -127,7 +129,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- Row End -->
             </div>
@@ -162,7 +164,7 @@
                         },
                         "columns": [
                             {"data": 'DT_RowIndex', "name": 'DT_RowIndex'},
-                            {"data": "policy_name"},
+                           
                             {"data": "view"},
                             // {"data": "status"},
                             {data: 'action', name: 'action', orderable: false, searchable: false}

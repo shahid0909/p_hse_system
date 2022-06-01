@@ -14,29 +14,19 @@ class CreateHazardsTable extends Migration
     public function up()
     {
         Schema::create('hazards', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('hirarc_id');
-            $table->foreign('hirarc_id')
-                  ->references('id')
-                  ->on('i_hirarcs')
-                  ->onDelete('cascade')->onUpdate('cascade');
-            $table->string('job_activity');
-            $table->string('image1');
-            $table->longText('sequence_job');
-            $table->longText('hazard');
+           $table->id();
+           $table->integer('depertment_id');
+            $table->integer('job_activity_id');
+            $table->string('sequence_job');
+            $table->string('hazard');
             $table->string('c_hazard');
-            $table->longText('event_consequences');
-            $table->longText('risk_control');
-            $table->longText('j_likelihood');
+            $table->string('event_consequences');
+            $table->string('risk_control');
+            $table->string('j_likelihood');
             $table->integer('likelihood_l');
             $table->integer('severity_s');
             $table->integer('rmn');
-            $table->longText('additional_risk');
-            $table->integer('likelihood_l1');
-            $table->integer('severity_S1');
-            $table->integer('rmn1');
-            $table->longText('remarks');
-            $table->date('pic_date');
+            $table->string('additional_risk');
             $table->timestamps();
         });
     }

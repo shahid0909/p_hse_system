@@ -20,9 +20,9 @@ class RectifiedInspectionController extends Controller
         $user = Auth::user();
 
         $cri = create_inspection::all();
+      
 
-
-        $data = DB::table('rectified_inspections')
+       $data = DB::table('rectified_inspections')
                ->join('create_inspections','rectified_inspections.find_inspection','create_inspections.id')
 
                ->select('rectified_inspections.*','create_inspections.inspection_title')->get();
@@ -41,10 +41,10 @@ class RectifiedInspectionController extends Controller
 
     {
 
-
+        $user = Auth::user(); 
         $input = new RectifiedInspection;
         // dd($input);
-
+         $input->company_id =$user->company_id;
         $input->find_inspection = $request->input('find_inspection');
         $input->date_rectified = $request->input('date_rectified');
 
@@ -68,6 +68,7 @@ class RectifiedInspectionController extends Controller
     {
         $data = RectifiedInspection::with('findInsp')->orderby('id','desc')->get();
 
+
         return datatables()
             ->of($data)
             ->addIndexColumn()
@@ -76,7 +77,7 @@ class RectifiedInspectionController extends Controller
                 return '<img src='.$url.' border="0" width="40"  class="img-rounded" align="center" />';
             })
             ->editColumn('action', function ($query) {
-                return '<a href="' . route('rectified_inspection.edit', $query['id']) . '" class=""><i class="icofont-edit"></i></a> || <a href="' . route('rectified_inspection.destroy', $query['id']) . '" class="" onclick="return confirm(\'Are You Sure You Want To Delete This department?\')"> <i class="icofont-delete-alt"></i></a>';
+                return '<a href="' . route('rectified_inspection.edit', $query['id']) . '" class=""><i class="icofont-edit"></i></a> || <a href="' . route('rectified_inspection.destroy', $query['id']) . '" class="" onclick="return confirm(\'Are You Sure You Want To Delete This Rectified-Inspection?\')"> <i class="icofont-delete-alt"></i></a>';
             })
             ->escapeColumns('depertment_image')
             ->make();
@@ -103,8 +104,9 @@ class RectifiedInspectionController extends Controller
 public function  edit($id){
 
         $user = Auth::user();
-           $cri = create_inspection::all();
+        $cri = create_inspection::all();
         $data = RectifiedInspection::where('id', $id)->first();
+
 
 
         return view('dashboards.users.workplaceInspection.rectified_inspection', compact('user','data','cri'));

@@ -39,13 +39,21 @@ Report Meeting
                         <div class="card-body">
                             <h3 style="text-align:center;font-weight: bold;font-size: 17px;">MINUTES OF MEETING<br>
                                 INAUGURAL SAFETY COMMITTEE MEETING<br>
-                                NO. 1/2021
+                          
                             </h3>
                             <div class="info" style="height:100px">
                                 
-                                    <p><span>Date</span>		:<span>{{ $values->date }}</span></p>
-                                    <p><span>Time</span>		:<span>{{ $values->time }}</span></p>
-                                    <p><span> Venue	</span>	: 	<span>{{ $values->venue }}</span></p>
+                                    <p><span>Date</span>		:<span>{{ $data1->meeting_date }}</span></p>
+                                    <p><span>Time</span>		:<span>{{ $data1->time }}</span></p>
+                                    <p><span> Venue	</span>	: 	<span>{{ $data1->venue }}</span></p>
+                                    <div>
+                                        <h5>Present Member</h5>
+                         
+                                        {{ $data1->p_member}}
+                                       
+                                
+                                          
+                                    </div>
                                     
                             </div>
                         </div>
@@ -57,17 +65,17 @@ Report Meeting
                             <h3>INTRODUCTION</h3>
                             <div class="info">
                                 <ul>
-                                    <li>{!!$values->introduction!!}</li>
+                                    <li>{!!$data1->introduction!!}</li>
                                 </ul>
                                 <h3>Endorsement	</h3>
                                 <div class="info">
                                     <ul>
-                                        <li>{!!$values->endorsement!!}</li>
+                                        <li>{!!$data1->endorsement!!}</li>
                                     </ul>
-                             
-                                
                                     
                             </div>
+                          
+                           
                         </div>
                     </div>
                 </div>
@@ -86,18 +94,13 @@ Report Meeting
                                     </tr>
                                 </thead>
                                 <tbody>
+                            @foreach($data2 as $data)
                                     <tr>
-                                      
-                                        <td>  @foreach (json_decode($values->agenda, true) as $agenda)
-                                            {{ $agenda }}
-                                        @endforeach</td>
-                                        <td > @foreach (json_decode($values->pic, true) as $pic)
-                                            {{ $pic }}
-                                            @endforeach</td>
-                                        <td > @foreach (json_decode($values->remarks, true) as $remarks)
-                                            {{ $remarks }}
-                                            @endforeach</td>
+                                         <td> {{ $data->agenda}}  </td>           
+                                        <td > {{ $data->pic}}</td>
+                                        <td >{{ $data->remarks}}</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -116,7 +119,7 @@ Report Meeting
                         </div>
                         <div class="card-body">
                             <h5>Closing</h5>
-                            <p>{!!$values->closing!!}</p>
+                            <p>{!!$data1->closing!!}</p>
                         </div>
                     </div>
                 </div>
@@ -149,7 +152,7 @@ Report Meeting
 
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{ route('meeting.report-pdf',$values->id) }}"><button type="button" class="bg bg-info">Download</button></a>
+                 <a href="{{ route('meeting.report-pdf',$data1->id) }}"><button type="button" class="bg bg-info">Download</button></a> 
                 </div>
             </div>
 
