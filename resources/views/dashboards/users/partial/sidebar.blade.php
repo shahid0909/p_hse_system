@@ -74,7 +74,7 @@
                 <!-- Menu: Sub menu ul -->
 
 
-                <ul class="sub-menu collapse {{ (request()->is('safety_committee') or request()->is('safety_committee/chart') or request()->is('list-inspection') or request()->is('rectified-inspection')) ? 'show':'' }} " id="Safety_Committee">
+                <ul class="sub-menu collapse {{ (request()->is('safety_committee') or request()->is('safety_committee/chart') or request()->is('view-meeting')) ? 'show':'' }} " id="Safety_Committee">
 
                     <li>
                         <a class="ms-link {{ (request()->is('safety_committee')) ? 'active':'' }}" href="{{route('safety_committee.index')}}">Safety Committee</a>

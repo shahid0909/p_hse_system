@@ -39,8 +39,8 @@
         <h3 class="bg bg-success text-center text-white p-3">Meeting Minutes</h3>
         <form method="post"  enctype="multipart/form-data"
 
-            @if(isset($data1->id))
-            action="{{ route('meeting.meeting-update', ['id' => $data1->id]) }}">
+            @if(isset($data->id))
+            action="{{ route('meeting.meeting-update', ['id' => $data->id]) }}">
           <input name="_method" type="hidden" value="PUT">
           @else
           action="{{ route('meeting.store') }}">
@@ -48,43 +48,59 @@
             @csrf
             <input type="hidden" name="meeting_id">
             <div class="row g-3 mb-3">
+
+
+                <label >Company Name</label>
+                <input name="company_name" id="" class="form-control" value="{{ $companies->company_name }}" readonly>
+
+
+
+                <input type="hidden" name="company_id" id="" class="form-control" value="{{ $companies->id }}">
+
+
+
                 <div class="col-sm-4">
                     <label class="form-label">Enter Meeting Date</label>
-                  <input type="date"  name="meeting_date" class="form-control" value="{{isset($data1->meeting_date) ? $data1->meeting_date:''}}">
+                  <input type="date"  name="meeting_date" class="form-control" value="{{isset($data->meeting_date) ? $data->meeting_date:''}}">
                 </div>
 
                 <div class="col-sm-4">
                     <label class="form-label">Enter Meeting Time</label>
-                  <input type="time"  name="time" class="form-control"  value="{{isset($data1->time) ? $data1->time:''}}">
+                  <input type="time"  name="time" class="form-control"  value="{{isset($data->time) ? $data->time:''}}">
                 </div>
 
                 <div class="col-sm-4">
                     <label class="form-label">Enter Meeting Venue</label>
-                  <input type="text" placeholder="Enter Meeting Venue" name="venue" class="form-control" value="{{isset($data1->venue) ? $data1->venue:''}}">
+                  <input type="text" placeholder="Enter Meeting Venue" name="venue" class="form-control" value="{{isset($data->venue) ? $data->venue:''}}">
                 </div>
 
 
                 {{-- <option value="{{ $list->id }}" {{ ($list->id == $data->job_activity_id) ? 'selected': ''}} >{{ $list->job_activity }}</option> --}}
 
-                
+
                 <div class="multiselect">
                     <h5>Check Present Member</h5>
                     <div id="checkboxes">
+
+                        {{-- @foreach ($ppe as $pp)
+                        <label>
+                            <input type="checkbox" name="ppe_name[]" value="{{ $pp->ppeName  }}" @if (isset($data->id))
+                            @foreach ($c_data as $v)
+                            {{ ($pp->ppeName==$v->ppe) ? 'checked':''}}
+                            @endforeach
+                            @endif  />{{ $pp->ppeName }}</label> --}}
+
+
                         @foreach ($values as $value)
                         <label>
                             <input type="checkbox" name="p_member[]" value="{{ $value-> em_name }}"
 
-                            @if (isset($data1->id))
+                            @if (isset($data->id))
 
-                            @foreach ($data2 as $data)
-                          
-                            {{ $data->p_member==$data->p_member ? 'checked' : '' }}
-                       
-                                    
-                              
-                                
+                          @foreach ($data2 as $dat)
+                            {{ $value->em_name==$dat->p_member ? 'checked' : '' }}
                             @endforeach
-            
+
                         @endif
 
 
@@ -92,8 +108,8 @@
                                 {{ $value->em_name }}--{{ $value->designation}}</span></label>
                         @endforeach
                     </div>
-                  </div> 
-        
+                  </div>
+
                   {{-- <div class="multiselect">
                     <h5>Check Present Member</h5>
                     <div id="checkboxes">
@@ -104,10 +120,10 @@
                         @endforeach
                     </div>
                   </div>  --}}
-                    
-         
-         
-          
+
+
+
+
 
                 {{-- @else
                 <div class="multiselect">
@@ -119,20 +135,26 @@
                                 {{ $value->em_name }}--{{ $value->designation}}</span></label>
                         @endforeach
                     </div>
-                  </div> 
+                  </div>
                 @endif --}}
                 <div class="col-sm-12">
                     <label class="form-label"> Meeting introduction</label>
-                   <textarea name="introduction"  cols="80"  id="summernote"  class="form-control">{{isset($data1->introduction) ? $data1->introduction:''}}</textarea>
+                   <textarea name="introduction"  cols="80"  id="summernote"  class="form-control">
+
+                       {{ (isset($data->introduction)?$data->introduction:'') }}
+
+
+                  </textarea>
                 </div>
 
                 <div class="col-sm-12">
                     <label class="form-label">ENDORSEMENT OF THE PREVIOUS MEETING MINUTES </label>
-                   <textarea name="endorsement" id="summernote1" cols="80" class="form-control">{{isset($data1->endorsement) ? $data1->endorsement:''}}</textarea>
+                   <textarea name="endorsement" id="summernote1" cols="80" class="form-control">{{isset($data->endorsement) ? $data->endorsement:''}}</textarea>
                 </div>
                 <table class="table table-bordered" id="dynamicAddRemove">
                     <thead>
                      <tr>
+                         <th>Agenda Type</th>
                          <th>Agenda</th>
                          <th>Pic</th>
                          <th>Remarks</th>
@@ -140,21 +162,59 @@
                      </tr>
                     </thead>
                     <tbody>
-                        @if (isset($data1->id))
-                        @foreach ($data2 as $data)
+                        @if (isset($data->id))
+                        @foreach ($data1 as $dats)
                         <tr id="tr">
-                            <td><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control"  value="{{ isset($data->agenda) ? $data->agenda:''}}">
+                            <td><select type="text" name="agenda_type[]"  class="form-control" >
+                                    <option value="1">Others</option>
+                                    <option value="2">Incedence</option>
+                                    <option value="3">Work Inspection</option>
+                                </select>
                             </td>
-                            <td><input type="text" name="pic[]" placeholder="Enter pic" class="form-control"  value="{{ isset($data->pic) ? $data->pic:''}}"  />
+                            <td><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control"  value="{{ isset($dats->agenda) ? $dats->agenda:''}}">
                             </td>
-                            <td><input type="text" name="remarks[]" placeholder="Enter Remarks" class="form-control"  value="{{ isset($data->remarks) ? $data->remarks:''}}"  />
+                            <td><select type="text" name="incdence_no[]">
+                                    <option value="">---Choose---</option>
+                                    @foreach($accidence as $list)
+                                        <option value="{{$list->inc_number}}">{{$list->inc_number}}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td style="display: none" class="inspection">
+                                <select name="inspection[]" id="inspection" class="form-control">
+                                    <option value="">---Choose---</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="pic[]" placeholder="Enter pic" class="form-control"  value="{{ isset($dats->pic) ? $dats->pic:''}}"  />
+                            </td>
+                            <td><input type="text" name="remarks[]" placeholder="Enter Remarks" class="form-control"  value="{{ isset($dats->remarks) ? $dats->remarks:''}}"  />
                             </td>
                             <td><button type="button" name="add" id="add_btn" class="btn btn-outline-primary">Add More</button></td>
                         </tr>
                         @endforeach
                         @else
                         <tr id="tr">
-                            <td><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control"  >
+                            <td><select type="text" name="agenda_type[]"  id="agenda_type" class="form-control agenda_type" >
+                                    <option value="1">Others</option>
+                                    <option value="2">Incedence</option>
+                                    <option value="3">Work Inspection</option>
+                                </select>
+                            </td>
+                            <td class="agenda_other"><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control "  >
+                            </td>
+                            <td style="display: none" class="incedence"><select type="text" name="incdence_no[]" class="form-control " >
+                                    <option value="">---Choose---</option>
+                                    @foreach($accidence as $list)
+                                        <option value="{{$list->inc_number}}">{{$list->inc_number}}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td style="display: none" class="inspection"><select type="text" name="inspection[]" class="form-control " >
+                                    <option value="">---Choose---</option>
+                                    @foreach($inspection as $list)
+                                        <option value="{{$list->id}}">{{$list->inspection_title}}</option>
+                                    @endforeach
+                                </select>
                             </td>
                             <td><input type="text" name="pic[]" placeholder="Enter pic" class="form-control"  />
                             </td>
@@ -162,22 +222,22 @@
                             </td>
                             <td><button type="button" name="add" id="add_btn" class="btn btn-outline-primary">Add More</button></td>
                         </tr>
-                            
+
                         @endif
-                
+
 
                     </tbody>
 
                  </table>
-           
+
 
                 <div class="col-sm-12">
                     <label class="form-label">CLOSING</label>
-                   <textarea name="closing" id="summernote2">{{ isset($data1->closing) ? $data1->closing:''}}</textarea>
+                   <textarea name="closing" id="summernote2">{{ isset($data->closing) ? $data->closing:''}}</textarea>
                 </div>
 
-               
-                @if (isset($data1->id))
+
+                @if (isset($data->id))
                 <div class="col-sm-12">
                     <button type="submit" >Update</button>
                 </div>
@@ -189,7 +249,7 @@
             </div>
         </form>
 
-        @if (isset($data1->id))
+        @if (isset($data->id))
         @else
         <div class="container">
             <h1 class=" text-center">Meeting Report</h1>
@@ -213,8 +273,8 @@
                 </div>
 
             </div>
-         
-      
+
+
           <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -248,7 +308,7 @@
 
             <!-- Row End -->
         </div>
-              
+
           @endif
         </div>
 
@@ -270,12 +330,33 @@
         });
     </script>
    <script type="text/javascript">
+       $(document).on('change', '.agenda_type', function () {
+           var agenda_type = $(this).val();
+
+           if (agenda_type == 1) {
+               $(".agenda_other").css("display", "block");
+               $(".incedence").css("display", "none");
+               $(".inspection").css("display", "none");
+
+           }else if(agenda_type == 2){
+
+               $(".agenda_other").css("display", "none");
+               $(".inspection").css("display", "none");
+               $(".incedence").css("display", "block");
+           }else{
+               $(".agenda_other").css("display", "none");
+               $(".incedence").css("display", "none");
+               $(".inspection").css("display", "block");
+
+           }
+       });
+
    $(document).ready(function(){
     $("#add_btn").on('click',function () {
         var html=' ';
         html+=''
         html+='<tr>';
-        html+='<td><input type="text" name="agenda[]" class="form-control"</td>';
+        html+='<td><select type="text" name="agenda_type[]"  class="form-control" ><option value="1">Others</option><option value="2">Incedence</option><option value="3">Work Inspection</option></select></td>';
         html+='<td><input type="text" name="pic[]" class="form-control"</td>';
         html+='<td><input type="text" name="remarks[]" class="form-control"</td>';
         html+='<td><button type="button" class="btn btn-primary" id="remove" >Remove</button></td>';
@@ -286,6 +367,8 @@
    $(document).on('click','#remove',function(){
       $(this).closest('tr').remove();
    });
+
+
 </script>
         <!-- Row End -->
     </div>
