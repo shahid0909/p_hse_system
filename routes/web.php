@@ -310,6 +310,7 @@ Route::group(['name' => 'committee', 'as' => 'committee.'], function () {
 
 Route::group(['name' => 'meeting', 'as' => 'meeting.'], function () {
     Route::get('view-meeting', [meetingController::class, 'index'])->name('index');
+    Route::post('view-meeting-data', [meetingController::class, 'getData'])->name('getData');
     Route::post('meeting-store', [meetingController::class, 'store'])->name('store');
     Route::get('meeting-datatable', [meetingController::class, ' datatable'])->name('datatable');
     Route::get('report.delete/{id}', [meetingController::class, 'destroy'])->name('delete');

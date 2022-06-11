@@ -11,8 +11,10 @@ use App\Models\meeting_details;
 use App\Models\l_employee;
 use App\Models\SafetyCommittee;
 use App\Models\present_meeting_member;
-use Auth;
-use DB;
+//use Auth;
+//use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use PDF;
 class meetingController extends Controller
 {
@@ -24,7 +26,7 @@ class meetingController extends Controller
     public function index()
     {
 
-        $user=Auth::user();
+        $user = Auth::user();
         $s_values=Meeting::all();
 
         $values = DB::table('safety_committees')
@@ -34,9 +36,34 @@ class meetingController extends Controller
         $inspection = create_inspection::all();
 
         $companies=DB::selectOne("SELECT c.company_name,c.id FROM company_profile c,users u WHERE u.company_id=c.id and  c.id='$user->company_id'");
-
-
         return view('dashboards.admins.meeting.index',compact('user','values','s_values','companies','accidence','inspection'));
+    }
+
+    public function getData()
+    {
+
+        $user=Auth::user();
+        $s_values=Meeting::all();
+
+        $values = DB::table('safety_committees')
+             ->leftJoin('l_employees', 'l_employees.id', '=', 'safety_committees.employee_id')
+            ->get();
+        $accidence = AcciAnnalysis::orderby('inc_number','desc')->get();
+        $inspection = create_inspection::all();
+
+        $companies = DB::selectOne("SELECT c.company_name,c.id FROM company_profile c,users u WHERE u.company_id=c.id and  c.id='$user->company_id'");
+
+
+        return response()->json(
+            [
+                'user' => $user,
+                's_values' => $s_values,
+                'values' => $values,
+                'accidence' => $accidence,
+                'inspection' => $inspection,
+                'companies' => $companies
+
+            ], 200);
     }
 
     /**
