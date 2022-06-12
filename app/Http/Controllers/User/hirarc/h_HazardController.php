@@ -168,9 +168,9 @@ public function depertmentonchange(Request $request,$id)
 //
 //        $onchage1 = c_job::where('hirarc_id',$onchange->id)->get();
 
-    $onchage1 = DB::select("SELECT  c.id,c.job_activity from i_hirarcs h
-LEFT join c_jobs c on c.hirarc_id = h.id
-where h.depertment_id = '$id'");
+    $onchage1 = DB::select("SELECT h.id,h.job_activity ,h.depertment_id from c_jobs h
+        where h.depertment_id ='$id'");
+    
 
 
         $stringTosend = '';

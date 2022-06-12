@@ -12,6 +12,14 @@ class c_job extends Model
 {
     use HasFactory;
     protected $guarded = [''];
+    protected $fillable = ['id', 'depertment_id','company_id', 'job_activity', 'image'];
+    protected $table = "c_jobs";
+
+
+    public function hazard()
+    {
+      return $this->hasMany(hazard::class,'job_activity_id','id');
+    }
 
 
    // public function hezardDetails()
@@ -22,5 +30,5 @@ class c_job extends Model
    // public function  hirarcdetails(){
    //  return $this->belongsTo(I_hirarc::class,'hirarc_id','id');
    // }
-   
+
 }

@@ -54,7 +54,7 @@
                 </div>
               <div class="card mb-3">
                   <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                    <h6 class="fw-bold mb-0">Create Hirarc</h6>
+                    <h6 class="fw-bold mb-0">HIRARC Register</h6>
                   </div>
                   <div class="card-body">
                     <div class="row align-item-center">
@@ -132,7 +132,12 @@
                                   <div  id="show_item">
                                     <div class="row">
                                   
-                                  <div class="col-md-6 mb-6">
+
+                                        
+                                        <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                                        <h6 class="fw-bold mb-0">Hazard Identification (HI)</h6>
+                                        </div> 
+                                         <div class="col-md-6 mb-6">
                                             <label for="depone" class="form-label"
                                             >SEQUENCE OF THE JOB
                                             <span class="text-danger">*</span>
@@ -181,7 +186,7 @@
 
                                             <div class="col-md-6 mb-6">
                                             <label for="depone" class="form-label"
-                                            >Event and Consequences
+                                            >Event and Consequences (<i class="icofont-eye-alt" data-bs-toggle="tooltip" data-bs-placement="right" title="This is Event and Consequences"></i>)
                                             <span class="text-danger">*</span>
                                             </label
                                             >
@@ -195,11 +200,11 @@
                                         </div>
 
                                     <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0">RISK EVALUATION </h6>
+                                        <h6 class="fw-bold mb-0">RISK Assesment(RA) </h6>
                                     </div>   
 
                                  
-                                     <div class="col-md-6 mb-6">
+                                     <div class="col-md-12 mb-6">
                                             <label for="depone" class="form-label"
                                             >Existing Risk Control (if any)
                                             <span class="text-danger">*</span>
@@ -213,7 +218,7 @@
                                                    value="{{isset($data1->risk_control)? $data1->risk_control: ''}}"
                                             />
                                         </div>
-                                        <div class="col-md-6 mb-6">
+                                        <div class="col-md-12 mb-6">
                                             <label for="depone" class="form-label"
                                             >Justification of Likelihood 
                                             <span class="text-danger">*</span>
@@ -231,7 +236,7 @@
 
                                   
 
-                                            <div class="col-md-4 mb-6">
+                                            <div class="col-md-2 mb-6">
                                             <label for="depone" class="form-label"
                                             >Likelihood (L)
                                             <span class="text-danger">*</span>
@@ -250,7 +255,7 @@
                                             />
                                         </div>
 
-                                           <div class="col-md-4 mb-6">
+                                           <div class="col-md-2 mb-6">
                                             <label for="depone" class="form-label"
                                             > Severity (S)
                                             <span class="text-danger">*</span>
@@ -267,7 +272,7 @@
                                                    value="{{isset($data1->severity_s)? $data1->severity_s: ''}}"
                                             />
                                         </div>
-                                            <div class="col-md-4 mb-6">
+                                            <div class="col-md-2 mb-6">
                                             <label for="depone" class="form-label"
                                             >RMN
                                             <span class="text-danger">*</span>
@@ -282,7 +287,7 @@
                                             />
                                         </div>
                                           <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h6 class="fw-bold mb-0"> RISK CONTROL
+                                        <h6 class="fw-bold mb-0"> RISK CONTROL (RC)
                                             <span class="text-danger">*</span>
                                         </h6>
                                     </div> 
@@ -498,10 +503,12 @@
                                             <label for="depone" class="form-label"
                                             >Likelihood (L)</label
                                             >
-                                            <input type="text"
+                                            <input type="number"
                                                    class="form-control"
                                                    id="likelihood_l"
                                                    name="likelihood_l[]"
+                                                   min="1"
+                                                   max="5"
                                                    onkeyup="caltoprice();"
                                                    value="{{isset($data->likelihood_l)? $data->likelihood_l: ''}}"
                                             />
@@ -511,10 +518,12 @@
                                             <label for="depone" class="form-label"
                                             > Severity (S)</label
                                             >
-                                            <input type="text"
+                                            <input type="number"
                                                    class="form-control"
                                                    id="severity_s"
                                                    name="severity_s[]"
+                                                   min="1"
+                                                   max="5"
                                                    onkeyup="caltoprice();"
                                                    value="{{isset($data->severity_s)? $data->severity_s: ''}}"
                                             />

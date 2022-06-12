@@ -93,7 +93,7 @@
                 >
             </li>
 
-        
+
             <li class="collapsed">
                 <a class="m-link {{ (request()->is('workpalce_inspection') or request()->is('create_ispection') or request()->is('list-inspection') or request()->is('rectified-inspection')) ? 'active':'' }} "
                    data-bs-toggle="collapse"
@@ -164,39 +164,82 @@
 
 
 
-            
 
 
-          <li class="collapsed">
-              <a
-                class="m-link {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'active':'' }}"
-                data-bs-toggle="collapse"
-                data-bs-target="#customers-info"
-                href="#"
-              >
-                <i class="icofont-funky-man fs-5"></i> <span>HIRARC</span>
-                <span
-                  class="arrow icofont-rounded-down ms-auto text-end fs-5"
-                ></span
-              ></a>
-              <!-- Menu: Sub menu ul -->
-              <ul class="sub-menu collapse {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'show':'' }} " id="customers-info">
-                <li>
-                  <a class="ms-link {{ (request()->is('hirarc')) ? 'active':'' }}" href="{{route('hirarc.index')}}">Add Hirarc</a>
-                </li>
+            <li class="collapsed">
+                <a
+                    class="m-link {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'active':'' }}"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#customers-info"
+                    href="#"
+                >
+                    <i class="icofont-funky-man fs-5"></i> <span>HIRARC</span>
+                    <span
+                        class="arrow icofont-rounded-down ms-auto text-end fs-5"
+                    ></span
+                    ></a>
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'show':'' }} " id="customers-info">
+                    <li>
+                        <a class="ms-link {{ (request()->is('hirarc')) ? 'active':'' }}" href="{{route('hirarc.index')}}">Add Hirarc</a>
+                    </li>
 
-                   <li>
-                  <a class="ms-link {{ (request()->is('hirarc-data-list-view')) ? 'active':'' }}" href="{{route('hirarc.listview')}}">Hirarc List</a>
-                </li>
+                    <li>
+                        <a class="ms-link {{ (request()->is('hirarc')) ? 'active':'' }}" href="{{route('c_job.index')}}">Create job</a>
+                    </li>
 
-                 <li>
-                  <a class="ms-link {{ (request()->is('h_hazard')) ? 'active':'' }}" href="{{route('h_hazard.index')}}">Hazard</a>
-                </li>
+                    <li>
+                        <a class="ms-link {{ (request()->is('hirarc')) ? 'active':'' }}" href="{{route('c_job.listview')}}">List of activity</a>
+                    </li>
 
-              </ul>
-          
+                    <li>
+                        <a class="ms-link {{ (request()->is('hirarc-data-list-view')) ? 'active':'' }}" href="{{route('hirarc.listview')}}">Hirarc List</a>
+                    </li>
+
+                    <li>
+                        <a class="ms-link {{ (request()->is('h_hazard')) ? 'active':'' }}" href="{{route('h_hazard.index')}}">Add Sequence of job</a>
+                        <ul class="sub-sub-menu collapse">
+                            <li>
+                                <a class="ms-link {{ (request()->is('hirarc-data-list-view')) ? 'active':'' }}" href="{{route('hirarc.listview')}}">Hirarc List</a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
 
             </li>
+{{--          <li class="collapsed">--}}
+{{--              <a--}}
+{{--                class="m-link {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'active':'' }}"--}}
+{{--                data-bs-toggle="collapse"--}}
+{{--                data-bs-target="#customers-info"--}}
+{{--                href="#"--}}
+{{--              >--}}
+{{--                <i class="icofont-funky-man fs-5"></i> <span>HIRARC</span>--}}
+{{--                <span--}}
+{{--                  class="arrow icofont-rounded-down ms-auto text-end fs-5"--}}
+{{--                ></span--}}
+{{--              ></a>--}}
+{{--              <!-- Menu: Sub menu ul -->--}}
+{{--              <ul class="sub-menu collapse {{ (request()->is('hirarc') or request()->is('hirarc-data-list-view') or request()->is('h_hazard')) ? 'show':'' }} " id="customers-info">--}}
+{{--                <li>--}}
+{{--                  <a class="ms-link {{ (request()->is('hirarc')) ? 'active':'' }}" href="{{route('hirarc.index')}}">Add Hirarc</a>--}}
+{{--                </li>--}}
+
+{{--                   <li>--}}
+{{--                  <a class="ms-link {{ (request()->is('hirarc-data-list-view')) ? 'active':'' }}" href="{{route('hirarc.listview')}}">Hirarc List</a>--}}
+{{--                </li>--}}
+
+{{--                 <li>--}}
+{{--                  <a class="ms-link {{ (request()->is('h_hazard')) ? 'active':'' }}" href="{{route('h_hazard.index')}}">Hazard</a>--}}
+{{--                </li>--}}
+
+{{--              </ul>--}}
+{{--          --}}
+
+{{--            </li>--}}
 
 
         </ul>

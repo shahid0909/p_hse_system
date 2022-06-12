@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use App\Helpers\Helper;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\I_hirarc;
 use App\Models\hazard;
 use App\Models\c_job;
@@ -25,7 +26,7 @@ class HirarcController extends Controller
         $department = Department::all();
         $Designation = Designation::all();
         $l_employee = l_employee::all();
-
+        $reference_no=Helper::IDGenerator(new I_hirarc,'reference_no',5,'ref');
         $data = DB::table('i_hirarcs')
             ->join('departments', 'i_hirarcs.depertment_id', 'departments.id')
             ->select('i_hirarcs.*', 'departments.depertment_name')->get();
@@ -39,7 +40,10 @@ class HirarcController extends Controller
             ->join('l_employees', 'i_hirarcs.employee_id', 'l_employees.id')
             ->select('i_hirarcs.*', 'l_employees.em_name')->get();
 
-        return view('dashboards.users.HIRARC.hirarc', compact('user', 'l_employee', 'Designation', 'department', 'data', 'data1', 'data2'));
+
+        return view('dashboards.users.HIRARC.hirarc', compact('user','l_employee','Designation','department','data','data1','data2','reference_no'));
+      
+
     }
 
 
@@ -47,8 +51,9 @@ class HirarcController extends Controller
 
     {
 
-//      dd($request);
         $user = Auth::user();
+       
+         
 
         $input = new I_hirarc();
         $input->depertment_id = $request->input('depertment_id');
@@ -65,45 +70,39 @@ class HirarcController extends Controller
         $input->employee_id = $request->input('employee_id');
         $input->date = $request->input('date');
         $input->reference_no = $request->input('reference_no');
-//           if ($Signature = $request->file('Signature'))
-//            {
-//            $destinationPath = 'image/hirarc';
-//            $profileImage = date('YmdHis') . "." . $Signature->getClientOriginalExtension();
-//            $Signature->move($destinationPath, $profileImage);
-//            $input['Signature'] = "$profileImage";
-//            }
-        $input->company_id = $user->company_id;
-        $input->save();
+        $input->company_id =$user->company_id;
+         $input->save();
+      // dd($request);   
+     //   $count = $request->job_activity;
 
-        $count = $request->job_activity;
+          
 
+     //   foreach($count as $main=>$row)
+     // {
+        
+     //    $user = Auth::user();  
+     //    $input1 = new c_job();
+     //    $input1->hirarc_id = $input->id;
+     //    $input1->company_id =$user->company_id;  
 
-        foreach ($count as $main => $row) {
+     //      if ($imagefile = $request->file(key:'imagefile') [$main])
+     //        {
+     //        $destinationPath = 'image/jobimage';
+     //        $profileImage = date('YmdHis') . "." . $imagefile->getClientOriginalExtension();
+     //        $imagefile->move($destinationPath, $profileImage);
 
-            $user = Auth::user();
-            $input1 = new c_job();
-            $input1->hirarc_id = $input->id;
-            $input1->company_id = $user->company_id;
+           
+     //        $input1['image'] = "$profileImage";
+     //    }
+     //    $input1->job_activity = $request->job_activity[$main];
 
-            if ($imagefile = $request->file('imagefile')[$main]) {
-                $destinationPath = 'image/jobimage';
-                $profileImage = date('YmdHis') . "." . $imagefile->getClientOriginalExtension();
-                $imagefile->move($destinationPath, $profileImage);
+      
+     //    $input1->save();
 
-
-                $input1['image'] = "$profileImage";
-            }
-
-
-            $input1->job_activity = $request->job_activity[$main];
-
-
-            $input1->save();
-
-
-        }
-        session()->flash('message', 'Accident Investigation has been saved successfully !!');
-        return redirect()->back();
+     //     }
+          session()->flash('message','Data has been saved successfully !!');
+         return redirect()->back(); 
+        
 
 
     }
@@ -198,36 +197,43 @@ class HirarcController extends Controller
     }
 
 
+
     public function edit($id)
     {
         $user = Auth::user();
-        $department = Department::all();
+         $department = Department::all();
         $Designation = Designation::all();
         $l_employee = l_employee::all();
-        $data = I_hirarc::where('id', $id)->first();
-        // dd($data);
-        $data1 = DB::select("SELECT h.* from c_jobs h
+         $data = I_hirarc::where('id', $id)->first();
+         // dd($data);               
+         $data1=DB::select("SELECT h.* from c_jobs h
                         join i_hirarcs i on i.id = h.hirarc_id
                          where i.id = '$id' ");
-        // dd($data1);
-        // dd($data);
-        //  $data3 = DB::select('select e.*,dep.depertment_name from l_employees e
-        // LEFT join departments dep on (dep.id = e.em_department) ORDER by e.id DESC;');
+         // dd($data1);
+         // dd($data);
+         //  $data3 = DB::select('select e.*,dep.depertment_name from l_employees e
+         // LEFT join departments dep on (dep.id = e.em_department) ORDER by e.id DESC;');
 
 
-        $data3 = DB::table('i_hirarcs')
-            ->join('departments', 'i_hirarcs.depertment_id', 'departments.id')
-            ->select('i_hirarcs.*', 'departments.depertment_name')->get();
+           $data3 = DB::table('i_hirarcs')
+               ->join('departments','i_hirarcs.depertment_id','departments.id')
 
+               ->select('i_hirarcs.*','departments.depertment_name')->get();
+  
 
-        return view('dashboards.users.HIRARC.edit', compact('user', 'l_employee', 'Designation', 'department', 'data', 'data1', 'data3'));
+          return view('dashboards.users.HIRARC.edit', compact('user','l_employee','Designation','department','data','data1','data3'));
     }
+
+
+
 
 
     public function update(Request $request, $id)
     {
-
-
+        
+        // dd($request);
+        
+   
         $input = I_hirarc::find($id);
         $input->depertment_id = $request->input('depertment_id');
         $input->process = $request->input('process');
@@ -243,33 +249,46 @@ class HirarcController extends Controller
         $input->employee_id = $request->input('employee_id');
         $input->date = $request->input('date');
         $input->reference_no = $request->input('reference_no');
-
+        
         $input->update();
+        
+
+         $count = $request->job_activity;
+              // dd($count);
+
+       foreach($count as $main=>$row)
+         {
+   
+            $input1 = c_job::where('hirarc_id',$id)->first();
+          // $input1->hirarc_id = $input->id;   
+             $input1->hirarc_id = $request->hirarc_id;
+        
+             $input1->job_activity = $request->job_activity[$main];
+
+              if ($imagefile = $request->file(key:'imagefile') [$main])
+                    {
+                    $destinationPath = 'image/jobimage';
+                    $profileImage = date('YmdHis') . "." . $imagefile->getClientOriginalExtension();
+                    $imagefile->move($destinationPath, $profileImage);
+
+                   
+                    $input1['image'] = "$profileImage";
+                }
+              
+             // dd($input1); 
+             $input1->update();
+       
+           }
+  
 
 
-        $count = $request->job_activity;
-        // dd($count);
+       session()->flash('message','Accident Investigation has been saved successfully !!');
+         return redirect()->back();
 
-        foreach ($count as $main => $row) {
-
-            $input1 = c_job::where('hirarc_id', $id)->first();
-            // $input1->hirarc_id = $input->id;
-            $input1->hirarc_id = $request->hirarc_id;
-
-            $input1->job_activity = $request->job_activity[$main];
-
-
-            $input1->update();
-        }
-
-
-        session()->flash('message', 'Accident Investigation has been saved successfully !!');
-        return redirect()->back();
-
+        
 
     }
 }
-
 
 
 

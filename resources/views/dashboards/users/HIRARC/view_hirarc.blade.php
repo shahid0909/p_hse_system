@@ -106,7 +106,7 @@
                                                 </div>
                                             </div> <!-- Row end  -->
                                             <div class="row">
-                                              <h1>Activity List</h1>
+                                              <h1>Job Activity</h1>
                                               <hr>
                                             
 
@@ -155,7 +155,7 @@
                                                                     @if( $value->rmn >= 14)
                                                                         <td>
                                                                           <span style="background-color: red; padding: 5px; border-radius: 5px; color: white; font-weight: bold; height: 10PX; width:35px ; object-fit: cover;">{{$value->rmn}}-
-                                                                            {{"High Rick"}}
+                                                                            {{"High Risk"}}
                                                                         
                                                                             </span>
                                                                         </td>
@@ -164,7 +164,7 @@
                                                                      @if( $value->rmn >= 4 && $value->rmn <= 14)
                                                                     <td>
                                                                       <span style="background-color: orange; padding: 5px ; border-radius: 5px; color: white; font-weight: bold;height: 10PX; width:35px ; object-fit: cover;">{{$value->rmn}}-
-                                                                    {{"Medium Rick"}}
+                                                                    {{"Medium Risk"}}
                                                                     
                                                                     </span>
                                                                     </td>
@@ -177,7 +177,7 @@
                                                                   
                                                       
                                                                   <span  style="background-color: green; padding: 5px  ; border-radius: 5px ; color: white; font-weight: bold;">{{$value->rmn}}-
-                                                                {{"Low Rick"}}
+                                                                {{"Low Risk"}}
                                                                  </span>
                                                                </td>
                                                                 @endif

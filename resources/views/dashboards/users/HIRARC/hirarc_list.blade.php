@@ -34,7 +34,7 @@
                     <div class="card mb-3">
                         <div
                             class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                            <h3 class="fw-bold mb-0">Hirarc List</h3>
+                            <h3 class="fw-bold mb-0">HIRARC By Department</h3>
                          
                         </div>
                         <div class="card-body">
@@ -92,7 +92,7 @@
                     <div class="card mb-3">
                         <div
                             class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                            <h3 class="fw-bold mb-0">Hezard List</h3>
+                            <h3 class="fw-bold mb-0">Sequence of job List</h3>
                          
                         </div>
                         <div class="card-body">

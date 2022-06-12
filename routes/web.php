@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\user\AccidentController;
 
+use App\Http\Controllers\User\hirarc\C_jobcontroller;
 use App\Http\Controllers\User\meeting\meetingController;
 
 
@@ -339,6 +340,19 @@ Route::group(['name' => 'accident_investigation', 'as' => 'accident_investigatio
 //    // JSN END
     Route::POST('Accident-investigation-store', [AnalysisController::class, 'store'])->name('store');
     Route::get('list-accident', [AnalysisController::class, 'list_acci'])->name('acci_list');
+});
+
+Route::group(['name' => 'c_job', 'as' => 'c_job.'], function () {
+    Route::get('create-job', [C_jobcontroller::class, 'index'])->name('index');
+    Route::POST('job-store', [C_jobcontroller::class, 'store'])->name('store');
+    Route::get('job-edit/{id}', [C_jobcontroller::class, 'edit'])->name('edit');
+    Route::put('job-update/{id}', [C_jobcontroller::class, 'update'])->name('update');
+    Route::get('job-data-list-view', [C_jobcontroller::class, 'listview'])->name('listview');
+    Route::get('job-data-list', [C_jobcontroller::class, 'datatable'])->name('datatable');
+    Route::get('job-destroy/{id}', [C_jobcontroller::class, 'destroy'])->name('destroy');
+    Route::get('job-data-view/{id}', [C_jobcontroller::class, 'view'])->name('view');
+    Route::get('droponchange/{id}', [C_jobcontroller::class, 'droponchange'])->name('droponchange');
+
 });
 
 
