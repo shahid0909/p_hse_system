@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('style')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/css/tables/datatable/datatables.min.css') }}">
     <style>
         .inpcol {
@@ -78,11 +79,11 @@
                             @if (isset($safetys->company_id))
                             @elseif (isset($updata->company_id))
                             @else
-                            <div class="alert alert-primary" role="alert">
-                                <p style="font-size: 18px">Have you any existing safety policy, if you have uploaded it or if you have not, just
-                                    generated it. its easy and just take a few clicks</p>
-                              </div>
-                               
+{{--                            <div class="alert alert-primary" role="alert">--}}
+{{--                                <p style="font-size: 18px">Have you any existing safety policy, if you have uploaded it or if you have not, just--}}
+{{--                                    generated it. its easy and just take a few clicks</p>--}}
+{{--                              </div>--}}
+
                                 <span style="text-align: center">
                                     <a href="{{ route('upload_policy.index') }}">
                                         <button class="btn btn-primary btn-lg">Upload</button>
@@ -290,4 +291,19 @@
         </div>
 
     </div>
+@endsection
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            swal({
+                title: 'Have you any existing safety policy, if you have uploaded it or if you have not, just generate it. its easy and just take a few clicks',
+                width: 700,
+                height: 200,
+                padding: 20,
+                background: '#fff'
+                // background: '#fff url(https://image.shutterstock.com/z/stock-vector--exclamation-mark-exclamation-mark-hazard-warning-symbol-flat-design-style-vector-eps-444778462.jpg)'
+            })
+        });
+    </script>
 @endsection
