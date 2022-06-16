@@ -6,6 +6,32 @@
 
 @section('style')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <style type="text/css">
+        #send-mail, #edit{
+            margin-right:1rem;
+            font-weight: bolder;
+            display: inline-block;
+            color: #000;
+            text-decoration: none;
+            -webkit-transition: background-color 2s ease-out;
+            -moz-transition: background-color 2s ease-out;
+            -o-transition: background-color 2s ease-out;
+            transition: background-color 2s ease-out;
+        }
+        #send-mail:after, #edit:after{
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #000;
+            transition: width .6s;
+        }
+        #send-mail:hover::after, #edit:hover::after{
+            width: 100%;
+            /*border-bottom: 2px solid brown;*/
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -505,6 +531,7 @@
 
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
 
         $("#expadd").on('shown.bs.modal', function () {
@@ -631,11 +658,16 @@
 
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
+                        "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
+                        ">Send Mail <i class=\"icofont-location-arrow\"></i></a>\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
+
                         "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
 
                         "                                       data-bs-toggle=\"modal\"\n" +
 
-                        "                                       data-bs-target=\"#edit_committee\"> <i class=\"icofont-edit\"></i></a>\n" +
+                        "                                       data-bs-target=\"#edit_committee\"> Edit <i class=\"icofont-edit\"></i></a>\n" +
 
                         "                                </div>\n" +
 
@@ -656,9 +688,6 @@
                         "                                    <div class=\"right committee-info-div\">\n" +
                         "                                        <h4 style=\"text-align: right; margin-right: 20px; \">\n" +
 
-                        "                                            Position: "+value.designation+"\n" +
-
-                        "                                        </h4>\n" +
                         "                                        <h3 class=\"committee-name\">\n" +
 
                         "                                            Name: "+value.em_name+"\n" +
@@ -691,14 +720,17 @@
                         "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
 
                         "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+                        "                                    <a style=\"margin-right:1rem\" href=\"javascript:void(0)\"\n" +
 
+                        "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
+                        "> Send Mail <i class=\"icofont-location-arrow\"></i></a>\n" +
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
 
                         "                                       data-bs-toggle=\"modal\"\n" +
 
-                        "                                       data-bs-target=\"#edit_committee\"> <i class=\"icofont-edit\"></i></a>\n" +
+                        "                                       data-bs-target=\"#edit_committee\"> Edit <i class=\"icofont-edit\"></i></a>\n" +
 
                         "                                </div>\n" +
 
@@ -719,10 +751,7 @@
                         "                                    <div class=\"right committee-info-div\">\n" +
                         "                                        <h4 style=\"text-align: right; margin-right: 20px\">\n" +
 
-                        "                                            Position: "+value.designation+"\n" +
-
-                        "                                        </h4>\n" +
-                        "                                        <h3 class=\"committee-name\">\n" +
+                         "                                        <h3 class=\"committee-name\">\n" +
 
                         "                                            Name: "+value.em_name+"\n" +
 
@@ -755,7 +784,10 @@
                         "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
 
                         "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+                        "                                    <a href=\"javascript:void(0)\"\n" +
 
+                        "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
+                        ">Send Mail <i class=\"icofont-location-arrow\"></i></a>\n" +
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
@@ -782,10 +814,6 @@
 
                         "                                    <div class=\"right committee-info-div\">\n" +
                         "                                        <h4 style=\"text-align: right; margin-right: 20px\">\n" +
-
-                        "                                            Position: "+value.designation+"\n" +
-
-                        "                                        </h4>\n" +
                         "                                        <h3 class=\"committee-name\">\n" +
 
                         "                                            Name: "+value.em_name+"\n" +
@@ -819,7 +847,10 @@
                         "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
 
                         "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+                        "                                    <a href=\"javascript:void(0)\"\n" +
 
+                        "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
+                        ">Send Mail <i class=\"icofont-location-arrow\"></i></a>\n" +
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
@@ -848,10 +879,7 @@
 
                         "                                        <h4 style=\"text-align: right; margin-right: 20px\">\n" +
 
-                        "                                            Position: "+value.designation+"\n" +
-
-                        "                                        </h4>\n" +
-                        "                                        <h3 class=\"committee-name\">\n" +
+                                      "                                        <h3 class=\"committee-name\">\n" +
 
                         "                                            Name: "+value.em_name+"\n" +
 
@@ -1003,6 +1031,23 @@
             }
 
         }
+
+        $(document).on('click', '#send-mail', function () {
+            let id = $(this).data('id');
+            swal(
+                'Success',
+                'Mail Send <b style="color:green;">Successfully</b>!',
+                'success'
+            )
+            $.ajax({
+                url: "/mail-sending"+'/'+id,
+                type: "POST",
+                data : {"_token":"{{ csrf_token() }}"},
+                dataType: "json",
+                success: function (data) {
+                }
+            });
+        });
 
     </script>
 

@@ -21,6 +21,11 @@ class c_job extends Model
       return $this->hasMany(hazard::class,'job_activity_id','id');
     }
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'depertment_id','id', 'hazardData');
+    }
+
 
    // public function hezardDetails()
    // {

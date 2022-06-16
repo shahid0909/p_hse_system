@@ -80,10 +80,12 @@ class meetingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
+
+//        dd($request);
         $meeting=new Meeting();
         $meeting->company_name=$request->input('company_name');
         $meeting->meeting_date=$request->input('meeting_date');
@@ -94,15 +96,19 @@ class meetingController extends Controller
         $meeting->closing=$request->input('closing');
         $meeting->save();
        $count = $request->agenda;
+       $count_data = $request->agenda_type_id;
        foreach($count as $main=>$row)
      {
-        $meeting1 = new meeting_details();
-        $meeting1->meeting_id =  $meeting->id;
-        $meeting1->agenda= $request->agenda[$main];
-         $meeting1->pic= $request->pic[$main];
-        $meeting1->remarks= $request->remarks[$main];
-        $meeting1->save();
-         }
+           $meeting1 = new meeting_details();
+           $meeting1->meeting_id = $meeting->id;
+           $meeting1->agenda_type_id = $request->agenda_type_id[$main];
+           $meeting1->agenda = $request->agenda[$main];
+           $meeting1->incdence_no = $request->incdence_no[$main];
+           $meeting1->inspection = $request->inspection[$main];
+           $meeting1->pic = $request->pic[$main];
+           $meeting1->remarks = $request->remarks[$main];
+           $meeting1->save();
+     }
          $count1 = $request->p_member;
          foreach($count1 as $main=>$row){
              $meeting2= new present_meeting_member();
@@ -111,7 +117,7 @@ class meetingController extends Controller
              $meeting2->save();
          }
          return redirect()->back()->with('success','Data Added Successfully');
-        }
+    }
 
 
     /**
@@ -124,23 +130,28 @@ class meetingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $user = Auth::user();
+        $accidence = AcciAnnalysis::orderby('inc_number','desc')->get();
         $values = DB::table('safety_committees')
         ->leftJoin('l_employees', 'l_employees.id', '=', 'safety_committees.employee_id')
        ->get();
+
        $s_values=Meeting::all();
+        $inspection = create_inspection::all();
        $companies=DB::selectOne("SELECT c.company_name,c.id FROM company_profile c,users u WHERE u.company_id=c.id and  c.id='$user->company_id'");
 
     //    $data= Meeting::where('id','=',$id)->first();
          $data=Meeting::where('id','=',$id)->first();
          $data1=meeting_details::where('meeting_id',$id)->get();
          $data2=present_meeting_member::where('meeting_id',$id)->get();
-        return view('dashboards.admins.meeting.index',compact('user','values','data','data1','data2','s_values','companies'));
+//         dd($accidence);
+        return view('dashboards.admins.meeting.index',compact('user','values','data','data1','data2','s_values','companies', 'accidence', 'inspection'));
     }
 
     /**
@@ -152,6 +163,8 @@ class meetingController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+//        dd($request);
         $meeting=Meeting::find($id);
         $meeting->company_name=$request->input('company_name');
         $meeting->meeting_date=$request->input('meeting_date');
@@ -161,6 +174,8 @@ class meetingController extends Controller
         $meeting->endorsement=$request->input('endorsement');
         $meeting->closing=$request->input('closing');
         $meeting->update();
+
+
        $count = $request->agenda;
        foreach($count as $main=>$row)
      {
@@ -200,10 +215,12 @@ class meetingController extends Controller
     public function show($id){
      $user=Auth::user();
      $data= Meeting::where('id','=',$id)->first();
-     $data1=meeting_details::where('meeting_id',$id)->get();
+//     $data1=meeting_details::where('meeting_id',$id)->get();
+        $meetting_details = DB::select("SELECT CASE WHEN d.agenda_type_id =1 THEN 'Others' WHEN d.agenda_type_id =2 THEN 'Incedence' WHEN d.agenda_type_id =3 THEN 'Work Inspectin' END AS agenda_type, CASE WHEN d.agenda_type_id =1 THEN d.agenda WHEN d.agenda_type_id =2 THEN d.incdence_no WHEN d.agenda_type_id =3 THEN d.inspection END AS agenda, d.pic, d.remarks FROM meeting_details d where d.meeting_id = '$id'");
+
      $data2=present_meeting_member::where('meeting_id',$id)->get();
     $s_values=Meeting::all();
-     return  view('dashboards.admins.meeting.report',compact('user','data','data1','data2','s_values'));
+     return  view('dashboards.admins.meeting.report',compact('user','data','meetting_details','data2','s_values'));
     }
 
     public function reportpdf($id){

@@ -55,7 +55,7 @@
 
 
 
-                <input type="hidden" name="company_id" id="" class="form-control" value="{{ $companies->id }}">
+                <input type="hidden" name="company_id" id="" class="form-control" value="{{ $user->company_id }}">
 
 
 
@@ -94,17 +94,11 @@
                         @foreach ($values as $value)
                         <label>
                             <input type="checkbox" name="p_member[]" value="{{ $value-> em_name }}"
-
                             @if (isset($data->id))
-
                           @foreach ($data2 as $dat)
-                            {{ $value->em_name==$dat->p_member ? 'checked' : '' }}
+                            {{ $value->em_name == $dat->p_member ? 'checked' : '' }}
                             @endforeach
-
-                        @endif
-
-
-                             /><span style="margin:0px 10px;font-size:17px;font-weight:700">
+                        @endif /><span style="margin:0px 10px;font-size:17px;font-weight:700">
                                 {{ $value->em_name }}--{{ $value->designation}}</span></label>
                         @endforeach
                     </div>
@@ -163,26 +157,32 @@
                     </thead>
                     <tbody>
                         @if (isset($data->id))
+{{--                            @dd($data1)--}}
                         @foreach ($data1 as $dats)
                         <tr id="tr">
-                            <td><select type="text" name="agenda_type[]"  class="form-control" >
-                                    <option value="1">Others</option>
-                                    <option value="2">Incedence</option>
-                                    <option value="3">Work Inspection</option>
+                            <td><select type="text" name="agenda_type_id[]" id="agenda_type_update"  class="form-control agenda_type_add" >
+                                    <option {{ ($dats->agenda_type_id == 1) ? 'selected':'' }} value="1">Others</option>
+                                    <option {{ ($dats->agenda_type_id == 2) ? 'selected':'' }} value="2">Incedence</option>
+                                    <option {{ ($dats->agenda_type_id == 3) ? 'selected':'' }} value="3">Work Inspection</option>
                                 </select>
                             </td>
-                            <td><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control"  value="{{ isset($dats->agenda) ? $dats->agenda:''}}">
+                            <td id="agenda_other">
+                                <input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control"  value="{{ isset($dats->agenda) ? $dats->agenda:''}}">
                             </td>
-                            <td><select type="text" name="incdence_no[]">
+                            <td style="display: none" id="incedence">
+                                <select class="form-control"  type="text" name="incdence_no[]">
                                     <option value="">---Choose---</option>
                                     @foreach($accidence as $list)
-                                        <option value="{{$list->inc_number}}">{{$list->inc_number}}</option>
+                                        <option {{old('inc_number') == $list->inc_number ? 'selected' : ''}} value="{{$list->inc_number}}">{{$list->inc_number}}</option>
                                     @endforeach
                                 </select>
                             </td>
-                            <td style="display: none" class="inspection">
-                                <select name="inspection[]" id="inspection" class="form-control">
+                            <td style="display: none" id="inspection">
+                                <select name="inspection[]" class="form-control inspection">
                                     <option value="">---Choose---</option>
+                                    @foreach($inspection as $list)
+                                        <option {{old('id') == $list->id ? 'selected' : ''}} value="{{$list->id}}">{{$list->inspection_title}}</option>
+                                    @endforeach
                                 </select>
                             </td>
                             <td><input type="text" name="pic[]" placeholder="Enter pic" class="form-control"  value="{{ isset($dats->pic) ? $dats->pic:''}}"  />
@@ -194,7 +194,7 @@
                         @endforeach
                         @else
                         <tr id="tr">
-                            <td><select type="text" name="agenda_type[]"  id="agenda_type" class="form-control agenda_type" >
+                            <td><select type="text" name="agenda_type_id[]"  id="agenda_type" class="form-control agenda_type" >
                                     <option value="1">Others</option>
                                     <option value="2">Incedence</option>
                                     <option value="3">Work Inspection</option>
@@ -231,6 +231,9 @@
                     </tbody>
 
                  </table>
+                <div class="row" id="tr1">
+{{--                    <button type="button" name="add" id="add_btn" class="btn btn-outline-primary">Add More</button>--}}
+                </div>
 
 
                 <div class="col-sm-12">
@@ -294,9 +297,9 @@
                     <a href="{{ route('meeting.report', $v->id )}}">
                         <button class="bg bg-info">view Details</button>
                     </a>
-                    <a href="{{ route('meeting.meeting-edit', $v->id )}}">
-                        <button class="bg bg-info">Edit</button>
-                    </a>
+{{--                    <a href="{{ route('meeting.meeting-edit', $v->id )}}">--}}
+{{--                        <button class="bg bg-info" id="edit_data">Edit</button>--}}
+{{--                    </a>--}}
                     <a href="{{ route('meeting.delete',$v->id) }}">
                         <button class="bg bg-danger">Delete</button>
                     </a>
@@ -341,8 +344,28 @@
 
    $(document).ready(function(){
        // let rand = Random();
+       $(document).on('click', '#edit_data', function () {
+           let agenda_type = $('#agenda_type_update').val();
+           let pa = $(this).parent().parent().parent();
+
+           if (agenda_type == 1) {
+               $(pa).find("#agenda_other").css("display", "block");
+               $(pa).find("#incedence").css("display", "none");
+               $(pa).find("#inspection").css("display", "none");
+           }else if(agenda_type == 2){
+               $(pa).find("#agenda_other").css("display", "none");
+               $(pa).find("#incedence").css("display", "block");
+               $(pa).find("#inspection").css("display", "none");
+           }else{
+               $(pa).find("#agenda_other").css("display", "none");
+               $(pa).find("#incedence").css("display", "none");
+               $(pa).find("#inspection").css("display", "block");
+
+           }
+       });
        $(document).on('change', '.agenda_type_add', function () {
            let agenda_type = $(this).val();
+           let pa = $(this).parent().parent().parent();
            $.ajax({
                url: "{{ route('meeting.getData') }}",
                type: "POST",
@@ -371,17 +394,35 @@
            });
 
            if (agenda_type == 1) {
-               $(".agenda_other1").css("display", "block");
-               $(".incedence1").css("display", "none");
-               $(".inspection1").css("display", "none");
+               $(pa).find("#agenda_other1").css("display", "block");
+               $(pa).find("#incedence1").css("display", "none");
+               $(pa).find("#inspection1").css("display", "none");
+               $(pa).find("#agenda_other").css("display", "block");
+               $(pa).find("#incedence").css("display", "none");
+               $(pa).find("#inspection").css("display", "none");
+               // $(".agenda_other1").css("display", "block");
+               // $(".incedence1").css("display", "none");
+               // $(".inspection1").css("display", "none");
            }else if(agenda_type == 2){
-               $(".agenda_other1").css("display", "none");
-               $(".inspection1").css("display", "none");
-               $(".incedence1").css("display", "block");
+               $(pa).find("#agenda_other1").css("display", "none");
+               $(pa).find("#incedence1").css("display", "block");
+               $(pa).find("#inspection1").css("display", "none");
+               $(pa).find("#agenda_other").css("display", "none");
+               $(pa).find("#incedence").css("display", "block");
+               $(pa).find("#inspection").css("display", "none");
+               // $(".agenda_other1").css("display", "none");
+               // $(".inspection1").css("display", "none");
+               // $(".incedence1").css("display", "block");
            }else{
-               $(".agenda_other1").css("display", "none");
-               $(".incedence1").css("display", "none");
-               $(".inspection1").css("display", "block");
+               $(pa).find("#agenda_other1").css("display", "none");
+               $(pa).find("#incedence1").css("display", "none");
+               $(pa).find("#inspection1").css("display", "block");
+               $(pa).find("#agenda_other").css("display", "none");
+               $(pa).find("#incedence").css("display", "none");
+               $(pa).find("#inspection").css("display", "block");
+               // $(".agenda_other1").css("display", "none");
+               // $(".incedence1").css("display", "none");
+               // $(".inspection1").css("display", "block");
 
            }
        });
@@ -394,43 +435,82 @@
        //     document.getElementById('tb').value = Random();
        // }
 
-    $("#add_btn").on('click',function () {
-        // console.log(rand);
-        let html=' ';
-        html+=''
-        html+='<tr>';
-        html+='<td><select type="text" name="agenda_type[]"  class="form-control agenda_type_add" ><option value="1">Others</option><option value="2">Incedence</option><option value="3">Work Inspection</option></select></td>';
-        html+='<td class="agenda_other1"><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control "  >';
-        html+='<td style="display: none" class="incedence1"><select type="text" name="incdence_no[]"  class="form-control incedenceo1" ><option value="">---Choose---</option></select></td>';
-        html+='<td style="display: none" class="inspection1"><select type="text" name="inspection_no[]"  class="form-control inspectiono1" ><option value="">---Choose---</option></select></td>';
-        html+='<td><input type="text" name="pic[]" class="form-control"/></td>';
-        html+='<td><input type="text" name="remarks[]" class="form-control"/></td>';
-        html+='<td><button type="button" class="btn btn-primary" id="remove" >Remove</button></td>';
-        html+='</tr>';
-        $('tbody').append(html);
-    })
+    // $("#add_btn").on('click',function () {
+    //     // console.log(rand);
+    //     let html=' ';
+    //     html+=''
+    //     html+='<tr>';
+    //     html+='<td><select type="text" name="agenda_type_id[]"  class="form-control agenda_type_add" ><option value="1">Others</option><option value="2">Incedence</option><option value="3">Work Inspection</option></select></td>';
+    //     html+='<td class="agenda_other1"><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control "  >';
+    //     html+='<td style="display: none" class="incedence1"><select type="text" name="incdence_no[]"  class="form-control incedenceo1" ><option value="">---Choose---</option></select></td>';
+    //     html+='<td style="display: none" class="inspection1"><select type="text" name="inspection_no[]"  class="form-control inspectiono1" ><option value="">---Choose---</option></select></td>';
+    //     html+='<td><input type="text" name="pic[]" class="form-control"/></td>';
+    //     html+='<td><input type="text" name="remarks[]" class="form-control"/></td>';
+    //     html+='<td><button type="button" class="btn btn-primary" id="remove" >Remove</button></td>';
+    //     html+='</tr>';
+    //     $('tbody').append(html);
+    // })
+       $('#add_btn').click(function () {
+           $('#tr1').before('<td colspan="5"><div class="row mt-1"><div class="col-md-2"><select type="text" name="agenda_type_id[]"  class="form-control agenda_type_add" ><option value="1">Others</option><option value="2">Incedence</option><option value="3">Work Inspection</option></select></div>\n' +
+               '<div class="col-md-3" id="agenda_other1"><input type="text" name="agenda[]" placeholder="Enter agenda" class="form-control"  value="{{ isset($dats->agenda) ? $dats->agenda:null}}"></div>\n' +
+               '<div style="display: none" class="col-md-3 incdence" id="incedence1"><select type="text" name="incdence_no[]" class="form-control"><option value="">---Choose---</option>@foreach($accidence as $list)<option value="{{$list->inc_number}}">{{$list->inc_number}}</option>@endforeach</select></div>\n' +
+               '<div style="display: none" class="col-md-3 inspection" id="inspection1"><select name="inspection[]" id="inspection" class="form-control"><option value="">---Choose---</option>@foreach($inspection as $list)<option value="{{$list->id}}">{{$list->inspection_title}}</option>@endforeach</select></div>\n' +
+               '<div class="col-md-3"><input type="text" name="pic[]" placeholder="Enter pic" class="form-control"  value="{{ isset($dats->pic) ? $dats->pic:null}}"  /></div>\n' +
+               '<div class="col-md-3"><input type="text" name="remarks[]" placeholder="Enter Remarks" class="form-control"  value="{{ isset($dats->remarks) ? $dats->remarks:null}}"  /></div>' +
+               '<div class="col-md-1"><button type="button" class="btn btn-primary" id="remove" >Remove</button></div></td>');
+       });
    });
    $(document).on('click','#remove',function(){
       $(this).closest('tr').remove();
    });
+   $(document).on('click','#remove',function(){
+      $(this).closest('td').remove();
+   });
+
+
 
    $(document).on('change', '.agenda_type', function () {
        let agenda_type = $(this).val();
+       let pa = $(this).parent().parent().parent();
 
        if (agenda_type == 1) {
-           $(".agenda_other").css("display", "block");
-           $(".incedence").css("display", "none");
-           $(".inspection").css("display", "none");
+           $(pa).find(".agenda_other").css("display", "block");
+           $(pa).find(".incedence").css("display", "none");
+           $(pa).find(".inspection").css("display", "none");
+           // $(".agenda_other1").css("display", "block");
+           // $(".incedence1").css("display", "none");
+           // $(".inspection1").css("display", "none");
        }else if(agenda_type == 2){
-           $(".agenda_other").css("display", "none");
-           $(".inspection").css("display", "none");
-           $(".incedence").css("display", "block");
+           $(pa).find(".agenda_other").css("display", "none");
+           $(pa).find(".incedence").css("display", "block");
+           $(pa).find(".inspection").css("display", "none");
+           // $(".agenda_other1").css("display", "none");
+           // $(".inspection1").css("display", "none");
+           // $(".incedence1").css("display", "block");
        }else{
-           $(".agenda_other").css("display", "none");
-           $(".incedence").css("display", "none");
-           $(".inspection").css("display", "block");
+           $(pa).find(".agenda_other").css("display", "none");
+           $(pa).find(".incedence").css("display", "none");
+           $(pa).find(".inspection").css("display", "block");
+           // $(".agenda_other1").css("display", "none");
+           // $(".incedence1").css("display", "none");
+           // $(".inspection1").css("display", "block");
 
        }
+
+       // if (agenda_type == 1) {
+       //     $(".agenda_other").css("display", "block");
+       //     $(".incedence").css("display", "none");
+       //     $(".inspection").css("display", "none");
+       // }else if(agenda_type == 2){
+       //     $(".agenda_other").css("display", "none");
+       //     $(".inspection").css("display", "none");
+       //     $(".incedence").css("display", "block");
+       // }else{
+       //     $(".agenda_other").css("display", "none");
+       //     $(".incedence").css("display", "none");
+       //     $(".inspection").css("display", "block");
+       //
+       // }
    });
 
 </script>

@@ -17,7 +17,6 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\user\AccidentController;
 
-use App\Http\Controllers\User\hirarc\C_jobcontroller;
 use App\Http\Controllers\User\meeting\meetingController;
 
 
@@ -44,6 +43,8 @@ use App\Http\Controllers\User\WorkInspection\RectifiedInspectionController;
 use App\Http\Controllers\User\WorkInspection\WorkInspectionController;
 use App\Http\Controllers\User\hirarc\HirarcController;
 use App\Http\Controllers\User\hirarc\h_HazardController;
+use App\Http\Controllers\User\hirarc\C_jobcontroller;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,9 @@ Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/sdsSearch', [FrontendController::class, 'sdsSearch'])->name('sdsSearch');
 Route::get('/pagination/fetch_data', [FrontendController::class, 'fetch_data'])->name('fetch_data');
 Route::get('/sds-search-result', [FrontendController::class, 'getSearchResult'])->name('sds-search-result');
+
+Route::post('/mail-sending/{id}',[MailController::class,'sendMail'])->name('send.email');
+
 
 //Route::view('/','web.home.home')->name('web.home');
 //
@@ -311,9 +315,9 @@ Route::group(['name' => 'committee', 'as' => 'committee.'], function () {
 
 Route::group(['name' => 'meeting', 'as' => 'meeting.'], function () {
     Route::get('view-meeting', [meetingController::class, 'index'])->name('index');
-    Route::post('view-meeting-data', [meetingController::class, 'getData'])->name('getData');
     Route::post('meeting-store', [meetingController::class, 'store'])->name('store');
     Route::get('meeting-datatable', [meetingController::class, ' datatable'])->name('datatable');
+    Route::post('view-meeting-data', [meetingController::class, 'getData'])->name('getData');
     Route::get('report.delete/{id}', [meetingController::class, 'destroy'])->name('delete');
     Route::get('report.view/{id}', [meetingController::class, 'show'])->name('report');
     Route::get('report.pdf/{id}', [meetingController::class, 'reportpdf'])->name('report-pdf');
@@ -340,19 +344,6 @@ Route::group(['name' => 'accident_investigation', 'as' => 'accident_investigatio
 //    // JSN END
     Route::POST('Accident-investigation-store', [AnalysisController::class, 'store'])->name('store');
     Route::get('list-accident', [AnalysisController::class, 'list_acci'])->name('acci_list');
-});
-
-Route::group(['name' => 'c_job', 'as' => 'c_job.'], function () {
-    Route::get('create-job', [C_jobcontroller::class, 'index'])->name('index');
-    Route::POST('job-store', [C_jobcontroller::class, 'store'])->name('store');
-    Route::get('job-edit/{id}', [C_jobcontroller::class, 'edit'])->name('edit');
-    Route::put('job-update/{id}', [C_jobcontroller::class, 'update'])->name('update');
-    Route::get('job-data-list-view', [C_jobcontroller::class, 'listview'])->name('listview');
-    Route::get('job-data-list', [C_jobcontroller::class, 'datatable'])->name('datatable');
-    Route::get('job-destroy/{id}', [C_jobcontroller::class, 'destroy'])->name('destroy');
-    Route::get('job-data-view/{id}', [C_jobcontroller::class, 'view'])->name('view');
-    Route::get('droponchange/{id}', [C_jobcontroller::class, 'droponchange'])->name('droponchange');
-
 });
 
 
@@ -408,6 +399,19 @@ Route::group(['name' => 'h_hazard', 'as' => 'h_hazard.'], function ()
     Route::get('hazard-destroy/{id}', [h_HazardController::class, 'destroy'])->name('destroy');
     Route::get('hazard-data-view/{id}', [h_HazardController::class, 'view'])->name('view');
     Route::get('depertmentonchange/{id}', [h_HazardController::class, 'depertmentonchange'])->name('depertmentonchange');
+});
+
+Route::group(['name' => 'c_job', 'as' => 'c_job.'], function () {
+    Route::get('create-job', [C_jobcontroller::class, 'index'])->name('index');
+    Route::POST('job-store', [C_jobcontroller::class, 'store'])->name('store');
+    Route::get('job-edit/{id}', [C_jobcontroller::class, 'edit'])->name('edit');
+    Route::put('job-update/{id}', [C_jobcontroller::class, 'update'])->name('update');
+    Route::get('job-data-list-view', [C_jobcontroller::class, 'listview'])->name('listview');
+    Route::get('job-data-list', [C_jobcontroller::class, 'datatable'])->name('datatable');
+    Route::get('job-destroy/{id}', [C_jobcontroller::class, 'destroy'])->name('destroy');
+    Route::get('job-data-view/{id}', [C_jobcontroller::class, 'view'])->name('view');
+    Route::get('droponchange/{id}', [C_jobcontroller::class, 'droponchange'])->name('droponchange');
+   
 });
 
 Route::group(['name' => 'accident', 'as' => 'accident.'], function () {

@@ -55,13 +55,12 @@
                                 <select name="depertment_id" id="depertment_id" class="col-md-12"
                                         style="padding: 10px; border-radius: 3px; border-color: var(--border-color); border-color:#c0b1b1;">
                                     <option value="">Select Department</option>
-                                    @foreach($data as $list)
+                                    @foreach($department as $list)
 
 
-                                        <option value="{{$list->depertment_id}}">
+                                        <option value="{{$list->id}}">
 
-
-                                            {{isset($list->depertment_id)? $list->depertment_name: ''}} </option>
+                                            {{isset($list->id)? $list->depertment_name: ''}} </option>
 
                                     @endforeach
                                 </select>
@@ -97,34 +96,30 @@
                                 </thead>
 
                                 <tbody>
-                                @foreach($job_act as $key=> $act_data)
-
+                                @foreach($job_data as $key=> $act_data)
+{{--                                    @dd($act_data)--}}
                                     <tr>
                                         <td style="display:none">{{$act_data->id}}</td>
                                         <td> {{$key+1}}</td>
 
                                         <td>
-                                            {{$act_data->depertment_name}}
+                                            {{$act_data->department->depertment_name}}
                                         </td>
                                         <td>
                                             {{$act_data->job_activity}}
                                         </td>
 
                                         <td>
-                                            @foreach($seq_job as $key=> $data)
-                                                @foreach($data as $list)
+                                            @foreach($act_data->hazard as $key=> $data)
                                                     <li>
-{{--                                                        {{$list->sequence_job}}--}}
+                                                        {{$data->sequence_job}}
                                                     </li>
-                                                @endforeach
                                             @endforeach
                                         </td>
 
 
                                     </tr>
                                 @endforeach
-
-
                                 </tbody>
 
                             </table>
@@ -145,7 +140,13 @@
             }
         </script> -->
 
+                            <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script>
 
+                            <!-- Plugin Js-->
+                            <script src="{{asset('assets/bundles/dataTables.bundle.js')}}"></script>
+
+                            <!-- Jquery Page Js -->
+                            <script src="{{asset('../js/template.js')}}"></script>
                             <script>
 
                                 $("#depertment_id").on("change", function () {
@@ -162,16 +163,6 @@
                                     });
                                 })
 
-                            </script>
-
-                            <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script>
-
-                            <!-- Plugin Js-->
-                            <script src="{{asset('assets/bundles/dataTables.bundle.js')}}"></script>
-
-                            <!-- Jquery Page Js -->
-                            <script src="{{asset('../js/template.js')}}"></script>
-                            <script>
                                 // project data table
                                 $("#employee_id").on("change", function () {
                                     let emp_id = $("#employee_id").val();
@@ -188,6 +179,7 @@
                                 });
 
                                 $(document).ready(function () {
+
                                     $('#myProjectTable')
                                         .addClass('nowrap')
                                         .dataTable({
