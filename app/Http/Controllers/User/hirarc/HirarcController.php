@@ -42,7 +42,7 @@ class HirarcController extends Controller
 
 
         return view('dashboards.users.HIRARC.hirarc', compact('user','l_employee','Designation','department','data','data1','data2','reference_no'));
-      
+
 
     }
 
@@ -52,8 +52,8 @@ class HirarcController extends Controller
     {
 
         $user = Auth::user();
-       
-         
+
+
 
         $input = new I_hirarc();
         $input->depertment_id = $request->input('depertment_id');
@@ -72,18 +72,18 @@ class HirarcController extends Controller
         $input->reference_no = $request->input('reference_no');
         $input->company_id =$user->company_id;
          $input->save();
-      // dd($request);   
+      // dd($request);
      //   $count = $request->job_activity;
 
-          
+
 
      //   foreach($count as $main=>$row)
      // {
-        
-     //    $user = Auth::user();  
+
+     //    $user = Auth::user();
      //    $input1 = new c_job();
      //    $input1->hirarc_id = $input->id;
-     //    $input1->company_id =$user->company_id;  
+     //    $input1->company_id =$user->company_id;
 
      //      if ($imagefile = $request->file(key:'imagefile') [$main])
      //        {
@@ -91,18 +91,18 @@ class HirarcController extends Controller
      //        $profileImage = date('YmdHis') . "." . $imagefile->getClientOriginalExtension();
      //        $imagefile->move($destinationPath, $profileImage);
 
-           
+
      //        $input1['image'] = "$profileImage";
      //    }
      //    $input1->job_activity = $request->job_activity[$main];
 
-      
+
      //    $input1->save();
 
      //     }
           session()->flash('message','Data has been saved successfully !!');
-         return redirect()->back(); 
-        
+         return redirect()->back();
+
 
 
     }
@@ -205,7 +205,7 @@ class HirarcController extends Controller
         $Designation = Designation::all();
         $l_employee = l_employee::all();
          $data = I_hirarc::where('id', $id)->first();
-         // dd($data);               
+         // dd($data);
          $data1=DB::select("SELECT h.* from c_jobs h
                         join i_hirarcs i on i.id = h.hirarc_id
                          where i.id = '$id' ");
@@ -219,7 +219,7 @@ class HirarcController extends Controller
                ->join('departments','i_hirarcs.depertment_id','departments.id')
 
                ->select('i_hirarcs.*','departments.depertment_name')->get();
-  
+
 
           return view('dashboards.users.HIRARC.edit', compact('user','l_employee','Designation','department','data','data1','data3'));
     }
@@ -230,10 +230,10 @@ class HirarcController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         // dd($request);
-        
-   
+
+
         $input = I_hirarc::find($id);
         $input->depertment_id = $request->input('depertment_id');
         $input->process = $request->input('process');
@@ -249,43 +249,43 @@ class HirarcController extends Controller
         $input->employee_id = $request->input('employee_id');
         $input->date = $request->input('date');
         $input->reference_no = $request->input('reference_no');
-        
+
         $input->update();
-        
+
 
          $count = $request->job_activity;
               // dd($count);
 
        foreach($count as $main=>$row)
          {
-   
+
             $input1 = c_job::where('hirarc_id',$id)->first();
-          // $input1->hirarc_id = $input->id;   
+          // $input1->hirarc_id = $input->id;
              $input1->hirarc_id = $request->hirarc_id;
-        
+
              $input1->job_activity = $request->job_activity[$main];
 
-              if ($imagefile = $request->file(key:'imagefile') [$main])
+              if ($imagefile = $request->file('imagefile') [$main])
                     {
                     $destinationPath = 'image/jobimage';
                     $profileImage = date('YmdHis') . "." . $imagefile->getClientOriginalExtension();
                     $imagefile->move($destinationPath, $profileImage);
 
-                   
+
                     $input1['image'] = "$profileImage";
                 }
-              
-             // dd($input1); 
+
+             // dd($input1);
              $input1->update();
-       
+
            }
-  
+
 
 
        session()->flash('message','Accident Investigation has been saved successfully !!');
          return redirect()->back();
 
-        
+
 
     }
 }
