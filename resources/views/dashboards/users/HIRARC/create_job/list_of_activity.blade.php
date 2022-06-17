@@ -86,9 +86,9 @@
 
                                     <th>Sequence</th>
 
-                                    <th>Image</th>
+{{--                                    <th>Image</th>--}}
 
-                                    <th>Action</th>
+{{--                                    <th>Action</th>--}}
 
 
                                 </tr>
@@ -96,30 +96,27 @@
                                 </thead>
 
                                 <tbody>
-                                @foreach($job_data as $key=> $act_data)
-{{--                                    @dd($act_data)--}}
-                                    <tr>
-                                        <td style="display:none">{{$act_data->id}}</td>
-                                        <td> {{$key+1}}</td>
-
-                                        <td>
-                                            {{$act_data->department->depertment_name}}
-                                        </td>
-                                        <td>
-                                            {{$act_data->job_activity}}
-                                        </td>
-
-                                        <td>
-                                            @foreach($act_data->hazard as $key=> $data)
+                                    @foreach($job_data as $key=> $act_data)
+                                        <tr id="p_tbody">
+                                            <td style="display:none">{{$act_data->id}}</td>
+                                            <td> {{$key+1}}</td>
+                                            <td>
+                                                {{$act_data->department->depertment_name}}
+                                            </td>
+                                            <td>
+                                                {{$act_data->job_activity}}
+                                            </td>
+                                            <td>
+                                                @foreach($act_data->hazard as $key=> $data)
                                                     <li>
                                                         {{$data->sequence_job}}
                                                     </li>
-                                            @endforeach
-                                        </td>
-
-
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr style="display: none" id="s_tbody">
                                     </tr>
-                                @endforeach
                                 </tbody>
 
                             </table>
@@ -150,14 +147,32 @@
                             <script>
 
                                 $("#depertment_id").on("change", function () {
-                                    let dept_id = $("#depertment_id").val();
+                                    let dept_id = $(this).val();
                                     $.ajax({
                                         type: 'get',
                                         url: "droponchange" + '/' + dept_id,
                                         success: function (data) {
+                                            // console.log(data.data)
+                                            let  message = 'No Data Found!';
+                                            let  seq_data = "";
+                                            let  seq_job = "";
+                                            $('#p_tbody').css('display', 'none');
+                                            $('#s_tbody').css('display', 'block');
+                                            if (data.data.length !== 0){
 
-
-                                            $('#jobid').val(data.job_activity);
+                                                $.each(data.data, function (k, v) {
+                                                    seq_data = '<td style="display:none">'+v.id+'</td><td>'+k+'</td>' +
+                                                        '<td>'+v.department.depertment_name+'</td>' +
+                                                        '<td>'+v.job_activity+'</td>' +
+                                                        '<td>'+$.each(v.hazard, function (i, o) {
+                                                            seq_job += '<li>'+o.sequence_job+'</li>'
+                                                        })+'</td>';
+                                                })
+                                                $('#seq_job').html(seq_job);
+                                                $('#s_tbody').html(seq_data);
+                                            }else{
+                                                console.log(message)
+                                            }
 
                                         }
                                     });

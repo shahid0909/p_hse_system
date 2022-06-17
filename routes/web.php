@@ -106,7 +106,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'preventB
         Route::get('chemical-list-destroy/{id}', [ChemicalController::class, 'destroy'])->name('destroy');
 
     });
-    Route::group(['name' => 'chemical_listing', 'as' => 'chemical_listing.'], function () {
+    Route::group(['middleware' => 'auth','name' => 'chemical_listing', 'as' => 'chemical_listing.'], function () {
 
         Route::get('chemical-listing', [ChemicalListingController::class, 'index'])->name('index');
         Route::post('chemical-data/{id}', [ChemicalListingController::class, 'chemicalData'])->name('chemicalData');
@@ -388,7 +388,7 @@ Route::group(['name' => 'hirarc', 'as' => 'hirarc.'], function () {
     Route::get('getempdesignation/{id}', [HirarcController::class, 'getempdesignation'])->name('getempdesignation');
 });
 
-Route::group(['name' => 'h_hazard', 'as' => 'h_hazard.'], function ()
+Route::group(['middleware' => 'auth', 'name' => 'h_hazard', 'as' => 'h_hazard.'], function ()
 {
     Route::get('h_hazard/', [h_HazardController::class, 'index'])->name('index');
     Route::POST('hazard-store', [h_HazardController::class, 'store'])->name('store');
@@ -401,7 +401,7 @@ Route::group(['name' => 'h_hazard', 'as' => 'h_hazard.'], function ()
     Route::get('depertmentonchange/{id}', [h_HazardController::class, 'depertmentonchange'])->name('depertmentonchange');
 });
 
-Route::group(['name' => 'c_job', 'as' => 'c_job.'], function () {
+Route::group(['middleware' => 'auth', 'name' => 'c_job', 'as' => 'c_job.'], function () {
     Route::get('create-job', [C_jobcontroller::class, 'index'])->name('index');
     Route::POST('job-store', [C_jobcontroller::class, 'store'])->name('store');
     Route::get('job-edit/{id}', [C_jobcontroller::class, 'edit'])->name('edit');
@@ -411,7 +411,7 @@ Route::group(['name' => 'c_job', 'as' => 'c_job.'], function () {
     Route::get('job-destroy/{id}', [C_jobcontroller::class, 'destroy'])->name('destroy');
     Route::get('job-data-view/{id}', [C_jobcontroller::class, 'view'])->name('view');
     Route::get('droponchange/{id}', [C_jobcontroller::class, 'droponchange'])->name('droponchange');
-   
+
 });
 
 Route::group(['name' => 'accident', 'as' => 'accident.'], function () {

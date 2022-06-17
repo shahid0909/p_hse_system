@@ -185,10 +185,33 @@ h.job_activity_id =".$values->id);
         //         left JOIN c_jobs c on c.id =h.job_activity_id
         //     where h.depertment_id ='$id'");
 
-        $data = DB::selectOne("SELECT h.id,c.job_activity ,h.depertment_id from hazards h
-            left JOIN c_jobs c on c.id =h.job_activity_id
-        where h.depertment_id ='$id'");
-        return $data;
+//        $data = DB::selectOne("SELECT h.id,c.job_activity ,h.depertment_id from hazards h
+//            left JOIN c_jobs c on c.id =h.job_activity_id
+//        where h.depertment_id ='$id'");
+
+//        $user = Auth::user();
+//        $department = Department::all();
+//        $job_data = c_job::with('hazard', 'department')
+//            ->has('hazard')
+//            ->get();
+        $data = c_job::with('hazard', 'department')
+            ->has('hazard')
+            ->whereHas('hazard', function ($query) use ($id) {
+                $query->where('depertment_id', '=', $id);
+            })
+//            ->where('depertment_id','LIKE','%'.$id.'%')
+            ->get();
+
+//        $data = hazard::with('c_jobData', 'departmentData')
+//            ->has('departmentData')
+//            ->where('hazards.depertment_id', '=', $id)
+//            ->get();
+//        return view('dashboards.users.HIRARC.create_job.list_of_activity', compact('data', 'user', 'department', 'job_data'));
+        return response()->json([
+
+            'data'=>$data,
+
+        ], 200);
 
 
 
